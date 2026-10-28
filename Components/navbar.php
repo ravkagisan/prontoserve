@@ -1,6 +1,16 @@
 <?php
 if (!isset($current_page)) {
-    $current_page = 'tentang-kami';
+    $current_page = 'home';
+}
+
+$script_name = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
+if (preg_match('#^(.*?)/(Pages|api|Components)#', $script_name, $matches)) {
+    $base_url = $matches[1];
+} else {
+    $base_url = rtrim(dirname($script_name), '/\\');
+    if ($base_url === '/' || $base_url === '\\') {
+        $base_url = '';
+    }
 }
 ?>
 
@@ -95,10 +105,7 @@ if (!isset($current_page)) {
     transition: color 0.2s ease;
 }
 
-.nav-link:hover {
-    color: var(--brand-primary);
-}
-
+.nav-link:hover,
 .nav-link.active {
     color: var(--brand-primary);
     font-weight: 600;
@@ -241,7 +248,7 @@ if (!isset($current_page)) {
 
 <header class="navbar">
     <div class="navbar-container">
-        <a href="#" class="navbar-brand">
+        <a href="<?= $base_url ?>/Pages/index.php" class="navbar-brand">
             <span class="brand-badge">jti</span>
             <div>
                 <span class="brand-text">nova</span>
@@ -254,35 +261,33 @@ if (!isset($current_page)) {
             <span></span>
             <span></span>
         </button>
-
         <nav class="navbar-collapse" id="navMenu">
             <ul class="navbar-menu">
                 <li class="nav-item">
-                    <a href="Pages/TentangKami/index.php"
+                    <a href="<?= $base_url ?>/Pages/index.php"
                         class="nav-link <?= ($current_page === 'tentang-kami') ? 'active' : '' ?>">Tentang Kami</a>
                 </li>
                 <li class="nav-item">
-                    <a href="Pages/Pelayanan/index.php"
+                    <a href="<?= $base_url ?>/Pages/Pelayanan/index.php"
                         class="nav-link <?= ($current_page === 'pelayanan') ? 'active' : '' ?>">Pelayanan</a>
                 </li>
                 <li class="nav-item">
-                    <a href="Pages/Pelatihan/index.php"
+                    <a href="<?= $base_url ?>/Pages/Pelatihan/index.php"
                         class="nav-link <?= ($current_page === 'pelatihan') ? 'active' : '' ?>">Pelatihan</a>
                 </li>
                 <li class="nav-item">
-                    <a href="Pages/Portofolio/index.php"
+                    <a href="<?= $base_url ?>/Pages/Portofolio/index.php"
                         class="nav-link <?= ($current_page === 'portofolio') ? 'active' : '' ?>">Portofolio</a>
                 </li>
                 <li class="nav-item">
-                    <a href="Pages/Tim/index.php"
+                    <a href="<?= $base_url ?>/Pages/Tim/index.php"
                         class="nav-link <?= ($current_page === 'tim') ? 'active' : '' ?>">Tim</a>
                 </li>
             </ul>
-        </nav>
 
-        <div class="navbar-action">
-            <a href="#" class="navbar-cta">Hubungi Kami</a>
-        </div>
+            <div class="navbar-action">
+                <a href="<?= $base_url ?>/Pages/HubungiKami/index.php" class="navbar-cta">Hubungi Kami</a>
+            </div>
         </nav>
     </div>
 </header>
