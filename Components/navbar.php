@@ -1,6 +1,6 @@
 <?php
 if (!isset($current_page)) {
-    $current_page = 'home';
+    $current_page = 'tentang-kami';
 }
 
 $script_name = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
@@ -261,6 +261,7 @@ if (preg_match('#^(.*?)/(Pages|api|Components)#', $script_name, $matches)) {
             <span></span>
             <span></span>
         </button>
+
         <nav class="navbar-collapse" id="navMenu">
             <ul class="navbar-menu">
                 <li class="nav-item">
