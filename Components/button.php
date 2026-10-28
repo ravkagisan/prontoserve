@@ -129,16 +129,16 @@ define('PRONTOSERVE_BUTTON_CSS_LOADED', true);
 <style>
 .btn {
     font-family: 'Inter', sans-serif;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
-    line-height: 1;
+    line-height: 1.2;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: var(--space-8);
     text-decoration: none;
     cursor: pointer;
-    border: 1px solid transparent;
+    border: 1.5px solid transparent;
     border-radius: var(--radius-pill);
     transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
     white-space: nowrap;
@@ -151,23 +151,23 @@ define('PRONTOSERVE_BUTTON_CSS_LOADED', true);
 }
 
 .btn-size-sm {
-    padding: 6px 14px;
-    font-size: 12px;
+    padding: 8px 18px;
+    font-size: 13px;
 }
 
 .btn-size-md {
-    padding: 10px 24px;
-    font-size: 14px;
+    padding: 13px 30px;
+    font-size: 15px;
 }
 
 .btn-size-lg {
-    padding: 14px 32px;
+    padding: 15px 36px;
     font-size: 16px;
 }
 
 .btn-icon {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     stroke-width: var(--icon-stroke);
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -195,7 +195,7 @@ define('PRONTOSERVE_BUTTON_CSS_LOADED', true);
     background-color: #162c48;
     border-color: #162c48;
     color: var(--bg-white);
-    box-shadow: 0 4px 12px rgba(30, 58, 95, 0.22);
+    box-shadow: 0 4px 14px rgba(30, 58, 95, 0.25);
 }
 
 .btn-outline {
@@ -208,6 +208,21 @@ define('PRONTOSERVE_BUTTON_CSS_LOADED', true);
     background-color: var(--brand-primary);
     color: var(--bg-white);
     box-shadow: 0 4px 12px rgba(30, 58, 95, 0.18);
+}
+
+.btn-outline-white,
+.btn-secondary {
+    background-color: transparent;
+    color: var(--bg-white);
+    border: 1.5px solid rgba(255, 255, 255, 0.85);
+}
+
+.btn-outline-white:hover:not(.btn-disabled),
+.btn-secondary:hover:not(.btn-disabled) {
+    background-color: var(--brand-primary);
+    border-color: var(--brand-primary);
+    color: var(--bg-white);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
 }
 
 .btn-chip {
@@ -252,18 +267,6 @@ define('PRONTOSERVE_BUTTON_CSS_LOADED', true);
 
 .btn-badge:hover:not(.btn-disabled) {
     background-color: #4f677e;
-    color: var(--bg-white);
-}
-
-.btn-secondary {
-    background-color: var(--brand-slate);
-    color: var(--bg-white);
-    border-color: var(--brand-slate);
-}
-
-.btn-secondary:hover:not(.btn-disabled) {
-    background-color: #4f677e;
-    border-color: #4f677e;
     color: var(--bg-white);
 }
 
@@ -364,7 +367,7 @@ define('PRONTOSERVE_BUTTON_CSS_LOADED', true);
 }
 
 .btn-search-action {
-    padding: 8px 20px;
+    padding: 9px 22px;
     font-size: 13px;
     flex-shrink: 0;
 }

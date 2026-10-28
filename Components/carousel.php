@@ -1,4 +1,6 @@
 <?php
+include_once __DIR__ . '/button.php';
+
 $carousel_type = $carousel_type ?? 'hero';
 $carousel_id = 'carousel_' . substr(md5(uniqid((string)mt_rand(), true)), 0, 8);
 $auto_slide_interval = $auto_slide_interval ?? 7000;
@@ -19,21 +21,21 @@ if (!isset($carousel_slides) || !is_array($carousel_slides) || empty($carousel_s
         [
             'id' => 1,
             'image' => $asset_base . 'dummy.jpg',
-            'title' => "Inovasi Teknologi Terdepan\nUntuk Masa Depan Digital",
-            'description' => "Menghadirkan ekosistem pembelajaran terapan dan solusi teknologi industri yang relevan, inovatif, dan berdaya saing global.",
+            'title' => "Inovasi Teknologi Terdepan\nBersama TEFA JTI Innovation",
+            'description' => "Menghadirkan riset terapan dan transformasi digital melalui pengembangan perangkat lunak, sistem cerdas, dan solusi industri terpercaya.",
             'buttons' => [
-                ['text' => 'Pelajari Selengkapnya', 'link' => '#', 'variant' => 'primary'],
-                ['text' => 'Hubungi Kami', 'link' => '#', 'variant' => 'secondary']
+                ['text' => 'Jelajahi Pelayanan', 'link' => 'Pages/Pelayanan/index.php', 'variant' => 'primary'],
+                ['text' => 'Hubungi Kami', 'link' => 'Pages/HubungiKami/index.php', 'variant' => 'outline-white']
             ]
         ],
         [
             'id' => 2,
             'image' => $asset_base . 'ajasendiri.jpg',
-            'title' => "Pelatihan & Kolaborasi Industri\nBersama TEFA JTI",
-            'description' => "Tingkatkan kompetensi digital dan keahlian teknis melalui program pelatihan terintegrasi langsung dengan standar industri modern.",
+            'title' => "Program Pelatihan Digital\nBerstandar Industri Terkini",
+            'description' => "Tingkatkan keahlian teknis dan kompetensi profesional mahasiswa serta talenta digital melalui kurikulum praktis dan sertifikasi industri.",
             'buttons' => [
-                ['text' => 'Lihat Program', 'link' => '#', 'variant' => 'primary'],
-                ['text' => 'Portofolio Proyek', 'link' => '#', 'variant' => 'secondary']
+                ['text' => 'Lihat Pelatihan', 'link' => 'Pages/Pelatihan/index.php', 'variant' => 'primary'],
+                ['text' => 'Lihat Portofolio', 'link' => 'Pages/Portofolio/index.php', 'variant' => 'outline-white']
             ]
         ]
     ];
@@ -66,13 +68,13 @@ unset($slide);
 
   @media (min-width: 768px) {
     .carousel-wrapper {
-      height: 540px;
+      height: 520px;
     }
   }
 
   @media (min-width: 1200px) {
     .carousel-wrapper {
-      height: 600px;
+      height: 560px;
     }
   }
 
@@ -140,11 +142,17 @@ unset($slide);
     }
   }
 
+  @media (max-width: 480px) {
+    .carousel-content-wrap {
+      padding: 0 var(--space-16, 16px);
+    }
+  }
+
   .carousel-text-box {
     max-width: 780px;
     color: var(--bg-white, #ffffff);
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(20px);
     transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
   }
 
@@ -154,7 +162,7 @@ unset($slide);
   }
 
   .carousel-title {
-    font-size: clamp(24px, 4.5vw, 46px);
+    font-size: clamp(26px, 4.5vw, 48px);
     font-weight: 700;
     line-height: 1.25;
     margin: 0 0 var(--space-16, 16px) 0;
@@ -166,9 +174,10 @@ unset($slide);
   .carousel-desc {
     font-size: clamp(14px, 1.8vw, 18px);
     line-height: 1.6;
-    margin: 0 0 var(--space-24, 24px) 0;
+    margin: 0;
     color: rgba(255, 255, 255, 0.9);
-    max-width: 640px;
+    max-width: 660px;
+    min-height: 52px;
   }
 
   .carousel-buttons {
@@ -176,46 +185,17 @@ unset($slide);
     flex-wrap: wrap;
     gap: var(--space-16, 16px);
     align-items: center;
+    margin-top: 32px;
   }
 
-  .carousel-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 28px;
-    font-size: 14px;
-    font-weight: 600;
-    border-radius: var(--radius-pill, 999px);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    box-sizing: border-box;
-  }
-
-  .carousel-btn-primary {
-    background-color: var(--brand-primary, #1E3A5F);
-    color: var(--bg-white, #ffffff);
-    border: 2px solid var(--brand-primary, #1E3A5F);
-  }
-
-  .carousel-btn-primary:hover {
-    background-color: #162c48;
-    border-color: #162c48;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-  }
-
-  .carousel-btn-secondary {
-    background-color: transparent;
-    color: var(--bg-white, #ffffff);
-    border: 2px solid rgba(255, 255, 255, 0.85);
-  }
-
-  .carousel-btn-secondary:hover {
-    background-color: var(--brand-primary, #1E3A5F);
-    border-color: var(--brand-primary, #1E3A5F);
-    color: var(--bg-white, #ffffff);
-    transform: translateY(-2px);
+  @media (max-width: 768px) {
+    .carousel-desc {
+      min-height: auto;
+    }
+    .carousel-buttons {
+      margin-top: 24px;
+      gap: var(--space-8, 8px);
+    }
   }
 
   .carousel-dots {
@@ -384,21 +364,21 @@ unset($slide);
             'title' => 'Sistem Informasi Manajemen Terintegrasi',
             'desc' => 'Platform digital enterprise untuk otomatisasi operasional dan pelaporan terpadu.',
             'img' => $asset_base . 'dummy.jpg',
-            'link' => '#'
+            'link' => 'Pages/Portofolio/index.php'
         ],
         [
             'id' => 2,
             'title' => 'Aplikasi Pembelajaran Interaktif EduTech',
             'desc' => 'Media pembelajaran digital dengan fitur interaktif untuk meningkatkan kualitas edukasi.',
             'img' => $asset_base . 'ajasendiri.jpg',
-            'link' => '#'
+            'link' => 'Pages/Portofolio/index.php'
         ],
         [
             'id' => 3,
             'title' => 'Implementasi IoT Smart Monitoring',
             'desc' => 'Sensor jaringan cerdas dan dashboard analitik data real-time berbasis cloud.',
             'img' => $asset_base . 'dummy.jpg',
-            'link' => '#'
+            'link' => 'Pages/Portofolio/index.php'
         ]
     ];
   ?>
@@ -436,7 +416,7 @@ unset($slide);
         if (!empty($slide['buttons']) && is_array($slide['buttons'])) {
             $buttons = $slide['buttons'];
         } elseif (!empty($slide['ctaText']) && !empty($slide['ctaLink'])) {
-            $buttons = [['text' => $slide['ctaText'], 'link' => $slide['ctaLink'], 'variant' => 'secondary']];
+            $buttons = [['text' => $slide['ctaText'], 'link' => $slide['ctaLink'], 'variant' => 'outline-white']];
         }
       ?>
       <div class="carousel-slide <?= $is_active ? 'active' : '' ?>" data-index="<?= $index ?>">
@@ -455,10 +435,22 @@ unset($slide);
             <?php if (!empty($buttons)): ?>
               <div class="carousel-buttons">
                 <?php foreach ($buttons as $btn): ?>
-                  <?php $variant = ($btn['variant'] ?? 'primary') === 'secondary' ? 'carousel-btn-secondary' : 'carousel-btn-primary'; ?>
-                  <a href="<?= htmlspecialchars($btn['link'] ?? '#') ?>" class="carousel-btn <?= $variant ?>">
-                    <?= htmlspecialchars($btn['text']) ?>
-                  </a>
+                  <?php
+                    $btn_variant = $btn['variant'] ?? 'primary';
+                    if ($btn_variant === 'secondary' || $btn_variant === 'outline') {
+                        $btn_variant = 'outline-white';
+                    }
+                    $btn_href = $btn['link'] ?? ($btn['href'] ?? null);
+                    echo render_button([
+                        'variant'       => $btn_variant,
+                        'text'          => $btn['text'] ?? '',
+                        'href'          => $btn_href,
+                        'size'          => $btn['size'] ?? 'md',
+                        'icon'          => $btn['icon'] ?? null,
+                        'icon_position' => $btn['icon_position'] ?? 'right',
+                        'class'         => $btn['class'] ?? ''
+                    ]);
+                  ?>
                 <?php endforeach; ?>
               </div>
             <?php endif; ?>
