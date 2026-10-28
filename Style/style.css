@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+  --brand-primary: #1E3A5F;
+  --brand-slate: #5F7A94;
+  --brand-teal: #8DBCC2;
+  --brand-red: #E5252A;
+  
+  --bg-soft: #EBF1F5;
+  --bg-white: #FFFFFF;
+  --bg-dark: #111827;
+  --bg-gray: #E5E7EB;
+  
+  --text-primary: #1F2937;
+  --text-secondary: #6B7280;
+  
+  --border-default: #D1D5E0;
+  
+  --status-success: #15803D;
+  --status-error: #991C1C;
+
+  --space-8: 8px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-48: 48px;
+  --space-80: 80px;
+
+  --container-max-width: 1200px;
+  --container-padding-x: 120px;
+
+  --radius-card: 16px;
+  --radius-pill: 999px;
+  --radius-input: 8px;
+  --radius-badge: 6px;
+
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.08);
+
+  --icon-stroke: 2px;
+  --icon-size-min: 18px;
+  --icon-size-max: 24px;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--text-primary);
+  background-color: var(--bg-white);
+  margin: 0;
+  padding: 0;
+}
+
+h1, .heading-1 {
+  font-family: 'Inter', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: normal;
+}
+
+h2, .heading-2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: normal;
+}
+
+h3, .heading-3 {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: normal;
+}
+
+p, .body-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.label, .button-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.caption {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.container {
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding-x);
+  padding-right: var(--container-padding-x);
+}
+
+.card {
+  background-color: var(--bg-white);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.btn, .chip {
+  border-radius: var(--radius-pill);
+}
+
+.input {
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-input);
+}
+
+.badge {
+  border-radius: var(--radius-badge);
+}
+
+.icon {
+  stroke-width: var(--icon-stroke);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
