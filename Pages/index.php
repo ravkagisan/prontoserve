@@ -47,8 +47,10 @@ $current_page = 'tentang-kami';
       ]
     ];
     include __DIR__ . '/../Components/carousel.php';
+    
+    
   ?>
-
+<?php include_once __DIR__ . '/../Components/footer.php'; ?>
 
 
 </body>
