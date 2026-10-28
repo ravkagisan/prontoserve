@@ -5,16 +5,16 @@ if (!isset($current_page)) {
 ?>
 
 <style>
-  .navbar {
+.navbar {
     width: 100%;
     background-color: var(--bg-white);
     border-bottom: 1px solid var(--border-default);
     position: sticky;
     top: 0;
     z-index: 1000;
-  }
+}
 
-  .navbar-container {
+.navbar-container {
     max-width: var(--container-max-width);
     margin: 0 auto;
     padding: 0 var(--container-padding-x);
@@ -23,9 +23,9 @@ if (!isset($current_page)) {
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
-  }
+}
 
-  .navbar-brand {
+.navbar-brand {
     display: inline-flex;
     align-items: center;
     gap: var(--space-8);
@@ -34,9 +34,9 @@ if (!isset($current_page)) {
     font-weight: 700;
     color: var(--brand-red);
     user-select: none;
-  }
+}
 
-  .brand-badge {
+.brand-badge {
     background-color: var(--brand-red);
     color: var(--bg-white);
     font-size: 14px;
@@ -47,45 +47,45 @@ if (!isset($current_page)) {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-  }
+}
 
-  .brand-text {
+.brand-text {
     color: var(--brand-red);
     font-weight: 700;
     letter-spacing: -0.5px;
-  }
+}
 
-  .brand-sub {
+.brand-sub {
     font-size: 8px;
     color: var(--text-secondary);
     font-weight: 600;
     letter-spacing: 0.5px;
     display: block;
     margin-top: -2px;
-  }
+}
 
-  .navbar-collapse {
+.navbar-collapse {
     display: flex;
     align-items: center;
     gap: 32px;
-  }
+}
 
-  .navbar-menu {
+.navbar-menu {
     display: flex;
     align-items: center;
     gap: 28px;
     list-style: none;
     margin: 0;
     padding: 0;
-  }
+}
 
-  .nav-item {
+.nav-item {
     position: relative;
     display: flex;
     align-items: center;
-  }
+}
 
-  .nav-link {
+.nav-link {
     text-decoration: none;
     font-size: 15px;
     font-weight: 500;
@@ -93,18 +93,18 @@ if (!isset($current_page)) {
     padding: 8px 0;
     position: relative;
     transition: color 0.2s ease;
-  }
+}
 
-  .nav-link:hover {
+.nav-link:hover {
     color: var(--brand-primary);
-  }
+}
 
-  .nav-link.active {
+.nav-link.active {
     color: var(--brand-primary);
     font-weight: 600;
-  }
+}
 
-  .nav-link::after {
+.nav-link::after {
     content: '';
     position: absolute;
     bottom: -2px;
@@ -115,14 +115,14 @@ if (!isset($current_page)) {
     background-color: var(--brand-primary);
     border-radius: var(--radius-pill);
     transition: width 0.2s ease;
-  }
+}
 
-  .nav-link.active::after,
-  .nav-link:hover::after {
+.nav-link.active::after,
+.nav-link:hover::after {
     width: 20px;
-  }
+}
 
-  .navbar-cta {
+.navbar-cta {
     background-color: var(--brand-primary);
     color: var(--bg-white);
     padding: 10px 24px;
@@ -135,13 +135,13 @@ if (!isset($current_page)) {
     justify-content: center;
     white-space: nowrap;
     transition: opacity 0.2s ease;
-  }
+}
 
-  .navbar-cta:hover {
+.navbar-cta:hover {
     opacity: 0.9;
-  }
+}
 
-  .navbar-hamburger {
+.navbar-hamburger {
     display: none;
     background: transparent;
     border: none;
@@ -154,153 +154,159 @@ if (!isset($current_page)) {
     align-items: center;
     gap: 5px;
     border-radius: var(--radius-input);
-  }
+}
 
-  .navbar-hamburger span {
+.navbar-hamburger span {
     display: block;
     width: 22px;
     height: 2px;
     background-color: var(--brand-primary);
     border-radius: 2px;
     transition: transform 0.25s ease, opacity 0.25s ease;
-  }
+}
 
-  .navbar-hamburger.active span:nth-child(1) {
+.navbar-hamburger.active span:nth-child(1) {
     transform: translateY(7px) rotate(45deg);
-  }
+}
 
-  .navbar-hamburger.active span:nth-child(2) {
+.navbar-hamburger.active span:nth-child(2) {
     opacity: 0;
-  }
+}
 
-  .navbar-hamburger.active span:nth-child(3) {
+.navbar-hamburger.active span:nth-child(3) {
     transform: translateY(-7px) rotate(-45deg);
-  }
+}
 
-  @media (max-width: 900px) {
+@media (max-width: 900px) {
     .navbar-container {
-      padding: 0 var(--space-24);
+        padding: 0 var(--space-24);
     }
 
     .navbar-hamburger {
-      display: flex;
+        display: flex;
     }
 
     .navbar-collapse {
-      position: absolute;
-      top: 72px;
-      left: 0;
-      width: 100%;
-      background-color: var(--bg-white);
-      border-bottom: 1px solid var(--border-default);
-      box-shadow: var(--shadow-card);
-      flex-direction: column;
-      align-items: stretch;
-      gap: 16px;
-      padding: var(--space-24);
-      box-sizing: border-box;
-      display: none;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        width: 100%;
+        background-color: var(--bg-white);
+        border-bottom: 1px solid var(--border-default);
+        box-shadow: var(--shadow-card);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+        padding: var(--space-24);
+        box-sizing: border-box;
+        display: none;
     }
 
     .navbar-collapse.show {
-      display: flex;
+        display: flex;
     }
 
     .navbar-menu {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 12px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
     }
 
     .nav-link {
-      padding: 10px 14px;
-      border-radius: var(--radius-input);
+        padding: 10px 14px;
+        border-radius: var(--radius-input);
     }
 
     .nav-link.active,
     .nav-link:hover {
-      background-color: var(--bg-soft);
+        background-color: var(--bg-soft);
     }
 
     .nav-link::after {
-      display: none;
+        display: none;
     }
 
     .navbar-action {
-      width: 100%;
-      padding-top: var(--space-8);
+        width: 100%;
+        padding-top: var(--space-8);
     }
 
     .navbar-cta {
-      width: 100%;
-      text-align: center;
-      padding: 12px 20px;
+        width: 100%;
+        text-align: center;
+        padding: 12px 20px;
     }
-  }
+}
 </style>
 
 <header class="navbar">
-  <div class="navbar-container">
-    <a href="#" class="navbar-brand">
-      <span class="brand-badge">jti</span>
-      <div>
-        <span class="brand-text">nova</span>
-        <span class="brand-sub">TEFA JTI INNOVATION</span>
-      </div>
-    </a>
+    <div class="navbar-container">
+        <a href="#" class="navbar-brand">
+            <span class="brand-badge">jti</span>
+            <div>
+                <span class="brand-text">nova</span>
+                <span class="brand-sub">TEFA JTI INNOVATION</span>
+            </div>
+        </a>
 
-    <button type="button" class="navbar-hamburger" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+        <button type="button" class="navbar-hamburger" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
-    <nav class="navbar-collapse" id="navMenu">
-      <ul class="navbar-menu">
-        <li class="nav-item">
-          <a href="#" class="nav-link <?= ($current_page === 'tentang-kami') ? 'active' : '' ?>">Tentang Kami</a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link <?= ($current_page === 'pelayanan') ? 'active' : '' ?>">Pelayanan</a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link <?= ($current_page === 'pelatihan') ? 'active' : '' ?>">Pelatihan</a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link <?= ($current_page === 'portofolio') ? 'active' : '' ?>">Portofolio</a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link <?= ($current_page === 'tim') ? 'active' : '' ?>">Tim</a>
-        </li>
-      </ul>
+        <nav class="navbar-collapse" id="navMenu">
+            <ul class="navbar-menu">
+                <li class="nav-item">
+                    <a href="Pages/TentangKami/index.php"
+                        class="nav-link <?= ($current_page === 'tentang-kami') ? 'active' : '' ?>">Tentang Kami</a>
+                </li>
+                <li class="nav-item">
+                    <a href="Pages/Pelayanan/index.php"
+                        class="nav-link <?= ($current_page === 'pelayanan') ? 'active' : '' ?>">Pelayanan</a>
+                </li>
+                <li class="nav-item">
+                    <a href="Pages/Pelatihan/index.php"
+                        class="nav-link <?= ($current_page === 'pelatihan') ? 'active' : '' ?>">Pelatihan</a>
+                </li>
+                <li class="nav-item">
+                    <a href="Pages/Portofolio/index.php"
+                        class="nav-link <?= ($current_page === 'portofolio') ? 'active' : '' ?>">Portofolio</a>
+                </li>
+                <li class="nav-item">
+                    <a href="Pages/Tim/index.php"
+                        class="nav-link <?= ($current_page === 'tim') ? 'active' : '' ?>">Tim</a>
+                </li>
+            </ul>
+        </nav>
 
-      <div class="navbar-action">
-        <a href="#" class="navbar-cta">Hubungi Kami</a>
-      </div>
-    </nav>
-  </div>
+        <div class="navbar-action">
+            <a href="#" class="navbar-cta">Hubungi Kami</a>
+        </div>
+        </nav>
+    </div>
 </header>
 
 <script>
-  (function() {
+(function() {
     const toggle = document.getElementById('navToggle');
     const menu = document.getElementById('navMenu');
 
     if (toggle && menu) {
-      toggle.addEventListener('click', function(e) {
-        e.stopPropagation();
-        const isOpen = menu.classList.toggle('show');
-        toggle.classList.toggle('active', isOpen);
-        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      });
+        toggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isOpen = menu.classList.toggle('show');
+            toggle.classList.toggle('active', isOpen);
+            toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
 
-      document.addEventListener('click', function(e) {
-        if (!menu.contains(e.target) && !toggle.contains(e.target)) {
-          menu.classList.remove('show');
-          toggle.classList.remove('active');
-          toggle.setAttribute('aria-expanded', 'false');
-        }
-      });
+        document.addEventListener('click', function(e) {
+            if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+                menu.classList.remove('show');
+                toggle.classList.remove('active');
+                toggle.setAttribute('aria-expanded', 'false');
+            }
+        });
     }
-  })();
+})();
 </script>
