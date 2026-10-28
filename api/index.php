@@ -1,4 +1,3 @@
 <?php
 
-header('Location: Pages/index.php');
-exit;
+require __DIR__ . '/../Pages/index.php';
