@@ -419,7 +419,6 @@ $mitra = [
     </section>
 
     <?php
-    // Memanggil komponen CTA Container sesuai gambar
     $cta_title     = 'Ingin berkolaborasi dengan JTI NOVA?';
     $cta_subtitle  = 'Sampaikan kebutuhan Anda dan tim kami akan segera menghubungi.';
     $cta_btn_text  = 'Hubungi Kami';
