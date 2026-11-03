@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 if (!isset($current_page)) {
     $current_page = 'tentang-kami';
 }
@@ -266,6 +266,10 @@ if (preg_match('#^(.*?)/(Pages|api|Components)#', $script_name, $matches)) {
             <ul class="navbar-menu">
                 <li class="nav-item">
                     <a href="<?= $base_url ?>/Pages/index.php"
+                        class="nav-link <?= ($current_page === 'beranda') ? 'active' : '' ?>">Beranda</a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= $base_url ?>/Pages/TentangKami/index.php"
                         class="nav-link <?= ($current_page === 'tentang-kami') ? 'active' : '' ?>">Tentang Kami</a>
                 </li>
                 <li class="nav-item">

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 if (!isset($current_page)) {
     $current_page = 'tentang-kami';
 }
@@ -18,7 +18,8 @@ $footerTelepon = '+62 812-0000-0000';
 $footerEmail   = 'info@jtinova.com';
 
 $footerLinks = [
-    ['key' => 'tentang-kami', 'label' => 'Tentang Kami', 'href' => '/Pages/index.php'],
+    ['key' => 'beranda',      'label' => 'Beranda',      'href' => '/Pages/index.php'],
+    ['key' => 'tentang-kami', 'label' => 'Tentang Kami', 'href' => '/Pages/TentangKami/index.php'],
     ['key' => 'pelayanan',    'label' => 'Pelayanan',    'href' => '/Pages/Pelayanan/index.php'],
     ['key' => 'pelatihan',    'label' => 'Pelatihan',    'href' => '/Pages/Pelatihan/index.php'],
     ['key' => 'portofolio',   'label' => 'Portofolio',   'href' => '/Pages/Portofolio/index.php'],
