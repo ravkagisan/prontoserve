@@ -345,7 +345,7 @@ foreach ($katalog as $kursus) {
                         'button_config' => [
                             'variant' => 'primary',
                             'text'    => 'Lihat Silabus',
-                            'href'    => '#silabus',
+                            'href'    => $base_url . '/Pages/Pelatihan/Detail/DetailPelatihan/index.php?id=' . (int) $kursus['id'],
                         ],
                     ]) ?>
                 <?php endforeach; ?>
@@ -423,6 +423,7 @@ foreach ($katalog as $kursus) {
                         'title'    => $orang['nama'],
                         'subtitle' => $orang['peran'],
                         'image'    => $gambar_url($orang['foto']),
+                        'href'     => $base_url . '/Pages/Pelatihan/DetailPelatihan/struktur/index.php'
                     ]) ?>
                 <?php endforeach; ?>
             </div>
