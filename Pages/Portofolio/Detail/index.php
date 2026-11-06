@@ -71,6 +71,8 @@ $proyek_katalog = [
 $id = (int) ($_GET['id'] ?? 1);
 $proyek = $proyek_katalog[$id] ?? $proyek_katalog[1];
 
+$portofolio_url = $base_url . '/Pages/Portofolio/index.php';
+
 $carousel_slides = [
     [
         'id' => 1,
@@ -79,7 +81,7 @@ $carousel_slides = [
         'description' => $proyek['overview'],
         'buttons' => [
             ['text' => 'Hubungi Kami', 'link' => $base_url . '/Pages/HubungiKami/index.php', 'variant' => 'primary'],
-            ['text' => 'Kembali ke Portofolio', 'link' => $base_url . '/Pages/Portofolio/index.php', 'variant' => 'outline-white']
+            ['text' => 'Kembali ke Portofolio', 'link' => $portofolio_url, 'variant' => 'outline-white']
         ]
     ]
 ];
@@ -95,6 +97,25 @@ $carousel_slides = [
         .detail-page-section {
             padding: var(--space-48) 0 var(--space-80);
             background-color: var(--bg-white);
+        }
+
+        .dt-hero__back {
+            display: inline-flex;
+            color: var(--text-primary);
+            border-radius: 50%;
+            margin-bottom: var(--space-24);
+        }
+
+        .dt-hero__back svg {
+            width: 44px;
+            height: 44px;
+            fill: none;
+            stroke: currentColor;
+        }
+
+        .dt-hero__back:focus-visible {
+            outline: 2px solid var(--brand-teal);
+            outline-offset: 3px;
         }
 
         .detail-hero-banner {
@@ -274,6 +295,13 @@ $carousel_slides = [
 
     <section class="detail-page-section">
         <div class="container">
+            <a class="dt-hero__back" href="<?= htmlspecialchars($portofolio_url) ?>" aria-label="Kembali ke Portofolio">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M16 12H8M12 8l-4 4 4 4"/>
+                </svg>
+            </a>
+
             <div class="detail-hero-banner">
                 <img src="<?= htmlspecialchars($proyek['image']) ?>" alt="<?= htmlspecialchars($proyek['title']) ?>">
             </div>
@@ -306,7 +334,7 @@ $carousel_slides = [
                         <a href="<?= $base_url ?>/Pages/HubungiKami/index.php" class="sidebar-btn sidebar-btn-primary">
                             Hubungi Kami
                         </a>
-                        <a href="<?= $base_url ?>/Pages/Portofolio/index.php" class="sidebar-btn sidebar-btn-outline">
+                        <a href="<?= htmlspecialchars($portofolio_url) ?>" class="sidebar-btn sidebar-btn-outline">
                             Kembali ke Portofolio
                         </a>
                     </div>
