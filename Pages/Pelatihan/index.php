@@ -124,10 +124,10 @@ $katalog = [
 ];
 
 $instruktur = [
-    ['nama' => 'Nama Instruktur 1', 'peran' => 'Web Development',     'foto' => 'instruktur-1.jpg'],
-    ['nama' => 'Nama Instruktur 2', 'peran' => 'UI/UX Design',        'foto' => 'instruktur-2.jpg'],
-    ['nama' => 'Nama Instruktur 3', 'peran' => 'Jaringan & Keamanan', 'foto' => 'instruktur-3.jpg'],
-    ['nama' => 'Nama Instruktur 4', 'peran' => 'Data & Analitik',     'foto' => 'instruktur-4.jpg'],
+    ['id' => 1, 'nama' => 'Nama Instruktur 1', 'peran' => 'Web Development',     'foto' => 'instruktur-1.jpg'],
+    ['id' => 2, 'nama' => 'Nama Instruktur 2', 'peran' => 'UI/UX Design',        'foto' => 'instruktur-2.jpg'],
+    ['id' => 3, 'nama' => 'Nama Instruktur 3', 'peran' => 'Jaringan & Keamanan', 'foto' => 'instruktur-3.jpg'],
+    ['id' => 4, 'nama' => 'Nama Instruktur 4', 'peran' => 'Data & Analitik',     'foto' => 'instruktur-4.jpg'],
 ];
 
 $jadwal = array_slice($katalog, 0, 3);
@@ -287,6 +287,18 @@ foreach ($katalog as $kursus) {
         gap: var(--space-24);
     }
 
+    .instr-link {
+        display: block;
+        color: inherit;
+        text-decoration: none;
+        border-radius: var(--radius-card);
+    }
+
+    .instr-link:focus-visible {
+        outline: 2px solid var(--brand-teal);
+        outline-offset: 3px;
+    }
+
     @media (max-width: 1024px) {
         .page-hero .container,
         .section .container {
@@ -418,13 +430,16 @@ foreach ($katalog as $kursus) {
             </div>
             <div class="instr-grid">
                 <?php foreach ($instruktur as $orang): ?>
-                    <?= render_card([
-                        'variant'  => 'team',
-                        'title'    => $orang['nama'],
-                        'subtitle' => $orang['peran'],
-                        'image'    => $gambar_url($orang['foto']),
-                        'href'     => $base_url . '/Pages/Pelatihan/DetailPelatihan/struktur/index.php'
-                    ]) ?>
+                    <a class="instr-link"
+                       href="<?= htmlspecialchars($base_url) ?>/Pages/Pelatihan/Detail/DetailInstruktur/index.php?id=<?= (int) $orang['id'] ?>"
+                       aria-label="Profil <?= htmlspecialchars($orang['nama']) ?>">
+                        <?= render_card([
+                            'variant'  => 'team',
+                            'title'    => $orang['nama'],
+                            'subtitle' => $orang['peran'],
+                            'image'    => $gambar_url($orang['foto']),
+                        ]) ?>
+                    </a>
                 <?php endforeach; ?>
             </div>
         </div>
