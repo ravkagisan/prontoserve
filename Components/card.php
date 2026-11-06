@@ -42,6 +42,8 @@ if (!function_exists('render_card')) {
         $extra_class = $options['class'] ?? '';
         $id = $options['id'] ?? null;
         $attributes = $options['attributes'] ?? '';
+        $gradient = $options['gradient'] ?? null;
+        $icon = $options['icon'] ?? null;
 
         $image = !empty($options['image']) ? $options['image'] : $default_placeholder_image;
         if (!filter_var($image, FILTER_VALIDATE_URL) && !file_exists($image)) {
@@ -51,14 +53,20 @@ if (!function_exists('render_card')) {
         }
 
         $id_attr = $id ? 'id="' . htmlspecialchars($id) . '"' : '';
-        $card_classes = 'card custom-card card-' . htmlspecialchars($variant) . ($extra_class ? ' ' . htmlspecialchars($extra_class) : '');
+        $card_classes = 'card custom-card card-' . htmlspecialchars($variant) . ($href && $variant === 'project' ? ' custom-card-clickable' : '') . ($extra_class ? ' ' . htmlspecialchars($extra_class) : '');
 
         ob_start();
         ?>
-        <div class="<?= $card_classes ?>" <?= $id_attr ?> <?= $attributes ?>>
-            <?php if ($variant === 'project'): ?>
-                <div class="card-img-top-wrap">
-                    <img src="<?= htmlspecialchars($image) ?>" alt="<?= htmlspecialchars($title) ?>" class="card-img-top">
+        <?php if ($variant === 'project' && $href): ?>
+            <a href="<?= htmlspecialchars($href) ?>" class="<?= $card_classes ?>" <?= $id_attr ?> <?= $attributes ?>>
+                <div class="card-img-top-wrap" <?= $gradient ? 'style="background: ' . htmlspecialchars($gradient) . ';"' : '' ?>>
+                    <?php if ($icon): ?>
+                        <div class="card-img-placeholder-icon">
+                            <?= $icon ?>
+                        </div>
+                    <?php else: ?>
+                        <img src="<?= htmlspecialchars($image) ?>" alt="<?= htmlspecialchars($title) ?>" class="card-img-top">
+                    <?php endif; ?>
                 </div>
                 <div class="card-body">
                     <?php if ($category): ?>
@@ -66,22 +74,23 @@ if (!function_exists('render_card')) {
                             <span class="btn btn-badge"><?= htmlspecialchars($category) ?></span>
                         </div>
                     <?php endif; ?>
-                    <h3 class="card-title">
-                        <?php if ($href): ?>
-                            <a href="<?= htmlspecialchars($href) ?>" class="card-title-link"><?= htmlspecialchars($title) ?></a>
-                        <?php else: ?>
-                            <?= htmlspecialchars($title) ?>
-                        <?php endif; ?>
-                    </h3>
+                    <h3 class="card-title"><?= htmlspecialchars($title) ?></h3>
                     <?php if ($description): ?>
                         <p class="card-desc"><?= htmlspecialchars($description) ?></p>
                     <?php endif; ?>
                 </div>
-
-            <?php elseif ($variant === 'training'): ?>
-                <div class="card-inner">
-                    <div class="card-img-inset-wrap card-img-training">
-                        <img src="<?= htmlspecialchars($image) ?>" alt="<?= htmlspecialchars($title) ?>" class="card-img">
+            </a>
+        <?php else: ?>
+            <div class="<?= $card_classes ?>" <?= $id_attr ?> <?= $attributes ?>>
+                <?php if ($variant === 'project'): ?>
+                    <div class="card-img-top-wrap" <?= $gradient ? 'style="background: ' . htmlspecialchars($gradient) . ';"' : '' ?>>
+                        <?php if ($icon): ?>
+                            <div class="card-img-placeholder-icon">
+                                <?= $icon ?>
+                            </div>
+                        <?php else: ?>
+                            <img src="<?= htmlspecialchars($image) ?>" alt="<?= htmlspecialchars($title) ?>" class="card-img-top">
+                        <?php endif; ?>
                     </div>
                     <div class="card-body">
                         <?php if ($category): ?>
@@ -89,87 +98,111 @@ if (!function_exists('render_card')) {
                                 <span class="btn btn-badge"><?= htmlspecialchars($category) ?></span>
                             </div>
                         <?php endif; ?>
-                        <h3 class="card-title"><?= htmlspecialchars($title) ?></h3>
-                        <?php if ($description): ?>
-                            <p class="card-desc"><?= htmlspecialchars($description) ?></p>
-                        <?php endif; ?>
-                        <?php if ($extra_info): ?>
-                            <div class="card-extra-info">
-                                <span class="card-extra-icon">📅</span>
-                                <span><?= htmlspecialchars(is_array($extra_info) ? implode(' · ', $extra_info) : $extra_info) ?></span>
-                            </div>
-                        <?php endif; ?>
-                        <div class="card-action">
-                            <?php
-                            $btn_params = is_array($button_config) ? $button_config : [
-                                'variant' => 'primary',
-                                'text' => 'Hubungi Kami',
-                                'href' => $href ?? 'Pages/HubungiKami/index.php'
-                            ];
-                            echo render_button($btn_params);
-                            ?>
-                        </div>
-                    </div>
-                </div>
-
-            <?php elseif ($variant === 'team'): ?>
-                <div class="card-inner card-inner-team">
-                    <div class="card-img-portrait-wrap">
-                        <img src="<?= htmlspecialchars($image) ?>" alt="<?= htmlspecialchars($title) ?>" class="card-img">
-                    </div>
-                    <div class="card-body card-body-center">
-                        <h3 class="card-title"><?= htmlspecialchars($title) ?></h3>
-                        <p class="card-subtitle"><?= htmlspecialchars($subtitle ?: $description) ?></p>
-                        <div class="card-social-dots">
-                            <?php if (!empty($social_links) && is_array($social_links)): ?>
-                                <?php foreach ($social_links as $item): ?>
-                                    <a href="<?= htmlspecialchars($item['url'] ?? '#') ?>" class="social-dot" aria-label="Social Link">
-                                        <?= !empty($item['icon']) ? $item['icon'] : '' ?>
-                                    </a>
-                                <?php endforeach; ?>
+                        <h3 class="card-title">
+                            <?php if ($href): ?>
+                                <a href="<?= htmlspecialchars($href) ?>" class="card-title-link"><?= htmlspecialchars($title) ?></a>
                             <?php else: ?>
-                                <span class="social-dot"></span>
-                                <span class="social-dot"></span>
-                                <span class="social-dot"></span>
+                                <?= htmlspecialchars($title) ?>
                             <?php endif; ?>
-                        </div>
-                    </div>
-                </div>
-
-            <?php else: ?>
-                <div class="card-inner">
-                    <div class="card-img-inset-wrap card-img-service">
-                        <img src="<?= htmlspecialchars($image) ?>" alt="<?= htmlspecialchars($title) ?>" class="card-img">
-                    </div>
-                    <div class="card-body">
-                        <h3 class="card-title"><?= htmlspecialchars($title) ?></h3>
+                        </h3>
                         <?php if ($description): ?>
                             <p class="card-desc"><?= htmlspecialchars($description) ?></p>
                         <?php endif; ?>
-                        <?php if ($extra_info): ?>
-                            <div class="card-extra-info card-contact-info">
-                                <span><?= htmlspecialchars(is_array($extra_info) ? implode(' · ', $extra_info) : $extra_info) ?></span>
+                    </div>
+
+                <?php elseif ($variant === 'training'): ?>
+                    <div class="card-inner">
+                        <div class="card-img-inset-wrap card-img-training">
+                            <img src="<?= htmlspecialchars($image) ?>" alt="<?= htmlspecialchars($title) ?>" class="card-img">
+                        </div>
+                        <div class="card-body">
+                            <?php if ($category): ?>
+                                <div class="card-badge-wrap">
+                                    <span class="btn btn-badge"><?= htmlspecialchars($category) ?></span>
+                                </div>
+                            <?php endif; ?>
+                            <h3 class="card-title"><?= htmlspecialchars($title) ?></h3>
+                            <?php if ($description): ?>
+                                <p class="card-desc"><?= htmlspecialchars($description) ?></p>
+                            <?php endif; ?>
+                            <?php if ($extra_info): ?>
+                                <div class="card-extra-info">
+                                    <span class="card-extra-icon">📅</span>
+                                    <span><?= htmlspecialchars(is_array($extra_info) ? implode(' · ', $extra_info) : $extra_info) ?></span>
+                                </div>
+                            <?php endif; ?>
+                            <div class="card-action">
+                                <?php
+                                $btn_params = is_array($button_config) ? $button_config : [
+                                    'variant' => 'primary',
+                                    'text' => 'Hubungi Kami',
+                                    'href' => $href ?? 'Pages/HubungiKami/index.php'
+                                ];
+                                echo render_button($btn_params);
+                                ?>
                             </div>
-                        <?php endif; ?>
-                        <div class="card-action">
-                            <?php
-                            if (is_array($button_config)) {
-                                echo render_button($button_config);
-                            } else {
-                                echo render_button([
-                                    'variant' => 'ghost',
-                                    'text' => 'Pelajari Selengkapnya',
-                                    'href' => $href ?? '#',
-                                    'icon' => 'arrow-right',
-                                    'icon_position' => 'right'
-                                ]);
-                            }
-                            ?>
                         </div>
                     </div>
-                </div>
-            <?php endif; ?>
-        </div>
+
+                <?php elseif ($variant === 'team'): ?>
+                    <div class="card-inner card-inner-team">
+                        <div class="card-img-portrait-wrap">
+                            <img src="<?= htmlspecialchars($image) ?>" alt="<?= htmlspecialchars($title) ?>" class="card-img">
+                        </div>
+                        <div class="card-body card-body-center">
+                            <h3 class="card-title"><?= htmlspecialchars($title) ?></h3>
+                            <p class="card-subtitle"><?= htmlspecialchars($subtitle ?: $description) ?></p>
+                            <div class="card-social-dots">
+                                <?php if (!empty($social_links) && is_array($social_links)): ?>
+                                    <?php foreach ($social_links as $item): ?>
+                                        <a href="<?= htmlspecialchars($item['url'] ?? '#') ?>" class="social-dot" aria-label="Social Link">
+                                            <?= !empty($item['icon']) ? $item['icon'] : '' ?>
+                                        </a>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <span class="social-dot"></span>
+                                    <span class="social-dot"></span>
+                                    <span class="social-dot"></span>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+
+                <?php else: ?>
+                    <div class="card-inner">
+                        <div class="card-img-inset-wrap card-img-service">
+                            <img src="<?= htmlspecialchars($image) ?>" alt="<?= htmlspecialchars($title) ?>" class="card-img">
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title"><?= htmlspecialchars($title) ?></h3>
+                            <?php if ($description): ?>
+                                <p class="card-desc"><?= htmlspecialchars($description) ?></p>
+                            <?php endif; ?>
+                            <?php if ($extra_info): ?>
+                                <div class="card-extra-info card-contact-info">
+                                    <span><?= htmlspecialchars(is_array($extra_info) ? implode(' · ', $extra_info) : $extra_info) ?></span>
+                                </div>
+                            <?php endif; ?>
+                            <div class="card-action">
+                                <?php
+                                if (is_array($button_config)) {
+                                    echo render_button($button_config);
+                                } else {
+                                    echo render_button([
+                                        'variant' => 'ghost',
+                                        'text' => 'Pelajari Selengkapnya',
+                                        'href' => $href ?? '#',
+                                        'icon' => 'arrow-right',
+                                        'icon_position' => 'right'
+                                    ]);
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
         <?php
         return ob_get_clean();
     }
@@ -193,10 +226,20 @@ define('PRONTOSERVE_CARD_CSS_LOADED', true);
     width: 100%;
 }
 
+.custom-card-clickable {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
 .custom-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
     border-color: rgba(95, 122, 148, 0.4);
+}
+
+.custom-card-clickable:hover .card-title {
+    color: var(--brand-primary);
 }
 
 .card-inner {
@@ -247,6 +290,23 @@ define('PRONTOSERVE_CARD_CSS_LOADED', true);
     background-color: var(--brand-teal);
     position: relative;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-img-placeholder-icon {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.88);
+}
+
+.card-img-placeholder-icon svg {
+    width: 44px;
+    height: 44px;
 }
 
 .card-img-top {
@@ -290,6 +350,7 @@ define('PRONTOSERVE_CARD_CSS_LOADED', true);
     color: var(--text-primary);
     margin: 0 0 var(--space-8) 0;
     line-height: 1.35;
+    transition: color 0.2s ease;
 }
 
 .card-title-link {
