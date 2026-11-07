@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -337,15 +337,14 @@ $carousel_slides = [
         </div>
     </section>
 
-    <section class="tm-cta">
-        <div class="container tm-cta__inner">
-            <div>
-                <h2 class="heading-2 tm-cta__title">Ingin bergabung atau magang bersama kami?</h2>
-                <p class="tm-cta__text">Program Magang Mahasiswa MBKM terbuka untuk mahasiswa berminat.</p>
-            </div>
-            <a class="tm-cta__btn" href="<?= htmlspecialchars($hubungi_url) ?>">Hubungi Kami</a>
-        </div>
-    </section>
+    <?php
+    $cta_title     = 'Ingin bergabung atau magang bersama kami?';
+    $cta_subtitle  = 'Program Magang Mahasiswa MBKM terbuka untuk mahasiswa berminat.';
+    $cta_btn_text  = 'Hubungi Kami';
+    $cta_btn_href  = $hubungi_url;
+    $cta_variant   = 'dark';
+    require_once __DIR__ . '/../../Components/ctacontainer.php';
+    ?>
 
     <?php require_once __DIR__ . '/../../Components/footer.php'; ?>
 
