@@ -20,4 +20,5 @@ if (file_exists($target_file . '/index.php')) {
 }
 
 http_response_code(404);
-echo "404 - Halaman Tidak Ditemukan";
+require __DIR__ . '/../error/index.php';
+exit;

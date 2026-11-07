@@ -2,9 +2,6 @@
   "functions": {
     "api/index.php": {
       "runtime": "vercel-php@0.7.2"
-    },
-    "error/index.php": {
-      "runtime": "vercel-php@0.7.2"
     }
   },
   "routes": [
@@ -13,16 +10,8 @@
       "dest": "/$1$2"
     },
     {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/index.php"
-    },
-    {
       "src": "/(.*)",
-      "status": 404,
-      "dest": "/error/index.php"
+      "dest": "/api/index.php"
     }
   ]
 }
