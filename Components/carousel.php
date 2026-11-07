@@ -150,10 +150,15 @@ unset($slide);
 
   .carousel-text-box {
     max-width: 780px;
+    width: 100%;
     color: var(--bg-white, #ffffff);
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
+    min-height: 270px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
 
   .carousel-slide.active .carousel-text-box {
@@ -162,22 +167,32 @@ unset($slide);
   }
 
   .carousel-title {
-    font-size: clamp(26px, 4.5vw, 48px);
+    font-size: clamp(26px, 4.2vw, 44px);
     font-weight: 700;
-    line-height: 1.25;
+    line-height: 1.3;
     margin: 0 0 var(--space-16, 16px) 0;
     color: var(--bg-white, #ffffff);
     white-space: pre-line;
     letter-spacing: -0.5px;
+    min-height: calc(2 * 1.3em);
+    box-sizing: border-box;
+    padding-bottom: 2px;
   }
 
   .carousel-desc {
-    font-size: clamp(14px, 1.8vw, 18px);
+    font-size: clamp(14px, 1.6vw, 17px);
     line-height: 1.6;
     margin: 0;
     color: rgba(255, 255, 255, 0.9);
     max-width: 660px;
-    min-height: 52px;
+    min-height: calc(2 * 1.6em);
+    box-sizing: border-box;
+  }
+
+  .carousel-desc--empty {
+    visibility: hidden;
+    user-select: none;
+    pointer-events: none;
   }
 
   .carousel-buttons {
@@ -188,13 +203,84 @@ unset($slide);
     margin-top: 32px;
   }
 
+  /* ── Consistent Hero Button Fixed Sizing (KHUSUS CAROUSEL) ── */
+  .carousel-hero-btn,
+  .carousel-buttons .blob-btn {
+    width: 230px !important;
+    flex: 0 0 230px !important;
+    height: 52px !important;
+    min-height: 52px !important;
+    padding: 0 16px !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    line-height: 1.4 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+    border-radius: var(--radius-pill, 999px) !important;
+  }
+
+  .carousel-hero-btn .blob-btn__text,
+  .carousel-buttons .blob-btn .blob-btn__text {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    line-height: 1.4;
+    overflow: visible;
+    padding-bottom: 2px;
+  }
+
   @media (max-width: 768px) {
+    .carousel-text-box {
+      min-height: auto;
+    }
+    .carousel-title {
+      min-height: auto;
+      margin-bottom: var(--space-12, 12px);
+    }
     .carousel-desc {
       min-height: auto;
+      font-size: 14.5px;
+      line-height: 1.5;
     }
     .carousel-buttons {
       margin-top: 24px;
-      gap: var(--space-8, 8px);
+      gap: var(--space-12, 12px);
+    }
+    .carousel-hero-btn,
+    .carousel-buttons .blob-btn {
+      width: 210px !important;
+      flex: 0 0 210px !important;
+      height: 50px !important;
+      min-height: 50px !important;
+      font-size: 14.5px !important;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .carousel-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .carousel-hero-btn,
+    .carousel-buttons .blob-btn {
+      width: 100% !important;
+      flex: 1 1 auto !important;
+      min-width: 0 !important;
+      height: 48px !important;
+      min-height: 48px !important;
+      padding: 0 16px !important;
+      font-size: 15px !important;
     }
   }
 
@@ -430,6 +516,8 @@ unset($slide);
             <h2 class="carousel-title"><?= htmlspecialchars($slide['title']) ?></h2>
             <?php if (!empty($slide['description'])): ?>
               <p class="carousel-desc"><?= htmlspecialchars($slide['description']) ?></p>
+            <?php else: ?>
+              <p class="carousel-desc carousel-desc--empty" aria-hidden="true">&nbsp;</p>
             <?php endif; ?>
 
             <?php if (!empty($buttons)): ?>
@@ -448,7 +536,7 @@ unset($slide);
                         'size'          => $btn['size'] ?? 'md',
                         'icon'          => $btn['icon'] ?? null,
                         'icon_position' => $btn['icon_position'] ?? 'right',
-                        'class'         => $btn['class'] ?? ''
+                        'class'         => trim('carousel-hero-btn ' . ($btn['class'] ?? ''))
                     ]);
                   ?>
                 <?php endforeach; ?>
