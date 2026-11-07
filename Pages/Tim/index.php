@@ -222,31 +222,7 @@ $carousel_slides = [
         color: var(--bg-soft);
     }
 
-    .tm-cta__btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        height: 40px;
-        padding: 0 24px;
-        border-radius: var(--radius-pill);
-        background-color: var(--bg-white);
-        color: var(--brand-primary);
-        font-size: 14px;
-        font-weight: 600;
-        text-decoration: none;
-        transition: opacity 0.2s ease, transform 0.15s ease;
-    }
 
-    .tm-cta__btn:hover {
-        opacity: 0.9;
-        transform: translateY(-1px);
-    }
-
-    .tm-cta__btn:focus-visible {
-        outline: 2px solid var(--brand-teal);
-        outline-offset: 3px;
-    }
 
     @media (max-width: 1024px) {
         .tm-hero .container,

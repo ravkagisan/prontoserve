@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../Components/button.php';
+
 $current_page = 'portofolio';
 
 $script_name = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
@@ -303,24 +305,7 @@ $tech_stacks = [
             max-width: 440px;
         }
 
-        .empty-reset-btn {
-            background-color: var(--brand-primary);
-            color: var(--bg-white);
-            border: 1.5px solid var(--brand-primary);
-            border-radius: var(--radius-pill);
-            padding: 10px 28px;
-            font-size: 13.5px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: 'Inter', sans-serif;
-        }
 
-        .empty-reset-btn:hover {
-            background-color: #162c48;
-            border-color: #162c48;
-            box-shadow: 0 4px 12px rgba(30, 58, 95, 0.25);
-        }
 
         .featured-case-section {
             background-color: var(--bg-soft);
@@ -437,27 +422,7 @@ $tech_stacks = [
             font-family: 'Inter', sans-serif;
         }
 
-        .featured-case-btn {
-            border: 1.5px solid var(--brand-primary);
-            background-color: transparent;
-            color: var(--brand-primary);
-            padding: 8px 24px;
-            border-radius: var(--radius-pill);
-            font-size: 13.5px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Inter', sans-serif;
-        }
 
-        .featured-case-btn:hover {
-            background-color: var(--brand-primary);
-            color: var(--bg-white);
-        }
 
         .tech-stack-section {
             background-color: var(--bg-white);
@@ -675,7 +640,7 @@ $tech_stacks = [
                 </div>
                 <h3 class="empty-title">Proyek tidak ditemukan</h3>
                 <p class="empty-desc">Coba gunakan kata kunci lain atau pilih kategori proyek di atas.</p>
-                <button type="button" class="empty-reset-btn" id="resetSearchBtn">Reset Pencarian</button>
+                <?= render_button(['type' => 'button', 'text' => 'Reset Pencarian', 'variant' => 'primary', 'size' => 'sm', 'id' => 'resetSearchBtn']) ?>
             </div>
         </div>
     </section>
@@ -708,9 +673,12 @@ $tech_stacks = [
                     <p class="featured-case-result">
                         Hasil: proses pengajuan lebih cepat dan transparan (data contoh).
                     </p>
-                    <a href="<?= $base_url ?>/Pages/Portofolio/Detail/index.php?id=4" class="featured-case-btn">
-                        Lihat Detail
-                    </a>
+                    <?= render_button([
+                        'href'    => $base_url . '/Pages/Portofolio/Detail/index.php?id=4',
+                        'text'    => 'Lihat Detail',
+                        'variant' => 'outline',
+                        'size'    => 'sm'
+                    ]) ?>
                 </div>
             </div>
         </div>

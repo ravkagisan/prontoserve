@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../../Components/button.php';
+
 $current_page = 'portofolio';
 
 $script_name = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
@@ -230,42 +232,7 @@ $carousel_slides = [
             gap: 12px;
         }
 
-        .sidebar-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 12px 20px;
-            border-radius: var(--radius-pill);
-            font-size: 14px;
-            font-weight: 600;
-            text-decoration: none;
-            box-sizing: border-box;
-            transition: all 0.2s ease;
-            font-family: 'Inter', sans-serif;
-        }
 
-        .sidebar-btn-primary {
-            background-color: var(--brand-primary);
-            color: var(--bg-white);
-            border: 1.5px solid var(--brand-primary);
-        }
-
-        .sidebar-btn-primary:hover {
-            background-color: #162c48;
-            border-color: #162c48;
-            box-shadow: 0 4px 12px rgba(30, 58, 95, 0.2);
-        }
-
-        .sidebar-btn-outline {
-            background-color: var(--bg-white);
-            color: var(--brand-primary);
-            border: 1.5px solid var(--brand-primary);
-        }
-
-        .sidebar-btn-outline:hover {
-            background-color: var(--bg-soft);
-        }
 
         @media (max-width: 900px) {
             .detail-layout-grid {
@@ -331,12 +298,20 @@ $carousel_slides = [
                     <p class="sidebar-card-hours">Jam layanan: Senin–Jumat, 08.00–16.00 WIB</p>
 
                     <div class="sidebar-btn-group">
-                        <a href="<?= $base_url ?>/Pages/HubungiKami/index.php" class="sidebar-btn sidebar-btn-primary">
-                            Hubungi Kami
-                        </a>
-                        <a href="<?= htmlspecialchars($portofolio_url) ?>" class="sidebar-btn sidebar-btn-outline">
-                            Kembali ke Portofolio
-                        </a>
+                        <?= render_button([
+                            'href'    => $base_url . '/Pages/HubungiKami/index.php',
+                            'text'    => 'Hubungi Kami',
+                            'variant' => 'primary',
+                            'size'    => 'md',
+                            'class'   => 'btn-block'
+                        ]) ?>
+                        <?= render_button([
+                            'href'    => $portofolio_url,
+                            'text'    => 'Kembali ke Portofolio',
+                            'variant' => 'outline',
+                            'size'    => 'md',
+                            'class'   => 'btn-block'
+                        ]) ?>
                     </div>
                 </aside>
             </div>

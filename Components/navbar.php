@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/button.php';
+
 if (!isset($current_page)) {
     $current_page = '';
 }
@@ -230,25 +232,7 @@ $nav_links = [
 }
 
 .navbar-cta {
-    background-color: var(--brand-teal);
-    color: var(--brand-primary);
-    padding: 10px 24px;
-    font-size: 14px;
-    font-weight: 700;
-    border-radius: var(--radius-pill);
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-    transition: opacity 0.2s ease, transform 0.15s ease;
     flex-shrink: 0;
-    cursor: pointer;
-}
-
-.navbar-cta:hover {
-    opacity: 0.88;
-    transform: translateY(-1px);
 }
 
 .mobile-overlay {
@@ -424,23 +408,7 @@ $nav_links = [
 }
 
 .mobile-cta {
-    background-color: var(--brand-teal);
-    color: var(--brand-primary);
-    padding: 14px 24px;
-    font-size: 16px;
-    font-weight: 700;
-    border-radius: var(--radius-pill);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: opacity 0.2s ease;
     margin-top: 8px;
-}
-
-.mobile-cta:hover {
-    opacity: 0.88;
 }
 
 @media (max-width: 900px) {
@@ -515,9 +483,13 @@ $chevron_svg = '<svg class="chevron" fill="none" stroke="currentColor" viewBox="
                 <?php endforeach; ?>
             </ul>
 
-            <a href="<?= $base_url ?>/Pages/HubungiKami/index.php" class="navbar-cta">
-                Hubungi Kami
-            </a>
+            <?= render_button([
+                'href'    => $base_url . '/Pages/HubungiKami/index.php',
+                'text'    => 'Hubungi Kami',
+                'variant' => 'teal',
+                'size'    => 'sm',
+                'class'   => 'navbar-cta'
+            ]) ?>
         </div>
     </div>
 </header>
@@ -539,9 +511,13 @@ $chevron_svg = '<svg class="chevron" fill="none" stroke="currentColor" viewBox="
 
     <div class="mobile-divider"></div>
 
-    <a href="<?= $base_url ?>/Pages/HubungiKami/index.php" class="mobile-cta">
-        Hubungi Kami
-    </a>
+    <?= render_button([
+        'href'    => $base_url . '/Pages/HubungiKami/index.php',
+        'text'    => 'Hubungi Kami',
+        'variant' => 'teal',
+        'size'    => 'md',
+        'class'   => 'mobile-cta btn-block'
+    ]) ?>
 </div>
 
 <script>

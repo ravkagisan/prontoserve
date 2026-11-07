@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/button.php';
+
 if (!isset($current_page)) {
     $current_page = 'tentang-kami';
 }
@@ -37,6 +39,17 @@ if (!function_exists('render_cta')) {
             }
         }
 
+        // Map CTA variant to button variant for optimal contrast
+        $btn_variant = ($variant === 'dark') ? 'white' : 'primary';
+
+        $action_button = render_button([
+            'text'    => $btn_text,
+            'href'    => $btn_href,
+            'variant' => $btn_variant,
+            'size'    => 'md',
+            'class'   => 'cta-action-btn'
+        ]);
+
         ob_start();
         ?>
         <section class="cta-section cta-variant-<?= htmlspecialchars($variant) ?><?= $extra_class ? ' ' . htmlspecialchars($extra_class) : '' ?>"<?= $id_attr ?>>
@@ -49,30 +62,10 @@ if (!function_exists('render_cta')) {
                         <?php endif; ?>
                     </div>
                     <div class="cta-action">
-                        <a href="<?= htmlspecialchars($btn_href) ?>" class="cta-blob-btn" aria-label="<?= htmlspecialchars($btn_text) ?>">
-                            <span class="cta-blob-btn__text"><?= htmlspecialchars($btn_text) ?></span>
-                            <span class="cta-blob-btn__inner">
-                                <span class="cta-blob-btn__blobs">
-                                    <span class="cta-blob-btn__blob"></span>
-                                    <span class="cta-blob-btn__blob"></span>
-                                    <span class="cta-blob-btn__blob"></span>
-                                    <span class="cta-blob-btn__blob"></span>
-                                </span>
-                            </span>
-                        </a>
+                        <?= $action_button ?>
                     </div>
                 </div>
             </div>
-            
-            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: block; height: 0; width: 0; position: absolute;" aria-hidden="true">
-                <defs>
-                    <filter id="cta-goo">
-                        <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
-                        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo"></feColorMatrix>
-                        <feComposite in2="goo" in="SourceGraphic" result="mix"></feComposite>
-                    </filter>
-                </defs>
-            </svg>
         </section>
         <?php
         return ob_get_clean();
@@ -155,157 +148,6 @@ define('PRONTOSERVE_CTA_CSS_LOADED', true);
     align-items: center;
 }
 
-/* ── Blob Button Interaction ── */
-.cta-blob-btn {
-    position: relative;
-    z-index: 1;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 13px 36px;
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    text-decoration: none;
-    cursor: pointer;
-    background: transparent;
-    border: none;
-    outline: none;
-    border-radius: var(--radius-pill);
-    box-sizing: border-box;
-    transition: color 0.4s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    user-select: none;
-    white-space: nowrap;
-}
-
-.cta-variant-dark .cta-blob-btn {
-    color: var(--brand-primary);
-}
-
-.cta-variant-dark .cta-blob-btn:hover {
-    color: var(--bg-white);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
-}
-
-.cta-variant-dark .cta-blob-btn:active {
-    transform: translateY(0);
-}
-
-.cta-variant-dark .cta-blob-btn::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border: 2px solid var(--bg-white);
-    border-radius: var(--radius-pill);
-    z-index: 1;
-    pointer-events: none;
-    transition: border-color 0.3s ease;
-}
-
-.cta-variant-dark .cta-blob-btn:hover::before {
-    border-color: rgba(255, 255, 255, 0.95);
-}
-
-.cta-blob-btn__text {
-    position: relative;
-    z-index: 2;
-    display: inline-block;
-    letter-spacing: 0.2px;
-}
-
-.cta-blob-btn__inner {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    border-radius: var(--radius-pill);
-    background-color: var(--bg-white);
-    z-index: -1;
-}
-
-.cta-blob-btn__blobs {
-    position: relative;
-    display: block;
-    height: 100%;
-    filter: url('#cta-goo');
-}
-
-.cta-blob-btn__blob {
-    position: absolute;
-    top: 2px;
-    width: 25%;
-    height: 100%;
-    background-color: #162c48;
-    border-radius: 100%;
-    transform: translate3d(0, 150%, 0) scale(1.7);
-    transition: transform 0.45s ease;
-}
-
-@supports(filter: url('#cta-goo')) {
-    .cta-blob-btn__blob {
-        transform: translate3d(0, 150%, 0) scale(1.4);
-    }
-}
-
-.cta-blob-btn__blob:nth-child(1) {
-    left: 0%;
-    transition-delay: 0s;
-}
-
-.cta-blob-btn__blob:nth-child(2) {
-    left: 30%;
-    transition-delay: 0.08s;
-}
-
-.cta-blob-btn__blob:nth-child(3) {
-    left: 60%;
-    transition-delay: 0.16s;
-}
-
-.cta-blob-btn__blob:nth-child(4) {
-    left: 90%;
-    transition-delay: 0.24s;
-}
-
-.cta-blob-btn:hover .cta-blob-btn__blob {
-    transform: translateZ(0) scale(1.7);
-}
-
-@supports(filter: url('#cta-goo')) {
-    .cta-blob-btn:hover .cta-blob-btn__blob {
-        transform: translateZ(0) scale(1.4);
-    }
-}
-
-/* ── Light Variant ── */
-.cta-variant-light .cta-blob-btn {
-    color: var(--bg-white);
-}
-
-.cta-variant-light .cta-blob-btn:hover {
-    color: var(--bg-white);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 24px rgba(30, 58, 95, 0.2);
-}
-
-.cta-variant-light .cta-blob-btn::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border: 2px solid var(--brand-primary);
-    border-radius: var(--radius-pill);
-    z-index: 1;
-    pointer-events: none;
-}
-
-.cta-variant-light .cta-blob-btn__inner {
-    background-color: var(--brand-primary);
-}
-
-.cta-variant-light .cta-blob-btn__blob {
-    background-color: #162c48;
-}
-
 /* ── Seamless Connection to Footer ── */
 .cta-section + .site-footer {
     margin-top: 0 !important;
@@ -351,10 +193,8 @@ define('PRONTOSERVE_CTA_CSS_LOADED', true);
         width: 100%;
     }
 
-    .cta-blob-btn {
+    .cta-action .blob-btn {
         width: 100%;
-        text-align: center;
-        padding: 14px 28px;
     }
 }
 </style>

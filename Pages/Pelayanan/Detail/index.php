@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../../Components/button.php';
+
 $current_page = 'pelayanan';
 
 $script_name = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
@@ -219,38 +221,7 @@ $carousel_slides = [
             flex-direction: column;
             gap: 12px;
         }
-        .sidebar-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 12px 20px;
-            border-radius: var(--radius-pill);
-            font-size: 14px;
-            font-weight: 600;
-            text-decoration: none;
-            box-sizing: border-box;
-            transition: all 0.2s ease;
-            font-family: 'Inter', sans-serif;
-        }
-        .sidebar-btn-primary {
-            background-color: var(--brand-primary);
-            color: var(--bg-white);
-            border: 1.5px solid var(--brand-primary);
-        }
-        .sidebar-btn-primary:hover {
-            background-color: #162c48;
-            border-color: #162c48;
-            box-shadow: 0 4px 12px rgba(30, 58, 95, 0.2);
-        }
-        .sidebar-btn-outline {
-            background-color: var(--bg-white);
-            color: var(--brand-primary);
-            border: 1.5px solid var(--brand-primary);
-        }
-        .sidebar-btn-outline:hover {
-            background-color: var(--bg-soft);
-        }
+
         @media (max-width: 900px) {
             .detail-layout-grid {
                 grid-template-columns: 1fr;
@@ -313,12 +284,20 @@ $carousel_slides = [
                     <p class="sidebar-card-hours">Jam layanan: Senin–Jumat, 08.00–16.00 WIB</p>
 
                     <div class="sidebar-btn-group">
-                        <a href="<?= htmlspecialchars($hubungi_url) ?>" class="sidebar-btn sidebar-btn-primary">
-                            Hubungi Kami
-                        </a>
-                        <a href="<?= htmlspecialchars($pelayanan_url) ?>" class="sidebar-btn sidebar-btn-outline">
-                            Kembali ke Pelayanan
-                        </a>
+                        <?= render_button([
+                            'href'    => $hubungi_url,
+                            'text'    => 'Hubungi Kami',
+                            'variant' => 'primary',
+                            'size'    => 'md',
+                            'class'   => 'btn-block'
+                        ]) ?>
+                        <?= render_button([
+                            'href'    => $pelayanan_url,
+                            'text'    => 'Kembali ke Pelayanan',
+                            'variant' => 'outline',
+                            'size'    => 'md',
+                            'class'   => 'btn-block'
+                        ]) ?>
                     </div>
                 </aside>
             </div>

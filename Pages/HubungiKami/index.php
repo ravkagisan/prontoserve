@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../Components/button.php';
+
 $current_page = 'hubungi-kami';
 
 $script_name = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
@@ -344,37 +346,7 @@ if (empty($layanan_pilihan)) {
             flex-shrink: 0;
         }
 
-        .btn-submit-message {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 11px 28px;
-            background-color: var(--brand-primary);
-            color: var(--bg-white);
-            border: 1.5px solid var(--brand-primary);
-            border-radius: var(--radius-pill);
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-sizing: border-box;
-            white-space: nowrap;
-        }
 
-        .btn-submit-message:hover {
-            background-color: #162c48;
-            border-color: #162c48;
-            box-shadow: 0 4px 14px rgba(30, 58, 95, 0.25);
-            transform: translateY(-1px);
-        }
-
-        .btn-submit-message svg {
-            width: 15px;
-            height: 15px;
-            stroke-width: 2.2;
-        }
 
         .contact-info-column {
             display: flex;
@@ -589,41 +561,7 @@ if (empty($layanan_pilihan)) {
             max-width: 240px;
         }
 
-        .success-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 11px 24px;
-            border-radius: var(--radius-pill);
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            box-sizing: border-box;
-        }
 
-        .success-btn-primary {
-            background-color: var(--brand-primary);
-            color: var(--bg-white);
-            border: 1.5px solid var(--brand-primary);
-        }
-
-        .success-btn-primary:hover {
-            background-color: #162c48;
-            border-color: #162c48;
-            box-shadow: 0 4px 12px rgba(30, 58, 95, 0.2);
-        }
-
-        .success-btn-outline {
-            background-color: var(--bg-white);
-            color: var(--brand-primary);
-            border: 1.5px solid var(--brand-primary);
-        }
-
-        .success-btn-outline:hover {
-            background-color: var(--bg-soft);
-        }
 
         @media (max-width: 1024px) {
             .contact-layout-grid {
@@ -682,12 +620,21 @@ if (empty($layanan_pilihan)) {
                         Terima kasih telah menghubungi JTI NOVA. Tim kami akan membalas melalui email atau WhatsApp dalam 1×24 jam kerja.
                     </p>
                     <div class="success-btn-group">
-                        <a href="<?= $base_url ?>/Pages/index.php" class="success-btn success-btn-primary">
-                            Kembali ke Beranda
-                        </a>
-                        <a href="<?= $base_url ?>/Pages/HubungiKami/index.php" class="success-btn success-btn-outline" id="btnKirimLagi">
-                            Kirim Pesan Lagi
-                        </a>
+                        <?= render_button([
+                            'href'    => $base_url . '/Pages/index.php',
+                            'text'    => 'Kembali ke Beranda',
+                            'variant' => 'primary',
+                            'size'    => 'md',
+                            'class'   => 'btn-block'
+                        ]) ?>
+                        <?= render_button([
+                            'href'    => $base_url . '/Pages/HubungiKami/index.php',
+                            'text'    => 'Kirim Pesan Lagi',
+                            'variant' => 'outline',
+                            'size'    => 'md',
+                            'id'      => 'btnKirimLagi',
+                            'class'   => 'btn-block'
+                        ]) ?>
                     </div>
                 </div>
             </div>
@@ -760,10 +707,15 @@ if (empty($layanan_pilihan)) {
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                                 <span>Data Anda aman & dirahasiakan</span>
                             </div>
-                            <button type="submit" class="btn-submit-message">
-                                <span>Kirim Pesan</span>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                            </button>
+                            <?= render_button([
+                                'type'          => 'submit',
+                                'text'          => 'Kirim Pesan',
+                                'icon'          => 'send',
+                                'icon_position' => 'right',
+                                'variant'       => 'primary',
+                                'size'          => 'md',
+                                'class'         => 'btn-submit-message'
+                            ]) ?>
                         </div>
                     </form>
                 </div>
