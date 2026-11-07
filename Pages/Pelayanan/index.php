@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 $current_page = 'pelayanan';
 
 $script_name = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
@@ -401,9 +401,8 @@ $carousel_slides = [
     $cta_btn_href  = $hubungi_url;
     $cta_variant   = 'dark';
     require_once __DIR__ . '/../../Components/ctacontainer.php';
+    require_once __DIR__ . '/../../Components/footer.php';
     ?>
-
-    <?php require_once __DIR__ . '/../../Components/footer.php'; ?>
 
 </body>
 

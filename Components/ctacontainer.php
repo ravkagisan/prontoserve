@@ -52,23 +52,8 @@ if (!function_exists('render_cta')) {
 
         ob_start();
         ?>
-        <section class="cta-section cta-variant-<?= htmlspecialchars($variant) ?><?= $extra_class ? ' ' . htmlspecialchars($extra_class) : '' ?>"<?= $id_attr ?>>
-            <div class="cta-container">
-                <div class="cta-inner">
-                    <div class="cta-text">
-                        <h2 class="cta-title"><?= htmlspecialchars($title) ?></h2>
-                        <?php if ($subtitle): ?>
-                            <p class="cta-subtitle"><?= htmlspecialchars($subtitle) ?></p>
-                        <?php endif; ?>
-                    </div>
-                    <div class="cta-action">
-                        <?= $action_button ?>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <?php
-        return ob_get_clean();
+<section class="cta-section cta-variant-<?= htmlspecialchars($variant) ?><?= $extra_class ? ' ' . htmlspecialchars($extra_class) : '' ?>"<?= $id_attr ?>><div class="cta-container"><div class="cta-inner"><div class="cta-text"><h2 class="cta-title"><?= htmlspecialchars($title) ?></h2><?php if ($subtitle): ?><p class="cta-subtitle"><?= htmlspecialchars($subtitle) ?></p><?php endif; ?></div><div class="cta-action"><?= $action_button ?></div></div></div></section><?php
+        return trim(ob_get_clean());
     }
 }
 
@@ -78,12 +63,12 @@ define('PRONTOSERVE_CTA_CSS_LOADED', true);
 <style>
 .cta-section {
     width: 100%;
-    margin: 0;
+    margin: 0 !important;
     padding: var(--space-48) 0;
     box-sizing: border-box;
     display: block;
     position: relative;
-    border-bottom: none;
+    border: none !important;
 }
 
 .cta-variant-dark {
@@ -149,7 +134,8 @@ define('PRONTOSERVE_CTA_CSS_LOADED', true);
 }
 
 /* ── Seamless Connection to Footer ── */
-.cta-section + .site-footer {
+.cta-section + .site-footer,
+.cta-section ~ .site-footer {
     margin-top: 0 !important;
 }
 
@@ -199,10 +185,9 @@ define('PRONTOSERVE_CTA_CSS_LOADED', true);
 }
 </style>
 <?php endif; ?>
-
 <?php
 if (isset($cta_title) || isset($cta_subtitle) || isset($cta_btn_text)) {
-    echo render_cta([
+    echo trim(render_cta([
         'title'       => $cta_title       ?? 'Ingin berkolaborasi dengan kami?',
         'subtitle'    => $cta_subtitle    ?? '',
         'btn_text'    => $cta_btn_text    ?? 'Hubungi Kami',
@@ -210,5 +195,5 @@ if (isset($cta_title) || isset($cta_subtitle) || isset($cta_btn_text)) {
         'variant'     => $cta_variant     ?? 'dark',
         'id'          => $cta_id          ?? null,
         'class'       => $cta_class       ?? '',
-    ]);
+    ]));
 }

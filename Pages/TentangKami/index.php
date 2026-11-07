@@ -435,9 +435,8 @@ $mitra = [
     $cta_btn_href  = '#';
     $cta_variant   = 'dark';
     include_once __DIR__ . '/../../Components/ctacontainer.php';
+    include_once __DIR__ . '/../../Components/footer.php';
     ?>
-
-    <?php include_once __DIR__ . '/../../Components/footer.php'; ?>
 
 </body>
 

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if (!isset($current_page)) {
     $current_page = 'tentang-kami';
 }
@@ -26,8 +26,7 @@ $footerLinks = [
     ['key' => 'tim',          'label' => 'Tim',          'href' => '/Pages/Tim/index.php'],
     ['key' => 'hubungi-kami', 'label' => 'Hubungi Kami', 'href' => '/Pages/HubungiKami/index.php'],
 ];
-?>
-
+?><footer class="site-footer">
 <style>
 .site-footer {
     background-color: var(--bg-dark);
@@ -35,6 +34,9 @@ $footerLinks = [
     font-family: 'Inter', sans-serif;
     padding-top: 56px;
     padding-bottom: 56px;
+    margin: 0 !important;
+    position: relative;
+    border: none;
 }
 
 .site-footer .footer-container {
@@ -176,6 +178,43 @@ a.footer-contact-text:hover {
     color: var(--bg-white);
 }
 
+/* ── Bottom: copyright ── */
+.footer-bottom {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.footer-copyright {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.4);
+    margin: 0;
+}
+
+.footer-bottom-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-bottom-links a {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-bottom-links a:hover {
+    color: var(--bg-white);
+}
+
 /* ── Responsive ── */
 @media (max-width: 1024px) {
     .site-footer .footer-container {
@@ -193,6 +232,12 @@ a.footer-contact-text:hover {
     .footer-col-brand {
         grid-column: 1 / -1;
     }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -206,8 +251,6 @@ a.footer-contact-text:hover {
     }
 }
 </style>
-
-<footer class="site-footer">
     <div class="footer-container">
         <div class="site-footer__grid">
 
@@ -276,8 +319,20 @@ a.footer-contact-text:hover {
                     </span>
                     <span class="footer-contact-text"><?= htmlspecialchars($footerAlamat) ?></span>
                 </div>
+
             </div>
 
+        </div>
+
+        <!-- Bawah: Copyright -->
+        <div class="footer-bottom">
+            <p class="footer-copyright">
+                &copy; <?= date('Y') ?> JTI NOVA &bull; TEFA Jurusan Teknologi Informasi &bull; Politeknik Negeri Jember.
+            </p>
+            <ul class="footer-bottom-links">
+                <li><a href="<?= htmlspecialchars($base_url) ?>/Pages/HubungiKami/index.php">Bantuan</a></li>
+                <li><a href="<?= htmlspecialchars($base_url) ?>/Pages/TentangKami/index.php">Tentang</a></li>
+            </ul>
         </div>
     </div>
 </footer>
