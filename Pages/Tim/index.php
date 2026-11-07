@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -320,9 +320,8 @@ $carousel_slides = [
     $cta_btn_href  = $hubungi_url;
     $cta_variant   = 'dark';
     require_once __DIR__ . '/../../Components/ctacontainer.php';
+    require_once __DIR__ . '/../../Components/footer.php';
     ?>
-
-    <?php require_once __DIR__ . '/../../Components/footer.php'; ?>
 
 </body>
 
