@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $current_page = 'pelayanan';
 
 $script_name = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
@@ -418,15 +418,14 @@ $carousel_slides = [
         </div>
     </section>
 
-    <section class="cta">
-        <div class="container cta__inner">
-            <div>
-                <h2 class="heading-2 cta__title">Siap memulai proyek Anda?</h2>
-                <p class="cta__text">Konsultasikan kebutuhan Anda bersama tim JTI NOVA.</p>
-            </div>
-            <a class="cta__btn" href="<?= htmlspecialchars($hubungi_url) ?>">Hubungi Kami</a>
-        </div>
-    </section>
+    <?php
+    $cta_title     = 'Siap memulai proyek Anda?';
+    $cta_subtitle  = 'Konsultasikan kebutuhan Anda bersama tim JTI NOVA.';
+    $cta_btn_text  = 'Hubungi Kami';
+    $cta_btn_href  = $hubungi_url;
+    $cta_variant   = 'dark';
+    require_once __DIR__ . '/../../Components/ctacontainer.php';
+    ?>
 
     <?php require_once __DIR__ . '/../../Components/footer.php'; ?>
 
