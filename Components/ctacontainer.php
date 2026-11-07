@@ -6,7 +6,7 @@ if (!isset($current_page)) {
 }
 
 $script_name = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
-if (preg_match('#^(.*?)/(Pages|api|Components)#', $script_name, $matches)) {
+if (preg_match('#^(.*?)/(Pages|api|Components|error)#', $script_name, $matches)) {
     $base_url = $matches[1];
 } else {
     $base_url = rtrim(dirname($script_name), '/\\');
