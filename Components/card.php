@@ -53,7 +53,12 @@ if (!function_exists('render_card')) {
         }
 
         $id_attr = $id ? 'id="' . htmlspecialchars($id) . '"' : '';
-        $card_classes = 'card custom-card card-' . htmlspecialchars($variant) . ($href && $variant === 'project' ? ' custom-card-clickable' : '') . ($extra_class ? ' ' . htmlspecialchars($extra_class) : '');
+
+        // Kartu "project" dan "team" bisa diklik penuh jika punya href
+        $is_clickable = $href && in_array($variant, ['project', 'team'], true);
+        $card_classes = 'card custom-card card-' . htmlspecialchars($variant)
+            . ($is_clickable ? ' custom-card-clickable' : '')
+            . ($extra_class ? ' ' . htmlspecialchars($extra_class) : '');
 
         ob_start();
         ?>
@@ -80,6 +85,34 @@ if (!function_exists('render_card')) {
                     <?php endif; ?>
                 </div>
             </a>
+
+        <?php elseif ($variant === 'team' && $href): ?>
+            <a href="<?= htmlspecialchars($href) ?>" class="<?= $card_classes ?>" <?= $id_attr ?> <?= $attributes ?>>
+                <div class="card-inner card-inner-team">
+                    <div class="card-img-portrait-wrap">
+                        <img src="<?= htmlspecialchars($image) ?>" alt="<?= htmlspecialchars($title) ?>" class="card-img">
+                    </div>
+                    <div class="card-body card-body-center">
+                        <h3 class="card-title"><?= htmlspecialchars($title) ?></h3>
+                        <p class="card-subtitle"><?= htmlspecialchars($subtitle ?: $description) ?></p>
+                        <div class="card-social-dots">
+                            <?php if (!empty($social_links) && is_array($social_links)): ?>
+                                <?php foreach ($social_links as $item): ?>
+                                    <?php /* Pakai span (bukan <a>) karena <a> tidak boleh bersarang di dalam <a> */ ?>
+                                    <span class="social-dot" aria-hidden="true">
+                                        <?= !empty($item['icon']) ? $item['icon'] : '' ?>
+                                    </span>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <span class="social-dot"></span>
+                                <span class="social-dot"></span>
+                                <span class="social-dot"></span>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
         <?php else: ?>
             <div class="<?= $card_classes ?>" <?= $id_attr ?> <?= $attributes ?>>
                 <?php if ($variant === 'project'): ?>
@@ -145,6 +178,7 @@ if (!function_exists('render_card')) {
                     </div>
 
                 <?php elseif ($variant === 'team'): ?>
+                    <?php /* Varian team tanpa href: tampil biasa, tidak bisa diklik */ ?>
                     <div class="card-inner card-inner-team">
                         <div class="card-img-portrait-wrap">
                             <img src="<?= htmlspecialchars($image) ?>" alt="<?= htmlspecialchars($title) ?>" class="card-img">
@@ -230,6 +264,11 @@ define('PRONTOSERVE_CARD_CSS_LOADED', true);
     text-decoration: none;
     color: inherit;
     cursor: pointer;
+}
+
+.custom-card-clickable:focus-visible {
+    outline: 2px solid var(--brand-primary);
+    outline-offset: 3px;
 }
 
 .custom-card:hover {
