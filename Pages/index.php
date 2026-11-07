@@ -10,6 +10,106 @@ if (preg_match('#^(.*?)/(Pages|api|Components)#', $script_name, $matches)) {
         $base_url = '';
     }
 }
+
+$images_url    = $base_url . '/Assets/images/';
+$pelayanan_url = $base_url . '/Pages/Pelayanan/index.php';
+$pelatihan_url = $base_url . '/Pages/Pelatihan/index.php';
+$portofolio_url = $base_url . '/Pages/Portofolio/index.php';
+$tim_url        = $base_url . '/Pages/Tim/index.php';
+$tentang_url    = $base_url . '/Pages/TentangKami/index.php';
+$hubungi_url    = $base_url . '/Pages/HubungiKami/index.php';
+$detail_url     = $base_url . '/Pages/Pelayanan/Detail/index.php';
+
+$layanan = [
+    [
+        'judul'     => 'IT Consultant',
+        'deskripsi' => 'Konsultasi kebutuhan, perancangan, dan strategi transformasi digital.',
+        'href'      => $detail_url,
+        'img'       => 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&q=80&auto=format&fit=crop',
+        'icon_path' => 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 1 1 7.072 0l-.548.547A3.374 3.374 0 0 0 14 18.469V19a2 2 0 1 1-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z',
+    ],
+    [
+        'judul'     => 'IT Solution',
+        'deskripsi' => 'Pengembangan website, aplikasi mobile, dan sistem informasi.',
+        'href'      => $detail_url,
+        'img'       => 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80&auto=format&fit=crop',
+        'icon_path' => 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4',
+    ],
+    [
+        'judul'     => 'Pelatihan',
+        'deskripsi' => 'Pelatihan teknologi informasi dengan kurikulum berbasis industri.',
+        'href'      => $pelatihan_url,
+        'img'       => 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&q=80&auto=format&fit=crop',
+        'icon_path' => 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253',
+    ],
+    [
+        'judul'     => 'Pendampingan',
+        'deskripsi' => 'Pendampingan pengembangan produk digital dan UMKM.',
+        'href'      => $detail_url,
+        'img'       => 'https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=600&q=80&auto=format&fit=crop',
+        'icon_path' => 'M17 20h5v-2a3 3 0 0 0-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 0 1 5.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 0 1 9.288 0M15 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0z',
+    ],
+];
+
+$alur = [
+    ['judul' => 'Konsultasi',           'teks' => 'Sampaikan kebutuhan dan tujuan Anda kepada tim kami.'],
+    ['judul' => 'Proposal & Penawaran', 'teks' => 'Kami menyusun solusi, estimasi waktu, dan biaya.'],
+    ['judul' => 'Pengerjaan',           'teks' => 'Tim dan mahasiswa mengerjakan sesuai kesepakatan.'],
+    ['judul' => 'Serah Terima',         'teks' => 'Produk diserahkan beserta dokumentasi dan dukungan.'],
+];
+
+$pencapaian = [
+    ['value' => '50+', 'label' => 'Proyek selesai'],
+    ['value' => '12+', 'label' => 'Mitra kerja sama'],
+    ['value' => '8+',  'label' => 'Program pelatihan'],
+    ['value' => '30+', 'label' => 'Tenaga profesional'],
+];
+
+$pelatihan_terbaru = [
+    ['judul' => 'Pemrograman Web Fullstack', 'badge' => 'Sertifikasi', 'tanggal' => '15 Nov 2026', 'mode' => 'Tatap muka / hybrid', 'kuota' => 30],
+    ['judul' => 'UI/UX Design dengan Figma',  'badge' => 'Sertifikasi', 'tanggal' => '29 Nov 2026', 'mode' => 'Tatap muka / hybrid', 'kuota' => 25],
+    ['judul' => 'Pemrograman Mobile',          'badge' => 'Sertifikasi', 'tanggal' => '13 Des 2026', 'mode' => 'Tatap muka / hybrid', 'kuota' => 30],
+    ['judul' => 'Data & Analitik',             'badge' => 'Pre-Master',  'tanggal' => '20 Des 2026', 'mode' => 'Hybrid',              'kuota' => 30],
+];
+
+$proyek_unggulan = [
+    [
+        'title'    => 'Sistem Informasi Akademik',
+        'category' => 'Website',
+        'href'     => $portofolio_url,
+        'img'      => 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=700&q=80&auto=format&fit=crop',
+        'color'    => '#1E3A5F',
+    ],
+    [
+        'title'    => 'Aplikasi Absensi Mahasiswa',
+        'category' => 'Mobile App',
+        'href'     => $portofolio_url,
+        'img'      => 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=700&q=80&auto=format&fit=crop',
+        'color'    => '#1e293b',
+    ],
+    [
+        'title'    => 'Smart Monitoring Pertanian',
+        'category' => 'IoT',
+        'href'     => $portofolio_url,
+        'img'      => 'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=700&q=80&auto=format&fit=crop',
+        'color'    => '#14532d',
+    ],
+    [
+        'title'    => 'Aplikasi Layanan Desa',
+        'category' => 'Web & Mobile',
+        'href'     => $portofolio_url,
+        'img'      => 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=700&q=80&auto=format&fit=crop',
+        'color'    => '#0369a1',
+    ],
+];
+
+$keunggulan = [
+    ['title' => 'Berbasis Proyek Nyata',  'text' => 'Mahasiswa terlibat langsung pada proyek industri.', 'icon' => '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>'],
+    ['title' => 'Instruktur Profesional', 'text' => 'Dibimbing dosen dan praktisi berpengalaman.',        'icon' => '<path d="M4 7h16M4 12h16M4 17h16"/>'],
+    ['title' => 'Bersertifikasi',         'text' => 'Pelatihan dengan sertifikat kompetensi.',            'icon' => '<path d="M5 13l4 4L19 7"/>'],
+    ['title' => 'Kolaborasi Industri',    'text' => 'Kemitraan dengan perusahaan dan instansi.',          'icon' => '<path d="M7 7h12l-3-3M17 17H5l3 3"/>'],
+];
+
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -17,15 +117,1146 @@ if (preg_match('#^(.*?)/(Pages|api|Components)#', $script_name, $matches)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beranda - JTI NOVA</title>
-    <link rel="stylesheet" href="<?= $base_url ?>/Style/style.css">
+    <link rel="stylesheet" href="<?= htmlspecialchars($base_url) ?>/Style/style.css">
+    <?php require_once __DIR__ . '/../Components/button.php'; ?>
+<style>
+
+.reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.vis { opacity: 1; transform: translateY(0); }
+.rv1 { transition-delay: 0.07s; }
+.rv2 { transition-delay: 0.14s; }
+.rv3 { transition-delay: 0.21s; }
+.rv4 { transition-delay: 0.28s; }
+@media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
+.hs { padding: 80px 0; }
+.hs--sm { padding: 56px 0; }
+.hs--lg { padding: 100px 0; }
+.hs__eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--brand-teal);
+    margin-bottom: 10px;
+}
+.hs__title {
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 700;
+    color: var(--brand-primary);
+    line-height: 1.2;
+    letter-spacing: -0.4px;
+    margin: 0 0 12px;
+}
+.hs__sub {
+    font-size: 15.5px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin: 0;
+    max-width: 480px;
+}
+
+.hero-tech {
+    position: relative;
+    background: radial-gradient(circle at 82% 45%, rgba(6, 182, 212, 0.22) 0%, rgba(14, 116, 144, 0.12) 35%, transparent 68%),
+                radial-gradient(circle at 18% 30%, rgba(30, 58, 95, 0.65) 0%, transparent 52%),
+                #030e21;
+    min-height: 86vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 110px 0 170px;
+    color: #ffffff;
+}
+
+.hero-tech__glow {
+    position: absolute;
+    top: 20%;
+    right: 5%;
+    width: 620px;
+    height: 620px;
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.18) 0%, rgba(14, 116, 144, 0.08) 45%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(48px);
+    pointer-events: none;
+    z-index: 1;
+    animation: auraBreath 8s ease-in-out infinite;
+}
+
+.hero-tech__visual {
+    position: absolute;
+    top: 50%;
+    right: -2%;
+    transform: translateY(-50%);
+    width: 58%;
+    max-width: 900px;
+    height: auto;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.92;
+}
+
+.hero-tech__svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.tech-ring {
+    transform-origin: 600px 360px;
+    animation: techPulse 6s ease-in-out infinite;
+}
+.tech-ring--1 { animation-delay: 0s; }
+.tech-ring--2 { animation-delay: 1.8s; }
+.tech-ring--3 { animation-delay: 3.6s; }
+
+.tech-ring-sub {
+    transform-origin: 420px 200px;
+    animation: techPulseSub 5s ease-in-out infinite;
+}
+
+.tech-line {
+    animation: techDash 20s linear infinite;
+}
+
+.tech-node--pulse {
+    animation: nodeDrift 4s ease-in-out infinite;
+}
+
+.tech-float-dot {
+    animation: techDrift 5s ease-in-out infinite alternate;
+}
+.tech-float-dot.dot-2 { animation-delay: 1.5s; }
+.tech-float-dot.dot-3 { animation-delay: 3s; }
+
+@keyframes techPulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.55;
+    }
+    50% {
+        transform: scale(1.06);
+        opacity: 0.95;
+    }
+}
+
+@keyframes techPulseSub {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.45;
+    }
+    50% {
+        transform: scale(1.12);
+        opacity: 0.85;
+    }
+}
+
+@keyframes techDash {
+    to {
+        stroke-dashoffset: -48;
+    }
+}
+
+@keyframes nodeDrift {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+@keyframes auraBreath {
+    0%, 100% {
+        opacity: 0.65;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.95;
+        transform: scale(1.08);
+    }
+}
+
+.hero-tech__container {
+    position: relative;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.hero-tech__content {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-tech__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(8, 32, 64, 0.72);
+    border: 1px solid rgba(56, 189, 248, 0.45);
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.18);
+    border-radius: 999px;
+    padding: 7px 20px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 2.2px;
+    text-transform: uppercase;
+    color: #7dd3fc;
+    margin-bottom: 24px;
+    backdrop-filter: blur(8px);
+}
+
+.hero-tech__badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #38bdf8;
+    box-shadow: 0 0 8px #38bdf8;
+    animation: nodeDrift 2s ease-in-out infinite;
+}
+
+.hero-tech__title {
+    font-size: clamp(38px, 6.2vw, 76px);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -1.4px;
+    color: #ffffff;
+    margin: 0 0 24px;
+    text-shadow: 0 4px 28px rgba(0, 0, 0, 0.35);
+}
+
+.hero-tech__gradient {
+    background: linear-gradient(135deg, #00d2ff 0%, #00f2fe 50%, #4facfe 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    filter: drop-shadow(0 2px 14px rgba(0, 210, 255, 0.32));
+}
+
+.hero-tech__desc {
+    font-size: clamp(15.5px, 1.85vw, 18px);
+    line-height: 1.68;
+    color: rgba(226, 232, 240, 0.88);
+    max-width: 660px;
+    margin: 0 auto 38px;
+    font-weight: 400;
+}
+
+.hero-tech__actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.hero-tech__btn-primary.blob-btn-primary-solid {
+    background: transparent;
+}
+.hero-tech__btn-primary .blob-btn__inner {
+    background-color: #2563eb !important;
+}
+.hero-tech__btn-primary .blob-btn__blob {
+    background-color: #1d4ed8 !important;
+}
+.hero-tech__btn-primary:before {
+    border-color: #3b82f6 !important;
+}
+.hero-tech__btn-primary:hover:not(.btn-disabled):not(:disabled) {
+    box-shadow: 0 8px 28px rgba(37, 99, 235, 0.5) !important;
+    transform: translateY(-2px);
+}
+
+.hero-tech__btn-secondary {
+    color: #f8fafc !important;
+}
+.hero-tech__btn-secondary:before {
+    border-color: rgba(255, 255, 255, 0.35) !important;
+}
+.hero-tech__btn-secondary .blob-btn__inner {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    backdrop-filter: blur(8px);
+}
+.hero-tech__btn-secondary .blob-btn__blob {
+    background-color: #ffffff !important;
+}
+.hero-tech__btn-secondary:hover:not(.btn-disabled):not(:disabled) {
+    color: #030e21 !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+    transform: translateY(-2px);
+}
+
+.reveal-hero {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: heroEntrance 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.rv-hero-1 { animation-delay: 0.12s; }
+.rv-hero-2 { animation-delay: 0.24s; }
+.rv-hero-3 { animation-delay: 0.36s; }
+
+@keyframes heroEntrance {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-tech__bottom-fade {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 220px;
+    background: linear-gradient(180deg, 
+        rgba(3, 14, 33, 0) 0%, 
+        rgba(200, 230, 245, 0.12) 30%, 
+        rgba(255, 255, 255, 0.5) 60%, 
+        rgba(255, 255, 255, 0.88) 85%, 
+        #ffffff 100%
+    );
+    pointer-events: none;
+    z-index: 3;
+}
+
+@media (max-width: 1024px) {
+    .hero-tech__visual {
+        width: 75%;
+        opacity: 0.65;
+        right: -10%;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-tech {
+        padding: 72px 0 64px;
+        min-height: auto;
+    }
+    .hero-tech__visual {
+        width: 95%;
+        opacity: 0.4;
+        right: -20%;
+    }
+    .hero-tech__title {
+        font-size: 38px;
+        letter-spacing: -0.8px;
+    }
+    .hero-tech__desc {
+        font-size: 15px;
+    }
+    .hero-tech__actions {
+        width: 100%;
+        flex-direction: column;
+    }
+    .hero-tech__actions .btn {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal-hero {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+    }
+    .tech-ring, .tech-ring-sub, .tech-line, .tech-node--pulse, .tech-float-dot, .hero-tech__glow {
+        animation: none !important;
+    }
+}
+
+.layanan-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 20px;
+}
+.layan-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--bg-white);
+    border: 1px solid var(--border-default);
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+    position: relative;
+}
+.layan-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 40px rgba(30,58,95,0.13);
+    border-color: var(--brand-primary);
+}
+.layan-card:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 3px; }
+
+.layan-card--featured {
+    grid-row: 1 / 3;
+}
+.layan-card__thumb {
+    width: 100%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.layan-card--featured .layan-card__thumb { height: 240px; }
+.layan-card--small .layan-card__thumb    { height: 140px; }
+.layan-card__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+.layan-card:hover .layan-card__thumb img { transform: scale(1.06); }
+
+.layan-card__body {
+    padding: 20px 22px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+.layan-card--featured .layan-card__body { padding: 24px 26px 26px; }
+.layan-card__cat {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--brand-teal);
+}
+.layan-card__title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--brand-primary);
+    line-height: 1.3;
+    margin: 0;
+}
+.layan-card--featured .layan-card__title { font-size: 20px; }
+.layan-card__desc {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+.layan-card__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--brand-primary);
+    margin-top: auto;
+    padding-top: 10px;
+    text-decoration: none;
+    transition: gap 0.2s;
+}
+.layan-card:hover .layan-card__cta { gap: 9px; }
+.layan-card__cta svg {
+    width: 14px; height: 14px;
+    stroke: currentColor; stroke-width: 2.5;
+    fill: none; stroke-linecap: round; stroke-linejoin: round;
+    flex-shrink: 0;
+}
+
+.alur-section {
+    background: var(--brand-primary);
+    padding: 88px 0;
+    overflow: hidden;
+}
+.alur-section .hs__eyebrow { color: var(--brand-teal); }
+.alur-section .hs__title   { color: var(--bg-white); }
+.alur-section .hs__sub     { color: rgba(255,255,255,0.68); }
+
+.alur-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 16px;
+    align-items: center;
+    margin-top: 48px;
+}
+.alur-card {
+    border-radius: 18px;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: transform 0.25s ease;
+}
+.alur-card:hover { transform: translateY(-4px); }
+.alur-card--side {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+}
+.alur-card--center {
+    background: var(--bg-white);
+    transform: translateY(-18px);
+    box-shadow: 0 20px 56px rgba(0,0,0,0.25);
+}
+.alur-card--center:hover { transform: translateY(-22px); }
+.alur-card__no {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.alur-card--side .alur-card__no   { color: var(--brand-teal); }
+.alur-card--center .alur-card__no { color: var(--brand-teal); }
+.alur-card__icon-wrap {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+}
+.alur-card--side .alur-card__icon-wrap   { background: rgba(141,188,194,0.18); }
+.alur-card--center .alur-card__icon-wrap { background: var(--bg-soft); }
+.alur-card__icon-wrap svg {
+    width: 22px; height: 22px;
+    stroke-width: 2; fill: none;
+    stroke-linecap: round; stroke-linejoin: round;
+}
+.alur-card--side .alur-card__icon-wrap svg   { stroke: var(--brand-teal); }
+.alur-card--center .alur-card__icon-wrap svg { stroke: var(--brand-primary); }
+.alur-card__title {
+    font-size: 16px; font-weight: 700; line-height: 1.3; margin: 0;
+}
+.alur-card--side .alur-card__title   { color: var(--bg-white); }
+.alur-card--center .alur-card__title { color: var(--brand-primary); font-size: 18px; }
+.alur-card__desc {
+    font-size: 13.5px; line-height: 1.6; margin: 0;
+}
+.alur-card--side .alur-card__desc   { color: rgba(255,255,255,0.65); }
+.alur-card--center .alur-card__desc { color: var(--text-secondary); font-size: 14px; }
+
+.proyek-section { background: var(--bg-soft); padding: 80px 0; border-top: 1px solid var(--border-default); }
+.proyek-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 20px;
+}
+.proyek-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--bg-white);
+    border: 1px solid var(--border-default);
+    cursor: pointer;
+    transition: transform 0.28s ease, box-shadow 0.28s ease;
+    position: relative;
+}
+.proyek-card:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(30,58,95,0.12); }
+.proyek-card:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 3px; }
+.proyek-card__img {
+    width: 100%; overflow: hidden; position: relative;
+}
+.proyek-card--wide { grid-column: 1 / 3; }
+.proyek-card--wide .proyek-card__img { height: 260px; }
+.proyek-card--normal .proyek-card__img { height: 190px; }
+.proyek-card__img img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.45s ease;
+}
+.proyek-card:hover .proyek-card__img img { transform: scale(1.05); }
+.proyek-card__overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%);
+}
+.proyek-card__body {
+    padding: 20px 24px 22px;
+    display: flex; flex-direction: column; gap: 6px;
+}
+.proyek-card__cat {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.2px;
+    text-transform: uppercase; color: var(--brand-teal);
+}
+.proyek-card__title {
+    font-size: 16px; font-weight: 700;
+    color: var(--brand-primary); line-height: 1.3; margin: 0;
+}
+.proyek-card--wide .proyek-card__title { font-size: 19px; }
+
+.pel-kg-split {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 72px;
+    align-items: start;
+}
+
+.pelatihan-list {
+    display: flex; flex-direction: column;
+    border: 1px solid var(--border-default);
+    border-radius: 16px; overflow: hidden;
+}
+.pel-row {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 20px; padding: 18px 24px;
+    text-decoration: none; color: inherit;
+    background: var(--bg-white);
+    border-bottom: 1px solid var(--border-default);
+    transition: background 0.2s;
+    cursor: pointer;
+}
+.pel-row:last-child { border-bottom: none; }
+.pel-row:hover { background: var(--bg-soft); }
+.pel-row:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: -2px; }
+.pel-row__left { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.pel-row__badge {
+    flex-shrink: 0;
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.4px;
+    color: var(--brand-primary); background: var(--bg-soft);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-badge); padding: 3px 10px;
+    white-space: nowrap;
+}
+.pel-row__judul {
+    font-size: 14.5px; font-weight: 600; color: var(--text-primary);
+    margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.pel-row__right {
+    display: flex; align-items: center; gap: 16px; flex-shrink: 0;
+}
+.pel-row__date {
+    font-size: 12.5px; color: var(--text-secondary); white-space: nowrap;
+}
+.pel-row__kuota {
+    font-size: 12px; font-weight: 600; color: var(--brand-teal); white-space: nowrap;
+}
+.pel-row__chev {
+    width: 16px; height: 16px;
+    stroke: var(--text-secondary); stroke-width: 2; fill: none;
+    stroke-linecap: round; stroke-linejoin: round;
+    transition: transform 0.2s, stroke 0.2s;
+}
+.pel-row:hover .pel-row__chev { transform: translateX(3px); stroke: var(--brand-primary); }
+
+.kg-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+}
+.kg-card {
+    background: var(--bg-soft);
+    border: 1px solid var(--border-default);
+    border-radius: 16px; padding: 24px 20px;
+    display: flex; flex-direction: column; gap: 12px;
+    transition: background 0.25s, border-color 0.25s, transform 0.25s;
+}
+.kg-card:hover { background: var(--bg-white); border-color: var(--brand-primary); transform: translateY(-3px); }
+.kg-card__icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: var(--bg-white); border: 1px solid var(--border-default);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.25s, border-color 0.25s;
+}
+.kg-card:hover .kg-card__icon { background: var(--brand-primary); border-color: var(--brand-primary); }
+.kg-card__icon svg {
+    width: 20px; height: 20px;
+    stroke: var(--brand-primary); stroke-width: 2; fill: none;
+    stroke-linecap: round; stroke-linejoin: round;
+    transition: stroke 0.25s;
+}
+.kg-card:hover .kg-card__icon svg { stroke: var(--bg-white); }
+.kg-card__title { font-size: 14px; font-weight: 700; color: var(--brand-primary); margin: 0; }
+.kg-card__text  { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 0; }
+
+.achieve-section { background: var(--brand-primary); padding: 88px 0; }
+.achieve-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center;
+}
+.achieve-left {}
+.achieve-left .hs__eyebrow { color: var(--brand-teal); }
+.achieve-left .hs__title   { color: var(--bg-white); margin-bottom: 32px; }
+.achieve-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 28px;
+}
+.achieve-stat {
+    border-top: 2px solid rgba(141,188,194,0.35);
+    padding-top: 20px;
+}
+.achieve-stat__value {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 700; color: var(--bg-white);
+    line-height: 1; display: block;
+}
+.achieve-stat__label {
+    font-size: 13px; color: rgba(255,255,255,0.6);
+    margin-top: 6px; display: block; line-height: 1.4;
+}
+.achieve-right { position: relative; }
+.achieve-img-wrap {
+    border-radius: 24px; overflow: hidden;
+    aspect-ratio: 4/3;
+    position: relative;
+}
+.achieve-img-wrap img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.achieve-badge {
+    position: absolute;
+    bottom: -16px; left: 24px;
+    background: var(--bg-white);
+    border-radius: 14px;
+    padding: 14px 20px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+    display: flex; align-items: center; gap: 12px;
+}
+.achieve-badge__icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: var(--bg-soft);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.achieve-badge__icon svg {
+    width: 20px; height: 20px;
+    stroke: var(--brand-primary); stroke-width: 2; fill: none;
+    stroke-linecap: round; stroke-linejoin: round;
+}
+.achieve-badge__text strong {
+    display: block; font-size: 15px; font-weight: 700; color: var(--brand-primary);
+}
+.achieve-badge__text span {
+    font-size: 12px; color: var(--text-secondary);
+}
+
+.promo-strip {
+    display: grid; grid-template-columns: 5fr 7fr;
+    min-height: 320px; overflow: hidden;
+}
+.promo-strip__img { position: relative; overflow: hidden; }
+.promo-strip__img img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.6s ease;
+}
+.promo-strip:hover .promo-strip__img img { transform: scale(1.04); }
+.promo-strip__content {
+    background: var(--bg-soft);
+    padding: 56px 64px;
+    display: flex; flex-direction: column; justify-content: center; gap: 20px;
+    border-top: 1px solid var(--border-default);
+    border-bottom: 1px solid var(--border-default);
+}
+.promo-strip__big {
+    font-size: clamp(28px, 4.5vw, 56px);
+    font-weight: 700; color: var(--brand-primary);
+    line-height: 1.1; letter-spacing: -1px; margin: 0;
+    text-transform: uppercase;
+}
+.promo-strip__big span { color: var(--brand-teal); }
+.promo-strip__sub {
+    font-size: 15px; color: var(--text-secondary); line-height: 1.65;
+    max-width: 400px; margin: 0;
+}
+.promo-strip__actions {
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    margin-top: 4px;
+}
+.promo-strip__tag {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: var(--brand-primary); color: var(--bg-white);
+    border-radius: 999px; padding: 7px 16px;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.3px;
+}
+.promo-strip__tag svg {
+    width: 15px; height: 15px;
+    stroke: var(--brand-teal); stroke-width: 2.5; fill: none;
+    stroke-linecap: round; stroke-linejoin: round;
+}
+
+@media (max-width: 1024px) {
+    .layanan-grid  { grid-template-columns: 1fr 1fr; }
+    .layan-card--featured { grid-row: auto; }
+    .layan-card--featured .layan-card__thumb { height: 180px; }
+    .alur-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+    .alur-card--center { transform: none; }
+    .alur-card--center:hover { transform: translateY(-4px); }
+    .proyek-grid { grid-template-columns: 1fr 1fr; }
+    .proyek-card--wide { grid-column: auto; }
+    .proyek-card--wide .proyek-card__img { height: 190px; }
+    .pel-kg-split { grid-template-columns: 1fr; gap: 48px; }
+    .achieve-inner { grid-template-columns: 1fr; gap: 48px; }
+    .achieve-right { display: none; }
+    .promo-strip { grid-template-columns: 1fr; }
+    .promo-strip__img { height: 220px; }
+    .promo-strip__content { padding: 40px 32px; }
+}
+@media (max-width: 768px) {
+    .hs { padding: 56px 0; }
+    .hs--lg { padding: 72px 0; }
+    .layanan-grid { grid-template-columns: 1fr; gap: 14px; }
+    .layan-card--featured .layan-card__thumb { height: 200px; }
+    .alur-grid { grid-template-columns: 1fr 1fr; }
+    .proyek-grid { grid-template-columns: 1fr; }
+    .proyek-card--wide { grid-column: auto; }
+    .achieve-stats { grid-template-columns: 1fr 1fr; gap: 20px; }
+    .pel-row__date { display: none; }
+    .kg-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 540px) {
+    .alur-grid { grid-template-columns: 1fr; }
+    .achieve-stats { grid-template-columns: 1fr 1fr; }
+    .promo-strip__big { font-size: 30px; }
+    .promo-strip__content { padding: 32px 20px; }
+    .proyek-grid { grid-template-columns: 1fr; }
+}
+</style>
 </head>
 <body>
 
 <?php require_once __DIR__ . '/../Components/navbar.php'; ?>
 
-<?php require_once __DIR__ . '/../Components/carousel.php'; ?>
+<section class="hero-tech" aria-labelledby="hero-tech-title">
+    <div class="hero-tech__glow" aria-hidden="true"></div>
 
-<?php require_once __DIR__ . '/../Components/footer.php'; ?>
+    
+    <div class="hero-tech__visual" aria-hidden="true">
+        <svg viewBox="0 0 800 700" fill="none" xmlns="http://www.w3.org/2000/svg" class="hero-tech__svg">
+            
+            <line x1="600" y1="360" x2="420" y2="200" stroke="rgba(56, 189, 248, 0.42)" stroke-width="1.5" stroke-dasharray="5 5" class="tech-line"/>
+            <line x1="600" y1="360" x2="680" y2="520" stroke="rgba(56, 189, 248, 0.38)" stroke-width="1.5" class="tech-line"/>
+            <line x1="420" y1="200" x2="280" y2="280" stroke="rgba(56, 189, 248, 0.32)" stroke-width="1.5" stroke-dasharray="4 4" class="tech-line"/>
+            <line x1="420" y1="200" x2="490" y2="80" stroke="rgba(56, 189, 248, 0.28)" stroke-width="1.5" class="tech-line"/>
+            <line x1="680" y1="520" x2="520" y2="610" stroke="rgba(56, 189, 248, 0.32)" stroke-width="1.5" class="tech-line"/>
+            <line x1="280" y1="280" x2="200" y2="420" stroke="rgba(56, 189, 248, 0.25)" stroke-width="1.5" class="tech-line"/>
+            <line x1="200" y1="420" x2="350" y2="530" stroke="rgba(56, 189, 248, 0.28)" stroke-width="1.5" class="tech-line"/>
+            <line x1="350" y1="530" x2="520" y2="610" stroke="rgba(56, 189, 248, 0.32)" stroke-width="1.5" class="tech-line"/>
+            <line x1="600" y1="360" x2="760" y2="280" stroke="rgba(56, 189, 248, 0.3)" stroke-width="1.5" stroke-dasharray="4 4" class="tech-line"/>
+
+            
+            <circle cx="600" cy="360" r="160" stroke="rgba(0, 212, 255, 0.16)" stroke-width="1.5" stroke-dasharray="6 6" class="tech-ring tech-ring--1"/>
+            <circle cx="600" cy="360" r="110" stroke="rgba(0, 212, 255, 0.32)" stroke-width="1.5" class="tech-ring tech-ring--2"/>
+            <circle cx="600" cy="360" r="68" stroke="rgba(0, 212, 255, 0.55)" stroke-width="2" class="tech-ring tech-ring--3"/>
+            <circle cx="600" cy="360" r="16" fill="#00e5ff" class="tech-node-core"/>
+            <circle cx="600" cy="360" r="8" fill="#ffffff"/>
+
+            
+            <circle cx="420" cy="200" r="28" stroke="rgba(56, 189, 248, 0.4)" stroke-width="1.5" class="tech-ring-sub"/>
+            <circle cx="420" cy="200" r="9" fill="#38bdf8" class="tech-node--pulse"/>
+            <circle cx="420" cy="200" r="4" fill="#ffffff"/>
+
+            
+            <circle cx="280" cy="280" r="7" fill="#00e5ff" class="tech-node--pulse"/>
+            <circle cx="680" cy="520" r="8" fill="#38bdf8" class="tech-node--pulse"/>
+            <circle cx="520" cy="610" r="7" fill="#00e5ff" class="tech-node--pulse"/>
+            <circle cx="200" cy="420" r="6" fill="#38bdf8"/>
+            <circle cx="350" cy="530" r="7" fill="#00e5ff"/>
+            <circle cx="490" cy="80"  r="6" fill="#38bdf8"/>
+            <circle cx="760" cy="280" r="6" fill="#00e5ff"/>
+
+            
+            <circle cx="550" cy="180" r="3" fill="#a5f3fc" class="tech-float-dot dot-1"/>
+            <circle cx="720" cy="340" r="2.5" fill="#a5f3fc" class="tech-float-dot dot-2"/>
+            <circle cx="330" cy="170" r="3" fill="#a5f3fc" class="tech-float-dot dot-3"/>
+            <circle cx="650" cy="480" r="2.5" fill="#a5f3fc" class="tech-float-dot dot-1"/>
+        </svg>
+    </div>
+
+    
+    <div class="container hero-tech__container">
+        <div class="hero-tech__content">
+
+            <h1 class="hero-tech__title reveal-hero rv-hero-1" id="hero-tech-title">
+                Digital<br>
+                <span class="hero-tech__gradient">Transformation</span><br>
+                Partner
+            </h1>
+
+            <p class="hero-tech__desc reveal-hero rv-hero-2">
+                Pusat inovasi teknologi dan riset terapan Jurusan Teknologi Informasi Politeknik Negeri Jember yang menghadirkan solusi perangkat lunak, sistem cerdas, dan pelatihan profesional berstandar industri.
+            </p>
+
+            <div class="hero-tech__actions reveal-hero rv-hero-3">
+                <?= render_button([
+                    'text'    => 'Konsultasi Sekarang',
+                    'href'    => $hubungi_url,
+                    'variant' => 'primary-solid',
+                    'size'    => 'lg',
+                    'class'   => 'hero-tech__btn-primary'
+                ]) ?>
+                <?= render_button([
+                    'text'    => 'Lihat Portofolio',
+                    'href'    => $portofolio_url,
+                    'variant' => 'outline-white',
+                    'size'    => 'lg',
+                    'class'   => 'hero-tech__btn-secondary'
+                ]) ?>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-tech__bottom-fade" aria-hidden="true"></div>
+</section>
+
+<section class="hs" aria-labelledby="layanan-ttl">
+    <div class="container">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;flex-wrap:wrap;gap:20px;">
+            <div class="reveal">
+                <span class="hs__eyebrow">Yang kami kerjakan</span>
+                <h2 class="hs__title" id="layanan-ttl">Layanan yang Tersedia</h2>
+                <p class="hs__sub">Dari konsultasi hingga pengembangan dan pelatihan, semua dikerjakan tim terlatih bersama mahasiswa Polije.</p>
+            </div>
+            <div class="reveal rv1">
+                <?= render_button(['text' => 'Semua Layanan', 'href' => $pelayanan_url, 'variant' => 'outline', 'size' => 'sm']) ?>
+            </div>
+        </div>
+
+        <div class="layanan-grid">
+            <?php foreach ($layanan as $i => $layan):
+                $is_feat = $i === 0;
+                $cls = $is_feat ? 'layan-card layan-card--featured reveal' : 'layan-card layan-card--small reveal rv' . $i;
+            ?>
+            <a href="<?= htmlspecialchars($layan['href']) ?>" class="<?= $cls ?>"
+               aria-label="Layanan <?= htmlspecialchars($layan['judul']) ?>">
+                <div class="layan-card__thumb">
+                    <img src="<?= htmlspecialchars($layan['img']) ?>"
+                         alt="Ilustrasi <?= htmlspecialchars($layan['judul']) ?>"
+                         width="600" height="<?= $is_feat ? 240 : 140 ?>"
+                         <?= $i === 0 ? 'fetchpriority="high"' : 'loading="lazy"' ?>>
+                </div>
+                <div class="layan-card__body">
+                    <span class="layan-card__cat">Layanan</span>
+                    <h3 class="layan-card__title"><?= htmlspecialchars($layan['judul']) ?></h3>
+                    <?php if ($is_feat): ?>
+                    <p class="layan-card__desc"><?= htmlspecialchars($layan['deskripsi']) ?></p>
+                    <?php endif; ?>
+                    <span class="layan-card__cta">
+                        Lihat detail
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </span>
+                </div>
+            </a>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+
+<section class="alur-section" aria-labelledby="alur-ttl">
+    <div class="container">
+        <div class="reveal" style="text-align:center; max-width:560px; margin:0 auto;">
+            <span class="hs__eyebrow">Cara kami bekerja</span>
+            <h2 class="hs__title" id="alur-ttl">Proses yang Jelas, Hasil yang Terukur</h2>
+            <p class="hs__sub" style="margin:0 auto;">Empat langkah sederhana dari konsultasi pertama hingga produk diterima dan berjalan.</p>
+        </div>
+
+        <div class="alur-grid">
+            <?php
+            $alur_icons = [
+                '<path d="M8 12h8M8 8h8M8 16h4"/>',
+                '<path d="M9 12l2 2 4-4"/><rect x="3" y="4" width="18" height="16" rx="2"/>',
+                '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>',
+                '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>',
+            ];
+            foreach ($alur as $i => $step):
+                $is_center = ($i === 1 || $i === 2);
+                $cls = $is_center ? 'alur-card alur-card--center reveal rv' . ($i + 1) : 'alur-card alur-card--side reveal rv' . ($i + 1);
+            ?>
+            <div class="<?= $cls ?>">
+                <span class="alur-card__no">Langkah <?= sprintf('%02d', $i + 1) ?></span>
+                <div class="alur-card__icon-wrap">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <?= $alur_icons[$i] ?>
+                    </svg>
+                </div>
+                <h3 class="alur-card__title"><?= htmlspecialchars($step['judul']) ?></h3>
+                <p class="alur-card__desc"><?= htmlspecialchars($step['teks']) ?></p>
+            </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+
+<section class="proyek-section" aria-labelledby="proyek-ttl">
+    <div class="container">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;flex-wrap:wrap;gap:20px;">
+            <div class="reveal">
+                <span class="hs__eyebrow">Karya nyata</span>
+                <h2 class="hs__title" id="proyek-ttl">Proyek Unggulan</h2>
+                <p class="hs__sub">Produk dan sistem yang sudah berjalan, dikembangkan bersama mitra instansi dan industri.</p>
+            </div>
+            <div class="reveal rv1">
+                <?= render_button(['text' => 'Semua Proyek', 'href' => $portofolio_url, 'variant' => 'outline', 'size' => 'sm']) ?>
+            </div>
+        </div>
+
+        <div class="proyek-grid">
+            <?php foreach ($proyek_unggulan as $i => $p):
+                $wide  = ($i === 0);
+                $cls   = 'proyek-card ' . ($wide ? 'proyek-card--wide' : 'proyek-card--normal') . ' reveal rv' . ($i + 1);
+            ?>
+            <a href="<?= htmlspecialchars($p['href']) ?>" class="<?= $cls ?>"
+               aria-label="Proyek: <?= htmlspecialchars($p['title']) ?>">
+                <div class="proyek-card__img">
+                    <img src="<?= htmlspecialchars($p['img']) ?>"
+                         alt="<?= htmlspecialchars($p['title']) ?>"
+                         width="700" height="<?= $wide ? 260 : 190 ?>"
+                         loading="lazy">
+                    <div class="proyek-card__overlay" aria-hidden="true"></div>
+                </div>
+                <div class="proyek-card__body">
+                    <span class="proyek-card__cat"><?= htmlspecialchars($p['category']) ?></span>
+                    <h3 class="proyek-card__title"><?= htmlspecialchars($p['title']) ?></h3>
+                </div>
+            </a>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+
+<section class="hs" aria-label="Pelatihan dan keunggulan JTI NOVA">
+    <div class="container">
+        <div class="pel-kg-split">
+            
+            <div>
+                <div class="reveal" style="margin-bottom:28px;">
+                    <span class="hs__eyebrow">Jadwal terdekat</span>
+                    <h2 class="hs__title" id="pelatihan-ttl">Pelatihan yang Akan Datang</h2>
+                    <p class="hs__sub">Kurikulum praktis, instruktur berpengalaman, sertifikat kompetensi.</p>
+                </div>
+                <div class="pelatihan-list" role="list">
+                    <?php foreach ($pelatihan_terbaru as $i => $item): ?>
+                    <a href="<?= htmlspecialchars($pelatihan_url) ?>"
+                       class="pel-row reveal rv<?= $i + 1 ?>"
+                       role="listitem"
+                       aria-label="<?= htmlspecialchars($item['judul']) ?>, <?= htmlspecialchars($item['tanggal']) ?>">
+                        <div class="pel-row__left">
+                            <span class="pel-row__badge"><?= htmlspecialchars($item['badge']) ?></span>
+                            <p class="pel-row__judul"><?= htmlspecialchars($item['judul']) ?></p>
+                        </div>
+                        <div class="pel-row__right">
+                            <span class="pel-row__date"><?= htmlspecialchars($item['tanggal']) ?></span>
+                            <span class="pel-row__kuota"><?= (int)$item['kuota'] ?> kursi</span>
+                            <svg class="pel-row__chev" viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+                        </div>
+                    </a>
+                    <?php endforeach; ?>
+                </div>
+                <div style="margin-top:20px;" class="reveal rv4">
+                    <?= render_button(['text' => 'Lihat Semua Pelatihan', 'href' => $pelatihan_url, 'variant' => 'primary', 'size' => 'md']) ?>
+                </div>
+            </div>
+
+            
+            <div>
+                <div class="reveal" style="margin-bottom:28px;">
+                    <span class="hs__eyebrow">Mengapa JTI NOVA</span>
+                    <h2 class="hs__title">Apa yang membedakan kami</h2>
+                </div>
+                <div class="kg-grid">
+                    <?php foreach ($keunggulan as $i => $kg): ?>
+                    <div class="kg-card reveal rv<?= $i + 1 ?>">
+                        <div class="kg-card__icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><?= $kg['icon'] ?></svg>
+                        </div>
+                        <h3 class="kg-card__title"><?= htmlspecialchars($kg['title']) ?></h3>
+                        <p class="kg-card__text"><?= htmlspecialchars($kg['text']) ?></p>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="achieve-section" aria-labelledby="achieve-ttl">
+    <div class="container">
+        <div class="achieve-inner">
+            <div class="achieve-left reveal">
+                <span class="hs__eyebrow">Dalam angka</span>
+                <h2 class="hs__title" id="achieve-ttl">Hasil yang berbicara sendiri</h2>
+                <div class="achieve-stats" role="list">
+                    <?php foreach ($pencapaian as $stat): ?>
+                    <div class="achieve-stat" role="listitem">
+                        <span class="achieve-stat__value"><?= htmlspecialchars($stat['value']) ?></span>
+                        <span class="achieve-stat__label"><?= htmlspecialchars($stat['label']) ?></span>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+                <div style="margin-top:36px;">
+                    <?= render_button(['text' => 'Tentang JTI NOVA', 'href' => $tentang_url, 'variant' => 'white', 'size' => 'md']) ?>
+                </div>
+            </div>
+
+            <div class="achieve-right reveal rv2">
+                <div class="achieve-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80&auto=format&fit=crop"
+                         alt="Mahasiswa JTI NOVA bekerja dalam proyek"
+                         width="800" height="600"
+                         loading="lazy">
+                </div>
+                <div class="achieve-badge" aria-label="8+ program pelatihan tersedia">
+                    <div class="achieve-badge__icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <div class="achieve-badge__text">
+                        <strong>8+ Program Pelatihan</strong>
+                        <span>Bersertifikasi industri</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="promo-strip" aria-label="Mulai proyek bersama JTI NOVA">
+    <div class="promo-strip__img">
+        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=900&q=80&auto=format&fit=crop"
+             alt="Tim sedang mengerjakan proyek digital"
+             width="900" height="600"
+             loading="lazy">
+    </div>
+    <div class="promo-strip__content">
+        <h2 class="promo-strip__big reveal">
+            Wujudkan<br><span>Proyek</span><br>Digital Anda
+        </h2>
+        <p class="promo-strip__sub reveal rv1">
+            Tim JTI NOVA siap mendampingi dari tahap konsultasi hingga produk siap digunakan. Berbasis proyek nyata, bersama mahasiswa terlatih.
+        </p>
+        <div class="promo-strip__actions reveal rv2">
+            <?= render_button(['text' => 'Mulai Konsultasi', 'href' => $hubungi_url, 'variant' => 'primary', 'size' => 'md']) ?>
+            <span class="promo-strip__tag">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Respons dalam 1 hari kerja
+            </span>
+        </div>
+    </div>
+</div>
+
+<?php
+    $cta_title    = 'Siap memulai proyek Anda?';
+    $cta_subtitle = 'Konsultasikan kebutuhan Anda bersama tim JTI NOVA.';
+    $cta_btn_text = 'Hubungi Kami';
+    $cta_btn_href = $hubungi_url;
+    $cta_variant  = 'dark';
+    require_once __DIR__ . '/../Components/ctacontainer.php';
+    require_once __DIR__ . '/../Components/footer.php';
+?>
 
 </body>
+<script>
+(function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!window.IntersectionObserver) {
+        els.forEach(function (el) { el.classList.add('vis'); });
+        return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+            if (e.isIntersecting) { e.target.classList.add('vis'); io.unobserve(e.target); }
+        });
+    }, { threshold: 0.10 });
+    els.forEach(function (el) { io.observe(el); });
+})();
+</script>
 </html>
