@@ -21,10 +21,21 @@ $gambar_url = function ($nama) use ($images_url, $images_dir) {
 $tim_url     = $base_url . '/Pages/Tim/index.php';
 $hubungi_url = $base_url . '/Pages/HubungiKami/index.php';
 
+$foto_anggota = [
+    1 => 'suki.png',
+    2 => 'suki2.png',
+    3 => 'suki3.png',
+    4 => 'suki4.png',
+    5 => 'suki5.png',
+    6 => 'tim-6.jpg',
+    7 => 'tim-7.jpg',
+    8 => 'tim-8.jpg',
+];
+
 $anggota_katalog = [
     1 => [
         'id'          => 1,
-        'foto'        => 'tim-1.jpg',
+        'foto'        => $foto_anggota[1],
         'nama'        => 'Dr. Aria Wiguna, M.T.',
         'jabatan'     => 'Instruktur Senior',
         'bidang'      => 'Rekayasa Perangkat Lunak dan Data Science',
@@ -51,7 +62,7 @@ $anggota_lain = [
 foreach ($anggota_lain as $no => $baris) {
     $anggota_katalog[$no] = [
         'id'          => $no,
-        'foto'        => 'tim-' . $no . '.jpg',
+        'foto'        => $foto_anggota[$no],
         'nama'        => $baris[0],
         'jabatan'     => $baris[1],
         'bidang'      => $baris[2],
