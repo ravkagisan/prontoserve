@@ -540,9 +540,96 @@ $tech_stacks = [
             white-space: nowrap;
         }
 
+        html { -webkit-text-size-adjust: 100%; }
+        body { overflow-x: clip; }
+        img  { max-width: 100%; }
+
+        #proyek,
+        #studi-kasus { scroll-margin-top: 72px; }
+
+        .portofolio-grid > *,
+        .featured-case-card > *,
+        .featured-case-content > * { min-width: 0; }
+
+        .portofolio-page-title,
+        .featured-case-title,
+        .featured-case-headline,
+        .tech-stack-title,
+        .empty-title { overflow-wrap: anywhere; }
+
+        .portofolio-not-found-pill { max-width: 100%; box-sizing: border-box; }
+
+        .portofolio-search-container > * { width: 100%; min-width: 0; }
+
+        .portofolio-search-container .search-input-field { min-width: 0; }
+
+        @media (max-width: 1280px) {
+            .container {
+                padding-left: 64px;
+                padding-right: 64px;
+            }
+
+            .navbar .navbar-container {
+                padding-left: 64px;
+                padding-right: 64px;
+            }
+
+            body .carousel-wrapper .carousel-content-wrap {
+                padding-left: 64px;
+                padding-right: 64px;
+            }
+        }
+
+        @media (min-width: 901px) and (max-width: 1100px) {
+            .navbar .navbar-menu-wrapper {
+                gap: 16px;
+            }
+
+            .navbar .navbar-menu {
+                gap: 16px;
+            }
+
+            .navbar .nav-link {
+                font-size: 14px;
+            }
+        }
+
         @media (max-width: 1024px) {
+            .container {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+
+            .navbar .navbar-container {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+
+            body .carousel-wrapper .carousel-content-wrap {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+
+            .portofolio-catalog-section {
+                padding: 40px 0 64px;
+            }
+
+            .featured-case-section,
+            .tech-stack-section {
+                padding: 64px 0;
+            }
+
+            .featured-case-header {
+                margin-bottom: 36px;
+            }
+
+            .tech-stack-subtitle {
+                margin-bottom: 36px;
+            }
+
             .portofolio-grid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
             }
 
             .featured-case-card {
@@ -551,7 +638,72 @@ $tech_stacks = [
             }
         }
 
+        @media (max-width: 900px) {
+            .navbar .navbar-container {
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+
+            body .carousel-wrapper .carousel-content-wrap {
+                padding: 72px 24px 48px;
+            }
+
+            .portofolio-catalog-section {
+                padding: 32px 0 52px;
+            }
+
+            .featured-case-section,
+            .tech-stack-section {
+                padding: 52px 0;
+            }
+
+            .portofolio-page-title {
+                font-size: 28px;
+            }
+
+            .featured-case-title {
+                font-size: 24px;
+            }
+
+            .tech-stack-title {
+                font-size: 22px;
+            }
+
+            .featured-case-header {
+                margin-bottom: 28px;
+            }
+
+            .tech-stack-subtitle {
+                margin-bottom: 28px;
+            }
+
+            .portofolio-empty-state-card {
+                padding: 32px 16px;
+            }
+
+            .tech-marquee__item {
+                padding: 10px 22px;
+                margin-right: 16px;
+                gap: 10px;
+            }
+
+            .tech-marquee__name {
+                font-size: 13.5px;
+            }
+        }
+
         @media (max-width: 640px) {
+            body .carousel-wrapper {
+                height: 540px;
+            }
+
             .portofolio-grid {
                 grid-template-columns: 1fr;
             }
@@ -571,6 +723,116 @@ $tech_stacks = [
             .portofolio-filter-btn {
                 padding: 6px 14px;
                 font-size: 12px;
+            }
+
+            .portofolio-not-found-pill {
+                border-radius: 20px;
+                padding: 9px 18px;
+                margin-bottom: 32px;
+            }
+
+            .featured-case-visual-placeholder svg {
+                width: 52px;
+                height: 52px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            .navbar .navbar-container {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            body .carousel-wrapper .carousel-content-wrap {
+                padding: 72px 16px 48px;
+            }
+
+            body .mobile-overlay {
+                padding: 84px 24px 32px;
+            }
+
+            .mobile-overlay .mobile-nav-link {
+                font-size: 18px;
+                padding: 12px 0;
+            }
+
+            .mobile-overlay .mobile-dropdown-link {
+                font-size: 16px;
+            }
+
+            .portofolio-catalog-section {
+                padding: 28px 0 44px;
+            }
+
+            .featured-case-section,
+            .tech-stack-section {
+                padding: 44px 0;
+            }
+
+            .portofolio-page-title {
+                font-size: 24px;
+            }
+
+            .featured-case-title {
+                font-size: 22px;
+            }
+
+            .tech-stack-title {
+                font-size: 20px;
+            }
+
+            .featured-case-headline {
+                font-size: 18px;
+            }
+
+            .empty-icon-circle {
+                width: 64px;
+                height: 64px;
+            }
+
+            .empty-icon-circle svg {
+                width: 26px;
+                height: 26px;
+            }
+
+            .tech-marquee__item {
+                padding: 8px 18px;
+                margin-right: 12px;
+            }
+
+            .tech-marquee__icon svg {
+                width: 24px;
+                height: 24px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            body .carousel-wrapper {
+                height: 580px;
+            }
+
+            .portofolio-filter-btn {
+                padding: 6px 12px;
+            }
+        }
+
+        @media (hover: none) {
+            .custom-card:hover {
+                transform: none;
+            }
+
+            .custom-card:hover .card-img-top,
+            .custom-card:hover .card-img {
+                transform: none;
+            }
+
+            .tech-marquee__item:hover {
+                transform: none;
             }
         }
     </style>

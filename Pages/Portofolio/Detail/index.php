@@ -75,15 +75,26 @@ $proyek = $proyek_katalog[$id] ?? $proyek_katalog[1];
 
 $portofolio_url = $base_url . '/Pages/Portofolio/index.php';
 
+// Konfigurasi Carousel 2 Slide (Slide 1: Detail Proyek, Slide 2: Menggunakan ajasendiri.jpg)
 $carousel_slides = [
     [
-        'id' => 1,
+        'id' => $proyek['id'],
         'image' => $proyek['image'],
         'title' => $proyek['title'],
         'description' => $proyek['overview'],
         'buttons' => [
             ['text' => 'Hubungi Kami', 'link' => $base_url . '/Pages/HubungiKami/index.php', 'variant' => 'primary'],
             ['text' => 'Kembali ke Portofolio', 'link' => $portofolio_url, 'variant' => 'outline-white']
+        ]
+    ],
+    [
+        'id' => 'overview',
+        'image' => $base_url . '/Assets/images/ajasendiri.jpg',
+        'title' => "Portofolio Proyek Unggulan\nSolusi Digital JTI NOVA",
+        'description' => "Eksplorasi karya inovatif aplikasi web, mobile, IoT, dan multimedia yang dikembangkan oleh mahasiswa dan talenta profesional TEFA JTI Polije.",
+        'buttons' => [
+            ['text' => 'Lihat Studi Kasus', 'link' => $portofolio_url, 'variant' => 'primary'],
+            ['text' => 'Hubungi Kami', 'link' => $base_url . '/Pages/HubungiKami/index.php', 'variant' => 'outline-white']
         ]
     ]
 ];
@@ -232,12 +243,97 @@ $carousel_slides = [
             gap: 12px;
         }
 
+        html { -webkit-text-size-adjust: 100%; }
+        body { overflow-x: clip; }
+        img  { max-width: 100%; }
 
+        .detail-layout-grid > *,
+        .detail-main-content > * { min-width: 0; }
+
+        .detail-main-title { overflow-wrap: anywhere; }
+        .detail-paragraph { overflow-wrap: break-word; }
+
+        .sidebar-contact-item { flex-wrap: wrap; }
+        .sidebar-contact-value { overflow-wrap: anywhere; }
+
+        @media (max-width: 1280px) {
+            .container {
+                padding-left: 64px;
+                padding-right: 64px;
+            }
+
+            .navbar .navbar-container {
+                padding-left: 64px;
+                padding-right: 64px;
+            }
+
+            body .carousel-wrapper .carousel-content-wrap {
+                padding-left: 64px;
+                padding-right: 64px;
+            }
+        }
+
+        @media (min-width: 901px) and (max-width: 1100px) {
+            .navbar .navbar-menu-wrapper {
+                gap: 16px;
+            }
+
+            .navbar .navbar-menu {
+                gap: 16px;
+            }
+
+            .navbar .nav-link {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+
+            .navbar .navbar-container {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+
+            body .carousel-wrapper .carousel-content-wrap {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+
+            .detail-page-section {
+                padding: 40px 0 64px;
+            }
+
+            .detail-hero-banner {
+                height: 320px;
+                margin-bottom: 40px;
+            }
+
+            .detail-layout-grid {
+                gap: 32px;
+            }
+
+            .detail-main-title {
+                font-size: 32px;
+            }
+
+            .detail-sidebar-card {
+                padding: 28px 24px;
+            }
+        }
 
         @media (max-width: 900px) {
+            .navbar .navbar-container {
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+
             .detail-layout-grid {
                 grid-template-columns: 1fr;
-                gap: var(--space-32);
+                gap: 32px;
             }
 
             .detail-sidebar-card {
@@ -250,6 +346,124 @@ $carousel_slides = [
 
             .detail-main-title {
                 font-size: 28px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+
+            body .carousel-wrapper .carousel-content-wrap {
+                padding: 72px 24px 48px;
+            }
+
+            .detail-page-section {
+                padding: 32px 0 52px;
+            }
+
+            .dt-hero__back svg {
+                width: 40px;
+                height: 40px;
+            }
+
+            .dt-hero__back {
+                margin-bottom: 20px;
+            }
+
+            .detail-hero-banner {
+                margin-bottom: 32px;
+            }
+
+            .detail-main-title {
+                margin-bottom: 20px;
+            }
+
+            .detail-sidebar-card {
+                max-width: 520px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            body .carousel-wrapper {
+                height: 540px;
+            }
+
+            .detail-paragraph {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            .navbar .navbar-container {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            body .carousel-wrapper .carousel-content-wrap {
+                padding: 72px 16px 48px;
+            }
+
+            body .mobile-overlay {
+                padding: 84px 24px 32px;
+            }
+
+            .mobile-overlay .mobile-nav-link {
+                font-size: 18px;
+                padding: 12px 0;
+            }
+
+            .mobile-overlay .mobile-dropdown-link {
+                font-size: 16px;
+            }
+
+            .detail-page-section {
+                padding: 28px 0 44px;
+            }
+
+            .dt-hero__back svg {
+                width: 36px;
+                height: 36px;
+            }
+
+            .detail-hero-banner {
+                height: 200px;
+                margin-bottom: 28px;
+            }
+
+            .detail-main-title {
+                font-size: 24px;
+            }
+
+            .detail-paragraph {
+                font-size: 14px;
+                line-height: 1.7;
+                margin-bottom: 20px;
+            }
+
+            .detail-sidebar-card {
+                padding: 24px 20px;
+                max-width: none;
+            }
+
+            .sidebar-card-title {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            body .carousel-wrapper {
+                height: 580px;
+            }
+
+            .detail-hero-banner {
+                height: 180px;
             }
         }
     </style>

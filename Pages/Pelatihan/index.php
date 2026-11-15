@@ -20,16 +20,16 @@ $gambar_url = function ($nama) use ($images_url, $images_dir) {
 
 $katalog = [
     [
-        'id'        => 1,
-        'judul'     => 'Pemrograman Web Fullstack',
-        'badge'     => 'Sertifikasi',
-        'deskripsi' => 'Dasar HTML, CSS, JavaScript, hingga pengembangan aplikasi web utuh.',
-        'tanggal'   => '15 Nov 2026',
-        'mode'      => 'Tatap muka / hybrid',
-        'kuota'     => 30,
+        'id'         => 1,
+        'judul'      => 'Pemrograman Web Fullstack',
+        'badge'      => 'Sertifikasi',
+        'deskripsi'  => 'Dasar HTML, CSS, JavaScript, hingga pengembangan aplikasi web utuh.',
+        'tanggal'    => '15 Nov 2026',
+        'mode'       => 'Tatap muka / hybrid',
+        'kuota'      => 30,
         'instruktur' => 'Instruktur 1',
-        'gambar'    => 'pelatihan-web.jpg',
-        'silabus'   => [
+        'gambar'     => 'pelatihan-web.jpg',
+        'silabus'    => [
             ['pertemuan' => 'Pertemuan 1', 'materi' => 'Dasar HTML & CSS',   'ringkasan' => 'Struktur halaman, styling, dan layout responsif'],
             ['pertemuan' => 'Pertemuan 2', 'materi' => 'JavaScript Dasar',   'ringkasan' => 'Variabel, fungsi, DOM, dan event'],
             ['pertemuan' => 'Pertemuan 3', 'materi' => 'Backend & Database', 'ringkasan' => 'PHP, REST API, dan pengelolaan database'],
@@ -37,16 +37,16 @@ $katalog = [
         ],
     ],
     [
-        'id'        => 2,
-        'judul'     => 'UI/UX Design dengan Figma',
-        'badge'     => 'Sertifikasi',
-        'deskripsi' => 'Riset pengguna, wireframe, hingga prototipe interaktif siap pakai.',
-        'tanggal'   => '29 Nov 2026',
-        'mode'      => 'Tatap muka / hybrid',
-        'kuota'     => 25,
+        'id'         => 2,
+        'judul'      => 'UI/UX Design dengan Figma',
+        'badge'      => 'Sertifikasi',
+        'deskripsi'  => 'Riset pengguna, wireframe, hingga prototipe interaktif siap pakai.',
+        'tanggal'    => '29 Nov 2026',
+        'mode'       => 'Tatap muka / hybrid',
+        'kuota'      => 25,
         'instruktur' => 'Instruktur 2',
-        'gambar'    => 'pelatihan-uiux.jpg',
-        'silabus'   => [
+        'gambar'     => 'pelatihan-uiux.jpg',
+        'silabus'    => [
             ['pertemuan' => 'Pertemuan 1', 'materi' => 'Dasar UI/UX',       'ringkasan' => 'Prinsip desain dan alur kerja desainer'],
             ['pertemuan' => 'Pertemuan 2', 'materi' => 'Riset & Wireframe',  'ringkasan' => 'User persona, user flow, dan wireframe'],
             ['pertemuan' => 'Pertemuan 3', 'materi' => 'Desain Visual',      'ringkasan' => 'Komponen, warna, tipografi, dan design system'],
@@ -54,16 +54,16 @@ $katalog = [
         ],
     ],
     [
-        'id'        => 3,
-        'judul'     => 'Dasar Jaringan Komputer',
-        'badge'     => 'Pre-Master',
-        'deskripsi' => 'Konfigurasi jaringan, keamanan, hingga troubleshooting dasar.',
-        'tanggal'   => '6 Des 2026',
-        'mode'      => 'Tatap muka',
-        'kuota'     => 35,
+        'id'         => 3,
+        'judul'      => 'Dasar Jaringan Komputer',
+        'badge'      => 'Pre-Master',
+        'deskripsi'  => 'Konfigurasi jaringan, keamanan, hingga troubleshooting dasar.',
+        'tanggal'    => '6 Des 2026',
+        'mode'       => 'Tatap muka',
+        'kuota'      => 35,
         'instruktur' => 'Instruktur 3',
-        'gambar'    => 'pelatihan-jaringan.jpg',
-        'silabus'   => [
+        'gambar'     => 'pelatihan-jaringan.jpg',
+        'silabus'    => [
             ['pertemuan' => 'Pertemuan 1', 'materi' => 'Konsep Jaringan',   'ringkasan' => 'Model OSI, TCP/IP, dan topologi'],
             ['pertemuan' => 'Pertemuan 2', 'materi' => 'Pengalamatan IP',   'ringkasan' => 'IPv4, subnetting, dan routing dasar'],
             ['pertemuan' => 'Pertemuan 3', 'materi' => 'Keamanan Jaringan', 'ringkasan' => 'Firewall, autentikasi, dan praktik aman'],
@@ -71,16 +71,16 @@ $katalog = [
         ],
     ],
     [
-        'id'        => 4,
-        'judul'     => 'Pemrograman Mobile',
-        'badge'     => 'Sertifikasi',
-        'deskripsi' => 'Membangun aplikasi mobile berbasis Android dan lintas platform.',
-        'tanggal'   => '13 Des 2026',
-        'mode'      => 'Tatap muka / hybrid',
-        'kuota'     => 30,
+        'id'         => 4,
+        'judul'      => 'Pemrograman Mobile',
+        'badge'      => 'Sertifikasi',
+        'deskripsi'  => 'Membangun aplikasi mobile berbasis Android dan lintas platform.',
+        'tanggal'    => '13 Des 2026',
+        'mode'       => 'Tatap muka / hybrid',
+        'kuota'      => 30,
         'instruktur' => 'Instruktur 1',
-        'gambar'    => 'pelatihan-mobile.jpg',
-        'silabus'   => [
+        'gambar'     => 'pelatihan-mobile.jpg',
+        'silabus'    => [
             ['pertemuan' => 'Pertemuan 1', 'materi' => 'Dasar Mobile',      'ringkasan' => 'Lingkungan kerja dan komponen antarmuka'],
             ['pertemuan' => 'Pertemuan 2', 'materi' => 'Navigasi & State',  'ringkasan' => 'Perpindahan layar dan pengelolaan state'],
             ['pertemuan' => 'Pertemuan 3', 'materi' => 'Data & API',        'ringkasan' => 'Penyimpanan lokal dan konsumsi REST API'],
@@ -88,16 +88,16 @@ $katalog = [
         ],
     ],
     [
-        'id'        => 5,
-        'judul'     => 'Data & Analitik',
-        'badge'     => 'Pre-Master',
-        'deskripsi' => 'Pengolahan data, visualisasi, dan pengambilan keputusan berbasis data.',
-        'tanggal'   => '20 Des 2026',
-        'mode'      => 'Hybrid',
-        'kuota'     => 30,
+        'id'         => 5,
+        'judul'      => 'Data & Analitik',
+        'badge'      => 'Pre-Master',
+        'deskripsi'  => 'Pengolahan data, visualisasi, dan pengambilan keputusan berbasis data.',
+        'tanggal'    => '20 Des 2026',
+        'mode'       => 'Hybrid',
+        'kuota'      => 30,
         'instruktur' => 'Instruktur 4',
-        'gambar'    => 'pelatihan-data.jpg',
-        'silabus'   => [
+        'gambar'     => 'pelatihan-data.jpg',
+        'silabus'    => [
             ['pertemuan' => 'Pertemuan 1', 'materi' => 'Pengantar Data',   'ringkasan' => 'Jenis data dan alur analisis'],
             ['pertemuan' => 'Pertemuan 2', 'materi' => 'Pembersihan Data', 'ringkasan' => 'Menangani data kosong, duplikat, dan outlier'],
             ['pertemuan' => 'Pertemuan 3', 'materi' => 'Visualisasi',      'ringkasan' => 'Grafik dan dashboard yang informatif'],
@@ -105,16 +105,16 @@ $katalog = [
         ],
     ],
     [
-        'id'        => 6,
-        'judul'     => 'Coding for Kids',
-        'badge'     => 'Anak',
-        'deskripsi' => 'Mengenalkan logika pemrograman dengan cara seru dan menyenangkan.',
-        'tanggal'   => '3 Jan 2027',
-        'mode'      => 'Tatap muka',
-        'kuota'     => 20,
+        'id'         => 6,
+        'judul'      => 'Coding for Kids',
+        'badge'      => 'Anak',
+        'deskripsi'  => 'Mengenalkan logika pemrograman dengan cara seru dan menyenangkan.',
+        'tanggal'    => '3 Jan 2027',
+        'mode'       => 'Tatap muka',
+        'kuota'      => 20,
         'instruktur' => 'Instruktur 2',
-        'gambar'    => 'pelatihan-kids.jpg',
-        'silabus'   => [
+        'gambar'     => 'pelatihan-kids.jpg',
+        'silabus'    => [
             ['pertemuan' => 'Pertemuan 1', 'materi' => 'Mengenal Logika', 'ringkasan' => 'Urutan perintah dan pola sederhana'],
             ['pertemuan' => 'Pertemuan 2', 'materi' => 'Animasi',         'ringkasan' => 'Membuat tokoh dan gerakan'],
             ['pertemuan' => 'Pertemuan 3', 'materi' => 'Permainan',       'ringkasan' => 'Membuat game sederhana'],
@@ -125,7 +125,7 @@ $katalog = [
 
 $instruktur = [
     ['id' => 1, 'nama' => 'Nama Instruktur 1', 'peran' => 'Web Development',     'foto' => 'instruktur-1.jpg'],
-    ['id' => 2, 'nama' => 'Nama Instruktur 2', 'peran' => 'UI/UX Design',        'foto' => 'instruktur-2.jpg'],
+    ['id' => 2, 'nama' => 'Nama Instruktur 2', 'peran' => 'UI/UX Design',         'foto' => 'instruktur-2.jpg'],
     ['id' => 3, 'nama' => 'Nama Instruktur 3', 'peran' => 'Jaringan & Keamanan', 'foto' => 'instruktur-3.jpg'],
     ['id' => 4, 'nama' => 'Nama Instruktur 4', 'peran' => 'Data & Analitik',     'foto' => 'instruktur-4.jpg'],
 ];
@@ -141,6 +141,29 @@ foreach ($katalog as $kursus) {
         'baris' => $kursus['silabus'],
     ];
 }
+
+$carousel_slides = [
+    [
+        'id'          => 1,
+        'image'       => $images_url . 'dummy.jpg',
+        'title'       => "Program Pelatihan IT\nProfesional & Tersertifikasi",
+        'description' => 'Tingkatkan keahlian teknologi Anda melalui kurikulum berbasis industri langsung bersama instruktur ahli.',
+        'buttons'     => [
+            ['text' => 'Lihat Katalog',   'link' => '#katalog', 'variant' => 'primary'],
+            ['text' => 'Hubungi Kami',    'link' => $base_url . '/Pages/HubungiKami/index.php', 'variant' => 'outline-white'],
+        ],
+    ],
+    [
+        'id'          => 2,
+        'image'       => $images_url . 'ajasendiri.jpg',
+        'title'       => "Fasilitas & Pendampingan\nBelajar Lebih Optimal",
+        'description' => 'Dapatkan pengalaman praktik langsung, modul komprehensif, serta bimbingan intensif hingga tuntas.',
+        'buttons'     => [
+            ['text' => 'Jadwal Pelatihan', 'link' => '#jadwal', 'variant' => 'primary'],
+            ['text' => 'Hubungi Kami',    'link' => $base_url . '/Pages/HubungiKami/index.php', 'variant' => 'outline-white'],
+        ],
+    ]
+];
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -155,6 +178,13 @@ foreach ($katalog as $kursus) {
     <?php require_once __DIR__ . '/../../Components/card.php'; ?>
 
     <style>
+    html {
+        -webkit-text-size-adjust: 100%;
+    }
+    body {
+        overflow-x: clip;
+    }
+
     @media (prefers-reduced-motion: no-preference) {
         html {
             scroll-behavior: smooth;
@@ -190,6 +220,8 @@ foreach ($katalog as $kursus) {
     .section {
         padding-top: var(--space-48);
         padding-bottom: var(--space-48);
+        box-sizing: border-box;
+        width: 100%;
     }
 
     .section--soft {
@@ -204,12 +236,12 @@ foreach ($katalog as $kursus) {
     .section__title {
         margin: 0;
         color: var(--brand-primary);
-        font-size: 24px;
+        font-size: clamp(22px, 3vw, 24px);
     }
 
     .section__subtitle {
         margin: var(--space-8) 0 0;
-        font-size: 12px;
+        font-size: clamp(12px, 1.5vw, 13px);
         color: var(--text-secondary);
     }
 
@@ -217,6 +249,8 @@ foreach ($katalog as $kursus) {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: var(--space-24);
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .syllabus {
@@ -225,6 +259,8 @@ foreach ($katalog as $kursus) {
         gap: var(--space-8);
         max-width: 880px;
         margin: 0 auto;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .syllabus__row {
@@ -237,33 +273,42 @@ foreach ($katalog as $kursus) {
         border-radius: var(--radius-input);
         background-color: var(--bg-white);
         font-size: 12px;
+        box-sizing: border-box;
+        width: 100%;
     }
 
     .syllabus__no {
         color: var(--text-secondary);
+        font-weight: 600;
     }
 
     .syllabus__topic {
         margin: 0;
         font-weight: 700;
         color: var(--text-primary);
+        overflow-wrap: anywhere;
     }
 
     .syllabus__sum {
         margin: 0;
         color: var(--text-secondary);
+        overflow-wrap: break-word;
     }
 
     .schedule {
         overflow-x: auto;
         border: 1px solid var(--border-default);
         border-radius: var(--radius-input);
+        background-color: var(--bg-white);
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .schedule table {
         width: 100%;
         border-collapse: collapse;
         font-size: 12px;
+        min-width: 600px;
     }
 
     .schedule th {
@@ -279,12 +324,15 @@ foreach ($katalog as $kursus) {
         padding: var(--space-16) var(--space-24);
         border-top: 1px solid var(--border-default);
         color: var(--text-primary);
+        overflow-wrap: anywhere;
     }
 
     .instr-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: var(--space-24);
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .instr-link {
@@ -292,6 +340,7 @@ foreach ($katalog as $kursus) {
         color: inherit;
         text-decoration: none;
         border-radius: var(--radius-card);
+        min-width: 0;
     }
 
     .instr-link:focus-visible {
@@ -299,34 +348,58 @@ foreach ($katalog as $kursus) {
         outline-offset: 3px;
     }
 
+    /* Responsivitas Tablet & Layar Sedang (<= 1024px) */
     @media (max-width: 1024px) {
-        .page-hero .container,
-        .section .container {
-            padding-left: var(--space-24);
-            padding-right: var(--space-24);
+        .container {
+            padding-left: 40px;
+            padding-right: 40px;
         }
 
-        .catalog-grid,
+        .catalog-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
         .instr-grid {
             grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
         }
     }
 
+    /* Responsivitas Tablet Kecil / Phablet (<= 768px) */
     @media (max-width: 768px) {
+        .container {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
         .page-hero__title {
-            font-size: 32px;
+            font-size: 28px;
         }
 
         .syllabus__row {
             grid-template-columns: 1fr;
-            gap: 4px;
+            gap: 6px;
+            padding: 16px;
         }
     }
 
-    @media (max-width: 560px) {
+    /* Responsivitas Smartphone / Android / iPhone (<= 640px) */
+    @media (max-width: 640px) {
+        .container {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
         .catalog-grid,
         .instr-grid {
             grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .section {
+            padding-top: 36px;
+            padding-bottom: 36px;
         }
     }
     </style>
@@ -433,12 +506,12 @@ foreach ($katalog as $kursus) {
                     <a class="instr-link"
                        href="<?= htmlspecialchars($base_url) ?>/Pages/Pelatihan/Detail/DetailInstruktur/index.php?id=<?= (int) $orang['id'] ?>"
                        aria-label="Profil <?= htmlspecialchars($orang['nama']) ?>">
-                        <?= render_card([
-                            'variant'  => 'team',
-                            'title'    => $orang['nama'],
-                            'subtitle' => $orang['peran'],
-                            'image'    => $gambar_url($orang['foto']),
-                        ]) ?>
+                         <?= render_card([
+                             'variant'  => 'team',
+                             'title'    => $orang['nama'],
+                             'subtitle' => $orang['peran'],
+                             'image'    => $gambar_url($orang['foto']),
+                         ]) ?>
                     </a>
                 <?php endforeach; ?>
             </div>
