@@ -24,6 +24,7 @@ $isi_p1 = 'Lorem ipsum dolor sit amet. Qui excepturi dolor ut consequatur cupidi
 
 $isi_p2 = 'Ut aliquid commodi et illo omnis ea perspiciatis praesentium eum fugiat dolor nam laboriosam maiores sit voluptatem voluptates! Qui deleniti nulla et eaque veniam qui pariatur eaque hic nobis quaerat aut accusantium deleniti in sunt nihil sit asperiores laboriosam. In saepe porro et soluta quam eum totam inventore ut esse quisquam. Aut quisquam dolores eum assumenda voluptas non Quis architecto eum voluptatem eligendi aut voluptatem dolor sed eveniet consequatur? Sit dolorem consequatur id alias accusamus non tempora molestiae? Aut dolores odio non quas debitis ut dolore esse sit aliquam dolores et nisi saepe et sapiente odit. Ea galisum temporibus non nisi natus qui vitae quod in aliquid nisi. Et molestiae suscipit est optio facilis in aperiam reiciendis et quos officia id libero adipisci et incidunt ipsam. Qui perspiciatis accusantium sit fuga voluptatem qui incidunt voluptatibus ad corporis quia qui temporibus fugiat aut quam quia. Aut animi temporibus quo veniam nulla sit molestiae voluptas. Non tempora dolores ea accusamus exercitationem eum dolorem aperiam id omnis illum ut earum magni sit quis galisum hic officia reiciendis. Qui dolor possimus est laborum ipsa ex error quia cum ipsum dolorem et quam sint et eius consequatur. Eum adipisci sunt qui veniam dolor quo galisum labore ea nemo minus ab odio vero! Id voluptatum itaque ea saepe laboriosam est exercitationem iusto.';
 
+// Katalog lengkap data pelayanan beserta judul, deskripsi, dan gambar spesifiknya
 $layanan_katalog = [
     1 => [
         'id'       => 1,
@@ -69,26 +70,41 @@ $layanan_katalog = [
     ],
 ];
 
+// Mengambil data berdasarkan parameter ID dari URL (default ke ID 1 jika tidak ada)
 $id = (int) ($_GET['id'] ?? 1);
 $layanan = $layanan_katalog[$id] ?? $layanan_katalog[1];
-$layanan['image'] = $gambar_url($layanan['image']);
+
+// Menyesuaikan gambar, judul, dan deskripsi spesifik berdasarkan layanan yang dipilih
+$layanan_image_url = $gambar_url($layanan['image']);
+$layanan['image'] = $layanan_image_url;
 $layanan['p1'] = $isi_p1;
 $layanan['p2'] = $isi_p2;
 
 $pelayanan_url = $base_url . '/Pages/Pelayanan/index.php';
 $hubungi_url   = $base_url . '/Pages/HubungiKami/index.php';
 
+// Konfigurasi Carousel 2 Slide (Slide 1: Detail layanan aktif yang diklik, Slide 2: Banner umum JTI NOVA)
 $carousel_slides = [
     [
-        'id'          => 1,
+        'id'          => $layanan['id'],
         'image'       => $layanan['image'],
         'title'       => $layanan['title'],
         'description' => $layanan['overview'],
         'buttons'     => [
-            ['text' => 'Hubungi Kami',          'link' => $hubungi_url,   'variant' => 'primary'],
-            ['text' => 'Kembali ke Pelayanan',  'link' => $pelayanan_url, 'variant' => 'outline-white'],
+            ['text' => 'Hubungi Kami',       'link' => $hubungi_url,   'variant' => 'primary'],
+            ['text' => 'Kembali ke Pelayanan', 'link' => $pelayanan_url, 'variant' => 'outline-white'],
         ],
     ],
+    [
+        'id'          => 'overview',
+        'image'       => $images_url . 'ajasendiri.jpg',
+        'title'       => "Layanan IT Terpadu\nUntuk Industri, Instansi, dan UMKM",
+        'description' => 'Konsultasi, pengembangan solusi digital, pelatihan, dan pendampingan berbasis proyek nyata bersama tim JTI NOVA.',
+        'buttons'     => [
+            ['text' => 'Hubungi Kami',       'link' => $hubungi_url,   'variant' => 'primary'],
+            ['text' => 'Kembali ke Pelayanan', 'link' => $pelayanan_url, 'variant' => 'outline-white'],
+        ],
+    ]
 ];
 ?>
 <!DOCTYPE html>
@@ -104,9 +120,22 @@ $carousel_slides = [
     <?php require_once __DIR__ . '/../../../Components/card.php'; ?>
 
     <style>
+        html {
+            -webkit-text-size-adjust: 100%;
+        }
+        body {
+            overflow-x: clip;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
         .detail-page-section {
             padding: var(--space-48) 0 var(--space-80);
             background-color: var(--bg-white);
+            box-sizing: border-box;
+            width: 100%;
         }
         .dt-hero__back {
             display: inline-flex;
@@ -133,6 +162,7 @@ $carousel_slides = [
             margin-bottom: var(--space-48);
             position: relative;
             box-shadow: var(--shadow-card);
+            box-sizing: border-box;
         }
         .detail-hero-banner img {
             width: 100%;
@@ -145,10 +175,13 @@ $carousel_slides = [
             grid-template-columns: 1.6fr 1fr;
             gap: 48px;
             align-items: start;
+            box-sizing: border-box;
+            width: 100%;
         }
         .detail-main-content {
             display: flex;
             flex-direction: column;
+            min-width: 0;
         }
         .detail-main-title {
             font-size: 36px;
@@ -157,6 +190,7 @@ $carousel_slides = [
             margin: 0 0 var(--space-24);
             font-family: 'Inter', sans-serif;
             line-height: 1.25;
+            overflow-wrap: anywhere;
         }
         .detail-paragraph {
             font-size: 14.5px;
@@ -165,6 +199,7 @@ $carousel_slides = [
             margin: 0 0 var(--space-24);
             font-family: 'Inter', sans-serif;
             text-align: justify;
+            overflow-wrap: break-word;
         }
         .detail-sidebar-card {
             background-color: var(--bg-white);
@@ -174,6 +209,8 @@ $carousel_slides = [
             padding: 32px 28px;
             position: sticky;
             top: 96px;
+            box-sizing: border-box;
+            min-width: 0;
         }
         .sidebar-card-title {
             font-size: 20px;
@@ -202,6 +239,7 @@ $carousel_slides = [
             display: flex;
             align-items: center;
             gap: 4px;
+            flex-wrap: wrap;
         }
         .sidebar-contact-label {
             color: var(--text-secondary);
@@ -209,6 +247,7 @@ $carousel_slides = [
         .sidebar-contact-value {
             font-weight: 600;
             color: var(--text-primary);
+            overflow-wrap: anywhere;
         }
         .sidebar-card-hours {
             font-size: 12px;
@@ -222,19 +261,80 @@ $carousel_slides = [
             gap: 12px;
         }
 
+        /* Responsivitas Tablet & Layar Menengah (<= 1024px) */
+        @media (max-width: 1024px) {
+            .container {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+            .detail-hero-banner {
+                height: 320px;
+                margin-bottom: 36px;
+            }
+            .detail-layout-grid {
+                gap: 32px;
+            }
+        }
+
+        /* Responsivitas Phablet / Tablet Kecil (<= 900px) */
         @media (max-width: 900px) {
             .detail-layout-grid {
                 grid-template-columns: 1fr;
-                gap: var(--space-32);
+                gap: 32px;
             }
             .detail-sidebar-card {
                 position: static;
+                max-width: 100%;
             }
             .detail-hero-banner {
                 height: 260px;
             }
             .detail-main-title {
                 font-size: 28px;
+            }
+        }
+
+        /* Responsivitas Smartphone / Android / iPhone (<= 768px) */
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+            .detail-page-section {
+                padding: 32px 0 60px;
+            }
+            .dt-hero__back svg {
+                width: 40px;
+                height: 40px;
+            }
+            .detail-hero-banner {
+                height: 220px;
+                margin-bottom: 28px;
+            }
+        }
+
+        /* Responsivitas Perangkat Sangat Kecil / iPhone SE (<= 480px) */
+        @media (max-width: 480px) {
+            .container {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+            .detail-hero-banner {
+                height: 180px;
+                margin-bottom: 24px;
+            }
+            .detail-main-title {
+                font-size: 24px;
+            }
+            .detail-paragraph {
+                font-size: 14px;
+                text-align: left;
+            }
+            .detail-sidebar-card {
+                padding: 24px 20px;
+            }
+            .sidebar-card-title {
+                font-size: 18px;
             }
         }
     </style>

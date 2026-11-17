@@ -11,15 +11,23 @@ if (preg_match('#^(.*?)/(Pages|api|Components)#', $script_name, $matches)) {
     }
 }
 
+$images_url = $base_url . '/Assets/images/';
+$images_dir = __DIR__ . '/../../../../Assets/images/';
+
+$gambar_url = function ($nama) use ($images_url, $images_dir) {
+    return file_exists($images_dir . $nama) ? $images_url . $nama : $images_url . 'dummy.jpg';
+};
+
 $pelatihan_url = $base_url . '/Pages/Pelatihan';
 
 $katalog = [
     [
-        'id'      => 1,
+        'id'        => 1,
         'singkat' => 'Pemrograman Full Stack',
         'judul'   => 'Pemrograman Web Fullstack',
         'tanggal' => '10 Nov 2026',
         'mentor'  => 'Nama Instruktur',
+        'gambar'  => 'pelatihan-web.jpg',
         'silabus' => [
             ['pertemuan' => 'Pertemuan 1', 'materi' => 'Dasar HTML & CSS',   'ringkasan' => 'Struktur halaman, tipografi, dan layout responsif'],
             ['pertemuan' => 'Pertemuan 2', 'materi' => 'JavaScript Dasar',   'ringkasan' => 'Variabel, fungsi, DOM, dan event'],
@@ -28,24 +36,26 @@ $katalog = [
         ],
     ],
     [
-        'id'      => 2,
+        'id'        => 2,
         'singkat' => 'UI/UX Design',
         'judul'   => 'UI/UX Design dengan Figma',
         'tanggal' => '24 Nov 2026',
         'mentor'  => 'Nama Instruktur',
+        'gambar'  => 'pelatihan-uiux.jpg',
         'silabus' => [
-            ['pertemuan' => 'Pertemuan 1', 'materi' => 'Dasar UI/UX',      'ringkasan' => 'Prinsip desain dan alur kerja desainer'],
+            ['pertemuan' => 'Pertemuan 1', 'materi' => 'Dasar UI/UX',       'ringkasan' => 'Prinsip desain dan alur kerja desainer'],
             ['pertemuan' => 'Pertemuan 2', 'materi' => 'Riset & Wireframe', 'ringkasan' => 'User persona, user flow, dan wireframe'],
             ['pertemuan' => 'Pertemuan 3', 'materi' => 'Desain Visual',     'ringkasan' => 'Komponen, warna, tipografi, dan design system'],
             ['pertemuan' => 'Pertemuan 4', 'materi' => 'Proyek Akhir',      'ringkasan' => 'Prototipe interaktif dan uji kegunaan'],
         ],
     ],
     [
-        'id'      => 3,
+        'id'        => 3,
         'singkat' => 'Dasar Jaringan Komputer',
         'judul'   => 'Dasar Jaringan Komputer',
         'tanggal' => '6 Des 2026',
         'mentor'  => 'Nama Instruktur',
+        'gambar'  => 'pelatihan-jaringan.jpg',
         'silabus' => [
             ['pertemuan' => 'Pertemuan 1', 'materi' => 'Konsep Jaringan',   'ringkasan' => 'Model OSI, TCP/IP, dan topologi'],
             ['pertemuan' => 'Pertemuan 2', 'materi' => 'Pengalamatan IP',   'ringkasan' => 'IPv4, subnetting, dan routing dasar'],
@@ -54,11 +64,12 @@ $katalog = [
         ],
     ],
     [
-        'id'      => 4,
+        'id'        => 4,
         'singkat' => 'Pemrograman Mobile',
         'judul'   => 'Pemrograman Mobile',
         'tanggal' => '13 Des 2026',
         'mentor'  => 'Nama Instruktur',
+        'gambar'  => 'pelatihan-mobile.jpg',
         'silabus' => [
             ['pertemuan' => 'Pertemuan 1', 'materi' => 'Dasar Mobile',     'ringkasan' => 'Lingkungan kerja dan komponen antarmuka'],
             ['pertemuan' => 'Pertemuan 2', 'materi' => 'Navigasi & State', 'ringkasan' => 'Perpindahan layar dan pengelolaan state'],
@@ -67,11 +78,12 @@ $katalog = [
         ],
     ],
     [
-        'id'      => 5,
+        'id'        => 5,
         'singkat' => 'Data & Analitik',
         'judul'   => 'Data & Analitik',
         'tanggal' => '20 Des 2026',
         'mentor'  => 'Nama Instruktur',
+        'gambar'  => 'pelatihan-data.jpg',
         'silabus' => [
             ['pertemuan' => 'Pertemuan 1', 'materi' => 'Pengantar Data',   'ringkasan' => 'Jenis data dan alur analisis'],
             ['pertemuan' => 'Pertemuan 2', 'materi' => 'Pembersihan Data', 'ringkasan' => 'Menangani data kosong, duplikat, dan outlier'],
@@ -80,16 +92,17 @@ $katalog = [
         ],
     ],
     [
-        'id'      => 6,
+        'id'        => 6,
         'singkat' => 'Coding for Kids',
         'judul'   => 'Coding for Kids',
         'tanggal' => '3 Jan 2027',
         'mentor'  => 'Nama Instruktur',
+        'gambar'  => 'pelatihan-kids.jpg',
         'silabus' => [
             ['pertemuan' => 'Pertemuan 1', 'materi' => 'Mengenal Logika', 'ringkasan' => 'Urutan perintah dan pola sederhana'],
             ['pertemuan' => 'Pertemuan 2', 'materi' => 'Animasi',         'ringkasan' => 'Membuat tokoh dan gerakan'],
             ['pertemuan' => 'Pertemuan 3', 'materi' => 'Permainan',       'ringkasan' => 'Membuat game sederhana'],
-            ['pertemuan' => 'Pertemuan 4', 'materi' => 'Pameran Karya',   'ringkasan' => 'Menampilkan karya kepada orang tua'],
+            ['pertemuan' => 'Pertemuan 4', 'materi' => 'Pameran Karya',  'ringkasan' => 'Menampilkan karya kepada orang tua'],
         ],
     ],
 ];
@@ -107,6 +120,32 @@ if ($kursus === null) {
     header('Location: ' . $pelatihan_url . '/index.php#katalog');
     exit;
 }
+
+$kursus_image = $gambar_url($kursus['gambar'] ?? 'dummy.jpg');
+$hubungi_url  = $base_url . '/Pages/HubungiKami/index.php';
+
+$carousel_slides = [
+    [
+        'id'          => $kursus['id'],
+        'image'       => $kursus_image,
+        'title'       => $kursus['judul'],
+        'description' => 'Pelatihan dan sertifikasi IT terpadu untuk berbagai kebutuhan profesional.',
+        'buttons'     => [
+            ['text' => 'Daftar Pelatihan', 'link' => $hubungi_url,    'variant' => 'primary'],
+            ['text' => 'Kembali ke Katalog', 'link' => $pelatihan_url . '/index.php#katalog', 'variant' => 'outline-white'],
+        ],
+    ],
+    [
+        'id'          => 'overview',
+        'image'       => $images_url . 'ajasendiri.jpg',
+        'title'       => "Program Pelatihan IT\nProfesional & Tersertifikasi",
+        'description' => 'Tingkatkan keahlian teknologi Anda melalui kurikulum berbasis industri langsung bersama instruktur ahli.',
+        'buttons'     => [
+            ['text' => 'Hubungi Kami',    'link' => $hubungi_url,    'variant' => 'primary'],
+            ['text' => 'Kembali ke Katalog', 'link' => $pelatihan_url . '/index.php#katalog', 'variant' => 'outline-white'],
+        ],
+    ]
+];
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -121,12 +160,24 @@ if ($kursus === null) {
     <?php require_once __DIR__ . '/../../../../Components/card.php'; ?>
 
     <style>
+    html {
+        -webkit-text-size-adjust: 100%;
+    }
+    body {
+        overflow-x: clip;
+    }
+
     .detail {
         background-color: var(--bg-soft);
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .detail__top {
         padding-top: calc(var(--space-48) + var(--space-8));
+        padding-bottom: 0;
+        box-sizing: border-box;
+        width: 100%;
     }
 
     .detail__back {
@@ -148,8 +199,9 @@ if ($kursus === null) {
     }
 
     .detail__crumb {
-        margin: var(--space-48) 0 var(--space-24);
+        margin: var(--space-24) 0 0;
         color: var(--text-secondary);
+        overflow-wrap: anywhere;
     }
 
     .detail__crumb a {
@@ -161,42 +213,40 @@ if ($kursus === null) {
         text-decoration: underline;
     }
 
-    .detail__title {
-        margin: 0 0 var(--space-48);
-        color: var(--brand-primary);
-    }
-
-    .detail__desc {
-        margin: 0;
-        color: var(--text-secondary);
-    }
-
     .syllabus {
-        padding-top: calc(var(--space-80) + var(--space-24) + var(--space-16));
-        padding-bottom: calc(var(--space-80) + var(--space-48) + var(--space-16));
+        padding-top: var(--space-24);
+        padding-bottom: calc(var(--space-80) + var(--space-48));
+        box-sizing: border-box;
+        width: 100%;
     }
 
     .syllabus__head {
         text-align: center;
         margin-bottom: var(--space-24);
+        box-sizing: border-box;
     }
 
     .syllabus__title {
         margin: 0 0 var(--space-8);
         color: var(--brand-primary);
+        font-size: clamp(22px, 3.5vw, 28px);
+        overflow-wrap: anywhere;
     }
 
     .syllabus__meta {
         margin: 0;
-        font-size: 20px;
+        font-size: clamp(14px, 2vw, 18px);
         font-weight: 600;
         color: var(--text-primary);
+        overflow-wrap: anywhere;
     }
 
     .syllabus__list {
         display: flex;
         flex-direction: column;
         gap: 12px;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .syllabus__row {
@@ -204,9 +254,11 @@ if ($kursus === null) {
         align-items: center;
         gap: var(--space-24);
         min-height: 50px;
-        padding: 0 var(--space-24);
+        padding: 12px var(--space-24);
         border-radius: var(--radius-input);
         background-color: var(--bg-white);
+        box-sizing: border-box;
+        width: 100%;
     }
 
     .syllabus__no {
@@ -218,55 +270,76 @@ if ($kursus === null) {
 
     .syllabus__topic {
         margin: 0;
-        font-size: 16px;
+        font-size: 15px;
         font-weight: 700;
         color: var(--text-primary);
+        overflow-wrap: anywhere;
     }
 
     .syllabus__sum {
         margin: 0;
-        font-size: 14px;
+        font-size: 13.5px;
         color: var(--text-secondary);
+        overflow-wrap: break-word;
     }
 
     .detail-end {
         height: var(--space-80);
     }
 
+    /* Responsivitas Tablet & Layar Menengah (<= 1024px) */
     @media (max-width: 1024px) {
         .detail .container {
-            padding-left: var(--space-24);
-            padding-right: var(--space-24);
+            padding-left: 40px;
+            padding-right: 40px;
         }
     }
 
+    /* Responsivitas Phablet / Tablet Kecil (<= 768px) */
     @media (max-width: 768px) {
-        .detail__title {
-            font-size: 32px;
+        .detail .container {
+            padding-left: 24px;
+            padding-right: 24px;
         }
 
         .syllabus {
-            padding-top: var(--space-48);
-            padding-bottom: var(--space-48);
+            padding-top: var(--space-24);
+            padding-bottom: 40px;
         }
 
         .syllabus__title {
-            font-size: 24px;
+            font-size: 22px;
         }
 
         .syllabus__meta {
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .syllabus__row {
             flex-direction: column;
             align-items: flex-start;
-            gap: 4px;
-            padding: var(--space-16) var(--space-24);
+            gap: 6px;
+            padding: 16px;
         }
 
         .syllabus__no {
             flex-basis: auto;
+        }
+    }
+
+    /* Responsivitas Smartphone Kecil / iPhone SE (<= 480px) */
+    @media (max-width: 480px) {
+        .detail .container {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .syllabus__title {
+            font-size: 20px;
+        }
+
+        .syllabus__meta {
+            font-size: 13px;
         }
     }
     </style>
@@ -290,8 +363,6 @@ if ($kursus === null) {
                 <p class="caption detail__crumb">
                     <a href="<?= htmlspecialchars($pelatihan_url) ?>/index.php">Pelatihan</a> / <?= htmlspecialchars($kursus['singkat']) ?>
                 </p>
-                <h1 class="heading-1 detail__title">Katalog Pelatihan</h1>
-                <p class="detail__desc">Pelatihan dan sertifikasi IT terpadu untuk berbagai kebutuhan, mulai dari pengembangan perangkat lunak, desain UI/UX, jaringan, hingga data analitik.</p>
             </div>
 
             <section class="container syllabus">

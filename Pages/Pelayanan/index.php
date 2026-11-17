@@ -28,37 +28,37 @@ $layanan = [
         'judul'     => 'IT Consultant',
         'deskripsi' => 'Konsultasi kebutuhan, perancangan, dan strategi transformasi digital.',
         'gambar'    => 'layanan-it-consultant.jpg',
-        'href'      => $detail_url,
+        'href'      => $base_url . '/Pages/Pelayanan/Detail/index.php?id=1',
     ],
     [
         'judul'     => 'IT Solution',
         'deskripsi' => 'Pengembangan website, aplikasi mobile, dan sistem informasi.',
         'gambar'    => 'layanan-it-solution.jpg',
-        'href'      => $detail_url,
+        'href'      => $base_url . '/Pages/Pelayanan/Detail/index.php?id=2',
     ],
     [
         'judul'     => 'Pelatihan',
         'deskripsi' => 'Pelatihan teknologi informasi dengan kurikulum berbasis industri.',
         'gambar'    => 'layanan-pelatihan.jpg',
-        'href'      => $detail_url,
+        'href'      => $base_url . '/Pages/Pelayanan/Detail/index.php?id=3',
     ],
     [
         'judul'     => 'Pendampingan',
         'deskripsi' => 'Pendampingan pengembangan produk digital dan UMKM.',
         'gambar'    => 'layanan-pendampingan.jpg',
-        'href'      => $detail_url,
+        'href'      => $base_url . '/Pages/Pelayanan/Detail/index.php?id=4',
     ],
     [
         'judul'     => 'Instruktur',
         'deskripsi' => 'Penyediaan instruktur profesional untuk program pelatihan.',
         'gambar'    => 'layanan-instruktur.jpg',
-        'href'      => $detail_url . '#instruktur',
+        'href'      => $base_url . '/Pages/Pelayanan/Detail/index.php?id=5',
     ],
     [
         'judul'     => 'Magang Mahasiswa MBKM',
         'deskripsi' => 'Program magang MBKM pada proyek nyata teaching factory.',
         'gambar'    => 'layanan-magang-mbkm.jpg',
-        'href'      => $detail_url,
+        'href'      => $base_url . '/Pages/Pelayanan/Detail/index.php?id=6',
     ],
 ];
 
@@ -110,6 +110,14 @@ $carousel_slides = [
     <?php require_once __DIR__ . '/../../Components/card.php'; ?>
 
     <style>
+    /* Pengaturan Dasar & Mencegah Overflow Horizontal pada Perangkat Kecil */
+    html {
+        -webkit-text-size-adjust: 100%;
+    }
+    body {
+        overflow-x: clip;
+    }
+
     .pl-hero {
         background-color: var(--bg-soft);
         padding-top: calc(var(--space-48) + var(--space-8));
@@ -162,11 +170,13 @@ $carousel_slides = [
     .pl-head__title {
         margin: 0 0 var(--space-8);
         color: var(--brand-primary);
+        font-size: clamp(24px, 3.5vw, 32px);
     }
 
     .pl-head__sub {
         margin: 0;
         color: var(--text-secondary);
+        font-size: clamp(14px, 1.5vw, 16px);
     }
 
     .service-grid,
@@ -174,6 +184,8 @@ $carousel_slides = [
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: var(--space-24);
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .service-grid .card-inner {
@@ -188,6 +200,7 @@ $carousel_slides = [
         font-size: 14px;
         line-height: 17px;
         margin-bottom: 12px;
+        overflow-wrap: break-word;
     }
 
     .service-grid .card-contact-info {
@@ -201,10 +214,14 @@ $carousel_slides = [
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: var(--space-24);
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .step {
         padding: 20px;
+        height: 100%;
+        box-sizing: border-box;
     }
 
     .step__no {
@@ -219,6 +236,7 @@ $carousel_slides = [
         color: var(--bg-white);
         font-size: 14px;
         font-weight: 700;
+        flex-shrink: 0;
     }
 
     .step__title {
@@ -226,18 +244,22 @@ $carousel_slides = [
         font-size: 16px;
         font-weight: 700;
         color: var(--text-primary);
+        overflow-wrap: anywhere;
     }
 
     .step__text {
         margin: 0;
         font-size: 13px;
-        line-height: 16px;
+        line-height: 1.5;
         color: var(--text-secondary);
+        overflow-wrap: break-word;
     }
 
     .info-card {
         padding: 20px;
         border: 1px solid var(--border-default);
+        height: 100%;
+        box-sizing: border-box;
     }
 
     .info-card__icon {
@@ -250,6 +272,7 @@ $carousel_slides = [
         border-radius: 50%;
         background-color: var(--bg-soft);
         font-size: 16px;
+        flex-shrink: 0;
     }
 
     .info-card__title {
@@ -263,73 +286,77 @@ $carousel_slides = [
         margin: 0;
         font-size: 13px;
         color: var(--text-secondary);
+        overflow-wrap: anywhere;
     }
 
-    .cta {
-        background-color: var(--brand-primary);
-        color: var(--bg-white);
-        padding-top: calc(var(--space-48) + var(--space-8));
-        padding-bottom: calc(var(--space-48) + var(--space-8));
-    }
-
-    .cta__inner {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: var(--space-24);
-    }
-
-    .cta__title {
-        margin: 0 0 4px;
-        color: var(--bg-white);
-    }
-
-    .cta__text {
-        margin: 0;
-        color: var(--bg-soft);
-    }
-
-
-
+    /* Responsivitas Tablet & Perangkat Menengah (<= 1024px) */
     @media (max-width: 1024px) {
-        .pl-hero .container,
-        .pl-section .container,
-        .cta .container {
-            padding-left: var(--space-24);
-            padding-right: var(--space-24);
+        .container {
+            padding-left: 40px;
+            padding-right: 40px;
         }
 
         .service-grid,
         .info-grid {
             grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
         }
 
         .steps-grid {
             grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
         }
     }
 
+    /* Responsivitas Tablet Kecil / Phablet (<= 768px) */
     @media (max-width: 768px) {
+        .container {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
         .pl-hero__title {
-            font-size: 32px;
+            font-size: 28px;
         }
 
-        .pl-head__title,
-        .cta__title {
-            font-size: 24px;
-        }
-
-        .cta__inner {
-            flex-direction: column;
-            align-items: flex-start;
+        .pl-section {
+            padding-top: 36px;
+            padding-bottom: 36px;
         }
     }
 
-    @media (max-width: 560px) {
+    /* Responsivitas Smartphone / Android / iPhone (<= 640px) */
+    @media (max-width: 640px) {
+        .container {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
         .service-grid,
         .info-grid,
         .steps-grid {
             grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .pl-head {
+            margin-bottom: 20px;
+        }
+    }
+
+    /* Responsivitas Layar Sangat Kecil / iPhone SE (<= 480px) */
+    @media (max-width: 480px) {
+        .container {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .pl-hero__title {
+            font-size: 24px;
+        }
+
+        .pl-head__title {
+            font-size: 22px;
         }
     }
     </style>
@@ -395,11 +422,11 @@ $carousel_slides = [
     </section>
 
     <?php
-    $cta_title     = 'Siap memulai proyek Anda?';
-    $cta_subtitle  = 'Konsultasikan kebutuhan Anda bersama tim JTI NOVA.';
-    $cta_btn_text  = 'Hubungi Kami';
-    $cta_btn_href  = $hubungi_url;
-    $cta_variant   = 'dark';
+    $cta_title    = 'Siap memulai proyek Anda?';
+    $cta_subtitle = 'Konsultasikan kebutuhan Anda bersama tim JTI NOVA.';
+    $cta_btn_text = 'Hubungi Kami';
+    $cta_btn_href = $hubungi_url;
+    $cta_variant  = 'dark';
     require_once __DIR__ . '/../../Components/ctacontainer.php';
     require_once __DIR__ . '/../../Components/footer.php';
     ?>
