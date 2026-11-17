@@ -111,10 +111,19 @@ if (empty($layanan_pilihan)) {
     <title>Hubungi Kami - JTI NOVA</title>
     <link rel="stylesheet" href="<?= htmlspecialchars($base_url) ?>/Style/style.css">
     <style>
+        html {
+            -webkit-text-size-adjust: 100%;
+        }
+        body {
+            overflow-x: clip;
+        }
+
         .contact-page-section {
             padding: var(--space-80) 0;
             background-color: var(--bg-white);
             min-height: 60vh;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .contact-layout-grid {
@@ -122,6 +131,8 @@ if (empty($layanan_pilihan)) {
             grid-template-columns: 1.6fr 1fr;
             gap: var(--space-48);
             align-items: start;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .contact-card {
@@ -132,6 +143,7 @@ if (empty($layanan_pilihan)) {
             padding: 36px;
             box-sizing: border-box;
             position: relative;
+            width: 100%;
         }
 
         .contact-card::before {
@@ -150,20 +162,22 @@ if (empty($layanan_pilihan)) {
         }
 
         .contact-form-title {
-            font-size: 24px;
+            font-size: clamp(20px, 2.5vw, 24px);
             font-weight: 700;
             color: var(--brand-primary);
             margin: 0 0 4px;
             font-family: 'Inter', sans-serif;
             letter-spacing: -0.3px;
+            overflow-wrap: anywhere;
         }
 
         .contact-form-subtitle {
-            font-size: 13.5px;
+            font-size: clamp(12.5px, 1.5vw, 13.5px);
             color: var(--text-secondary);
             margin: 0;
             font-family: 'Inter', sans-serif;
             line-height: 1.45;
+            overflow-wrap: break-word;
         }
 
         .form-row-2col {
@@ -171,6 +185,8 @@ if (empty($layanan_pilihan)) {
             grid-template-columns: 1fr 1fr;
             gap: 16px;
             margin-bottom: 8px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .form-group {
@@ -178,6 +194,8 @@ if (empty($layanan_pilihan)) {
             flex-direction: column;
             gap: 5px;
             margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .form-label {
@@ -200,6 +218,8 @@ if (empty($layanan_pilihan)) {
             position: relative;
             display: flex;
             align-items: center;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .form-input-icon {
@@ -248,10 +268,13 @@ if (empty($layanan_pilihan)) {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 12px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .service-option-item {
             position: relative;
+            min-width: 0;
         }
 
         .service-option-item input[type="radio"] {
@@ -274,6 +297,7 @@ if (empty($layanan_pilihan)) {
             transition: all 0.2s ease;
             user-select: none;
             box-sizing: border-box;
+            width: 100%;
         }
 
         .service-option-icon {
@@ -294,6 +318,7 @@ if (empty($layanan_pilihan)) {
             font-weight: 600;
             color: var(--text-primary);
             line-height: 1.35;
+            overflow-wrap: anywhere;
         }
 
         .service-option-item:hover .service-option-label {
@@ -328,6 +353,8 @@ if (empty($layanan_pilihan)) {
             justify-content: space-between;
             gap: var(--space-16);
             margin-top: 4px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .form-privacy-note {
@@ -337,6 +364,7 @@ if (empty($layanan_pilihan)) {
             display: flex;
             align-items: center;
             gap: 6px;
+            overflow-wrap: anywhere;
         }
 
         .form-privacy-note svg {
@@ -346,12 +374,12 @@ if (empty($layanan_pilihan)) {
             flex-shrink: 0;
         }
 
-
-
         .contact-info-column {
             display: flex;
             flex-direction: column;
             gap: 14px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .info-pill-card {
@@ -367,6 +395,7 @@ if (empty($layanan_pilihan)) {
             transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
             text-decoration: none;
             color: inherit;
+            width: 100%;
         }
 
         .info-pill-card:hover {
@@ -424,6 +453,7 @@ if (empty($layanan_pilihan)) {
             display: flex;
             flex-direction: column;
             flex: 1;
+            min-width: 0;
         }
 
         .info-title {
@@ -432,6 +462,7 @@ if (empty($layanan_pilihan)) {
             font-weight: 700;
             color: var(--text-primary);
             margin: 0 0 2px;
+            overflow-wrap: anywhere;
         }
 
         .info-desc {
@@ -440,6 +471,7 @@ if (empty($layanan_pilihan)) {
             color: var(--text-secondary);
             margin: 0;
             line-height: 1.45;
+            overflow-wrap: break-word;
         }
 
         .contact-map-wrapper {
@@ -450,6 +482,8 @@ if (empty($layanan_pilihan)) {
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .contact-map-card {
@@ -474,6 +508,9 @@ if (empty($layanan_pilihan)) {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 10px;
+            box-sizing: border-box;
+            width: 100%;
         }
 
         .contact-map-caption {
@@ -484,6 +521,7 @@ if (empty($layanan_pilihan)) {
             display: flex;
             align-items: center;
             gap: 6px;
+            overflow-wrap: anywhere;
         }
 
         .contact-map-link {
@@ -492,6 +530,7 @@ if (empty($layanan_pilihan)) {
             text-decoration: none;
             font-weight: 600;
             transition: color 0.2s ease;
+            white-space: nowrap;
         }
 
         .contact-map-link:hover {
@@ -502,6 +541,8 @@ if (empty($layanan_pilihan)) {
         .success-box-wrapper {
             max-width: 640px;
             margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .success-card {
@@ -515,6 +556,7 @@ if (empty($layanan_pilihan)) {
             flex-direction: column;
             align-items: center;
             box-sizing: border-box;
+            width: 100%;
         }
 
         .success-icon-badge {
@@ -542,6 +584,7 @@ if (empty($layanan_pilihan)) {
             color: var(--text-primary);
             margin: 0 0 var(--space-16);
             font-family: 'Inter', sans-serif;
+            overflow-wrap: anywhere;
         }
 
         .success-desc {
@@ -551,6 +594,7 @@ if (empty($layanan_pilihan)) {
             max-width: 460px;
             margin: 0 0 var(--space-24);
             font-family: 'Inter', sans-serif;
+            overflow-wrap: break-word;
         }
 
         .success-btn-group {
@@ -561,9 +605,13 @@ if (empty($layanan_pilihan)) {
             max-width: 240px;
         }
 
-
-
+        /* Responsivitas Tablet & Layar Menengah (<= 1024px) */
         @media (max-width: 1024px) {
+            .container {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+
             .contact-layout-grid {
                 grid-template-columns: 1fr;
                 gap: var(--space-32);
@@ -574,7 +622,30 @@ if (empty($layanan_pilihan)) {
             }
         }
 
+        /* Responsivitas Tablet Kecil / Phablet (<= 768px) */
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+
+            .contact-card {
+                padding: 28px 20px;
+            }
+
+            .contact-card::before {
+                left: 20px;
+                right: 20px;
+            }
+        }
+
+        /* Responsivitas Smartphone / Android / iPhone (<= 640px) */
         @media (max-width: 640px) {
+            .container {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
             .form-row-2col {
                 grid-template-columns: 1fr;
                 gap: 12px;
@@ -585,7 +656,12 @@ if (empty($layanan_pilihan)) {
             }
 
             .contact-card {
-                padding: 24px 18px;
+                padding: 20px 16px;
+            }
+
+            .contact-card::before {
+                left: 16px;
+                right: 16px;
             }
 
             .form-footer-action {
@@ -595,6 +671,10 @@ if (empty($layanan_pilihan)) {
 
             .btn-submit-message {
                 width: 100%;
+            }
+
+            .success-card {
+                padding: 36px 20px;
             }
         }
     </style>
@@ -803,81 +883,5 @@ if (empty($layanan_pilihan)) {
 
     <?php require_once __DIR__ . '/../../Components/footer.php'; ?>
 
-    <script>
-    (function () {
-        var form = document.getElementById('contactForm');
-        var formView = document.getElementById('formView');
-        var successView = document.getElementById('successView');
-        var btnKirimLagi = document.getElementById('btnKirimLagi');
-
-        if (!form) return;
-
-        function getWaktuSapaan() {
-            var now = new Date();
-            var hours = now.getHours();
-            var minutes = now.getMinutes();
-            var timeVal = hours + (minutes / 60);
-
-            if (timeVal >= 4.0 && timeVal <= 10.0) {
-                return 'pagi';
-            } else if (timeVal > 10.0 && timeVal <= 15.0) {
-                return 'siang';
-            } else if (timeVal > 15.0 && timeVal <= 18.0) {
-                return 'sore';
-            } else {
-                return 'malam';
-            }
-        }
-
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            var namaInput = document.getElementById('nama');
-            var emailInput = document.getElementById('email');
-            var pesanInput = document.getElementById('pesan');
-            var selectedLayanan = document.querySelector('input[name="layanan"]:checked');
-
-            var nama = namaInput ? namaInput.value.trim() : '';
-            var email = emailInput ? emailInput.value.trim() : '';
-            var layanan = selectedLayanan ? selectedLayanan.value.trim() : '-';
-            var pesan = pesanInput ? pesanInput.value.trim() : '';
-
-            var waktu = getWaktuSapaan();
-
-            var template = "Halo Admin JTI NOVA, selamat " + waktu + "! 😊\n\n"
-                         + "Saya tertarik dengan layanan JTI NOVA dan ingin bertanya lebih lanjut.\n\n"
-                         + "Nama: " + nama + "\n\n"
-                         + "Email: " + email + "\n\n"
-                         + "Layanan: " + layanan + "\n\n"
-                         + "Pertanyaan/Kebutuhan: " + pesan + "\n\n"
-                         + "Ditunggu respons dan informasi selanjutnya. Terima kasih! 🙏";
-
-            var waNumber = '6281200000000';
-            var waUrl = "https://api.whatsapp.com/send?phone=" + waNumber + "&text=" + encodeURIComponent(template);
-
-            // Buka WhatsApp di tab baru
-            window.open(waUrl, '_blank');
-
-            // Tampilkan kartu "Pesan Terkirim" pada halaman
-            if (formView && successView) {
-                formView.style.display = 'none';
-                successView.style.display = 'block';
-                successView.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-        });
-
-        if (btnKirimLagi) {
-            btnKirimLagi.addEventListener('click', function (e) {
-                e.preventDefault();
-                form.reset();
-                if (formView && successView) {
-                    successView.style.display = 'none';
-                    formView.style.display = 'grid';
-                    formView.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        }
-    })();
-    </script>
 </body>
 </html>

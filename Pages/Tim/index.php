@@ -222,36 +222,119 @@ $carousel_slides = [
         color: var(--bg-soft);
     }
 
+    html { -webkit-text-size-adjust: 100%; }
+    body { overflow-x: clip; }
+    img  { max-width: 100%; }
 
+    .team-grid > *,
+    .culture-grid > *,
+    .tm-cta__inner > * { min-width: 0; }
+
+    .tm-hero__title,
+    .tm-head__title,
+    .culture__title,
+    .tm-cta__title { overflow-wrap: anywhere; }
+
+    .culture__text,
+    .tm-cta__text,
+    .tm-hero__desc { overflow-wrap: break-word; }
+
+    @media (max-width: 1280px) {
+        .container {
+            padding-left: 64px;
+            padding-right: 64px;
+        }
+    }
 
     @media (max-width: 1024px) {
+        .container,
         .tm-hero .container,
         .tm-section .container,
         .tm-cta .container {
-            padding-left: var(--space-24);
-            padding-right: var(--space-24);
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+
+        .tm-hero {
+            padding-top: 48px;
+            padding-bottom: 48px;
+        }
+
+        .tm-section {
+            padding-top: 56px;
+            padding-bottom: 56px;
+        }
+
+        .tm-cta {
+            padding-top: 48px;
+            padding-bottom: 48px;
         }
 
         .team-grid {
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .culture-grid {
+            gap: 16px;
+        }
+
+        .tm-cta__inner {
+            gap: 20px;
         }
     }
 
     @media (max-width: 768px) {
+        .container,
+        .tm-hero .container,
+        .tm-section .container,
+        .tm-cta .container {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
+        .tm-hero {
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
         .tm-hero__title {
             font-size: 32px;
+        }
+
+        .tm-section {
+            padding-top: 44px;
+            padding-bottom: 44px;
+        }
+
+        .tm-head {
+            margin-bottom: 28px;
         }
 
         .tm-head__title {
             font-size: 24px;
         }
 
-        .tm-cta__title {
-            font-size: 22px;
+        .team-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
         }
 
         .culture-grid {
             grid-template-columns: 1fr;
+        }
+
+        .culture {
+            padding: 18px;
+        }
+
+        .tm-cta {
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .tm-cta__title {
+            font-size: 22px;
         }
 
         .tm-cta__inner {
@@ -261,8 +344,158 @@ $carousel_slides = [
     }
 
     @media (max-width: 480px) {
+        .container,
+        .tm-hero .container,
+        .tm-section .container,
+        .tm-cta .container {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .tm-hero__title {
+            font-size: 28px;
+        }
+
+        .tm-section {
+            padding-top: 36px;
+            padding-bottom: 36px;
+        }
+
+        .tm-head__title {
+            font-size: 22px;
+        }
+
+        .team-grid {
+            gap: 12px;
+        }
+
+        .tm-cta__title {
+            font-size: 20px;
+        }
+    }
+
+    @media (max-width: 340px) {
         .team-grid {
             grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 1280px) {
+        .navbar .navbar-container {
+            padding-left: 64px;
+            padding-right: 64px;
+        }
+
+        body .carousel-wrapper .carousel-content-wrap {
+            padding-left: 64px;
+            padding-right: 64px;
+        }
+    }
+
+    @media (min-width: 901px) and (max-width: 1100px) {
+        .navbar .navbar-menu-wrapper {
+            gap: 16px;
+        }
+
+        .navbar .navbar-menu {
+            gap: 16px;
+        }
+
+        .navbar .nav-link {
+            font-size: 14px;
+        }
+    }
+
+    @media (max-width: 1024px) {
+        .navbar .navbar-container {
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+
+        body .carousel-wrapper .carousel-content-wrap {
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+    }
+
+    @media (max-width: 900px) {
+        .navbar .navbar-container {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        body .carousel-wrapper .carousel-content-wrap {
+            padding: 72px 24px 48px;
+        }
+
+        .team-grid .card-inner-team {
+            padding: 14px;
+        }
+    }
+
+    @media (max-width: 640px) {
+        body .carousel-wrapper {
+            height: 540px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .navbar .navbar-container {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        body .carousel-wrapper .carousel-content-wrap {
+            padding: 72px 16px 48px;
+        }
+
+        body .mobile-overlay {
+            padding: 84px 24px 32px;
+        }
+
+        .mobile-overlay .mobile-nav-link {
+            font-size: 18px;
+            padding: 12px 0;
+        }
+
+        .mobile-overlay .mobile-dropdown-link {
+            font-size: 16px;
+        }
+
+        .team-grid .card-inner-team {
+            padding: 12px;
+        }
+
+        .team-grid .card-img-portrait-wrap {
+            margin-bottom: 12px;
+        }
+
+        .team-grid .card-title {
+            font-size: 14px;
+            overflow-wrap: anywhere;
+        }
+
+        .team-grid .card-subtitle {
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+    }
+
+    @media (max-width: 380px) {
+        body .carousel-wrapper {
+            height: 580px;
+        }
+    }
+
+    @media (hover: none) {
+        .custom-card:hover {
+            transform: none;
+        }
+
+        .custom-card:hover .card-img {
+            transform: none;
         }
     }
     </style>
@@ -281,14 +514,13 @@ $carousel_slides = [
             </div>
             <div class="team-grid">
                 <?php foreach ($anggota as $index => $orang): ?>
-                    <?php $id_anggota = $index + 1; // ID dari 1 sampai 8 ?>
+                    <?php $id_anggota = $index + 1;?>
                     <?= render_card([
                         'variant'  => 'team',
                         'title'    => $orang['nama'],
                         'subtitle' => $orang['peran'],
                         'image'    => $gambar_url($orang['foto']),
-                        'href'     => $tim_detail_url . '?id=' . $id_anggota, // Kartu bisa diklik menuju detail
-                    ]) ?>
+                        'href'     => $tim_detail_url . '?id=' . $id_anggota, ]) ?>
                 <?php endforeach; ?>
             </div>
         </div>

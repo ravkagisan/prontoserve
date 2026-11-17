@@ -116,7 +116,7 @@ $carousel_slides = [
         'title'       => $orang['nama'],
         'description' => $orang['jabatan'] . ' · ' . $orang['bidang'],
         'buttons'     => [
-            ['text' => 'Hubungi Kami',       'link' => $hubungi_url,                  'variant' => 'primary'],
+            ['text' => 'Hubungi Kami',       'link' => $hubungi_url,                'variant' => 'primary'],
             ['text' => 'Kembali ke Pelatihan', 'link' => $pelatihan_url . '#instruktur', 'variant' => 'outline-white'],
         ],
     ],
@@ -135,6 +135,13 @@ $carousel_slides = [
     <?php require_once __DIR__ . '/../../../../Components/card.php'; ?>
 
     <style>
+    html {
+        -webkit-text-size-adjust: 100%;
+    }
+    body {
+        overflow-x: clip;
+    }
+
     .at-hero {
         background-color: var(--bg-soft);
         padding-top: calc(var(--space-48) + var(--space-8));
@@ -169,6 +176,8 @@ $carousel_slides = [
         padding-top: calc(var(--space-48) + var(--space-8));
         padding-bottom: calc(var(--space-48) + var(--space-24));
         background-color: var(--bg-white);
+        box-sizing: border-box;
+        width: 100%;
     }
 
     .at-profile__grid {
@@ -176,6 +185,8 @@ $carousel_slides = [
         grid-template-columns: 360px 1fr;
         align-items: center;
         gap: 60px;
+        box-sizing: border-box;
+        width: 100%;
     }
 
     .at-profile__photo {
@@ -186,6 +197,7 @@ $carousel_slides = [
         border-radius: var(--radius-card);
         background-color: var(--bg-gray);
         box-shadow: var(--shadow-card);
+        box-sizing: border-box;
     }
 
     .at-profile__list {
@@ -196,6 +208,13 @@ $carousel_slides = [
         font-weight: 400;
         line-height: 36px;
         color: var(--text-primary);
+        box-sizing: border-box;
+        width: 100%;
+        min-width: 0;
+    }
+
+    .at-profile__list li {
+        overflow-wrap: break-word;
     }
 
     .at-profile__list strong {
@@ -203,15 +222,16 @@ $carousel_slides = [
         color: var(--brand-primary);
     }
 
+    /* Responsivitas Tablet & Layar Menengah (<= 1024px) */
     @media (max-width: 1024px) {
         .at-profile .container {
-            padding-left: var(--space-24);
-            padding-right: var(--space-24);
+            padding-left: 40px;
+            padding-right: 40px;
         }
 
         .at-profile__grid {
             grid-template-columns: 1fr;
-            gap: var(--space-32);
+            gap: 40px;
         }
 
         .at-profile__photo {
@@ -223,10 +243,29 @@ $carousel_slides = [
         }
     }
 
+    /* Responsivitas Smartphone / Android / iPhone (<= 768px) */
     @media (max-width: 768px) {
+        .at-profile .container {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
         .at-profile__list {
             font-size: 15px;
             line-height: 1.8;
+        }
+    }
+
+    /* Responsivitas Perangkat Sangat Kecil / iPhone SE (<= 480px) */
+    @media (max-width: 480px) {
+        .at-profile .container {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .at-profile__list {
+            font-size: 14px;
+            line-height: 1.6;
         }
     }
     </style>
