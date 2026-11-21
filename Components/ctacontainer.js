@@ -1,66 +1,106 @@
-<?php
-require_once __DIR__ . '/button.php';
+(function () {
+    var currentScript = document.currentScript;
 
-if (!isset($current_page)) {
-    $current_page = 'tentang-kami';
-}
-
-$script_name = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
-if (preg_match('#^(.*?)/(Pages|api|Components|error)#', $script_name, $matches)) {
-    $base_url = $matches[1];
-} else {
-    $base_url = rtrim(dirname($script_name), '/\\');
-    if ($base_url === '/' || $base_url === '\\') {
-        $base_url = '';
+    function pick(value, fallback) {
+        return value === undefined || value === null ? fallback : value;
     }
-}
 
-if (!function_exists('render_cta')) {
-    function render_cta(array $options = []): string
-    {
-        global $base_url;
+    function escapeHtml(value) {
+        return String(value === null || value === undefined ? '' : value)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
 
-        $title       = $options['title']       ?? 'Ingin berkolaborasi dengan kami?';
-        $subtitle    = $options['subtitle']    ?? 'Sampaikan kebutuhan Anda dan tim kami akan segera menghubungi.';
-        $btn_text    = $options['btn_text']    ?? 'Hubungi Kami';
-        $btn_href    = $options['btn_href']    ?? '#';
-        $variant     = $options['variant']     ?? 'dark';
-        $id_attr     = !empty($options['id']) ? ' id="' . htmlspecialchars($options['id']) . '"' : '';
-        $extra_class = $options['class']       ?? '';
+    function truthy(value) {
+        return !(value === undefined || value === null || value === false || value === 0 || value === '' || value === '0');
+    }
 
-        if ($btn_href !== null && strpos($btn_href, 'http') !== 0 && strpos($btn_href, '#') !== 0 && strpos($btn_href, 'javascript:') !== 0 && strpos($btn_href, 'mailto:') !== 0 && strpos($btn_href, 'tel:') !== 0) {
-            $clean_path = ltrim($btn_href, '/');
-            if (isset($base_url) && $base_url !== '') {
-                if (strpos($btn_href, $base_url) !== 0) {
-                    $btn_href = rtrim($base_url, '/') . '/' . $clean_path;
-                }
-            } else {
-                $btn_href = '/' . $clean_path;
+    var currentPage = window.current_page || 'tentang-kami';
+
+    function computeBaseUrl() {
+        if (window.base_url !== undefined && window.base_url !== null) {
+            return window.base_url;
+        }
+        var scriptName = (window.location.pathname || '').replace(/\\/g, '/');
+        var matches = scriptName.match(/^(.*?)\/(Pages|api|Components|error)/);
+        var base;
+        if (matches) {
+            base = matches[1];
+        } else {
+            var idx = scriptName.lastIndexOf('/');
+            base = idx > 0 ? scriptName.substring(0, idx) : '';
+            base = base.replace(/[\/\\]+$/, '');
+            if (base === '/' || base === '\\') {
+                base = '';
             }
         }
-
-        // Map CTA variant to button variant for optimal contrast
-        $btn_variant = ($variant === 'dark') ? 'white' : 'primary';
-
-        $action_button = render_button([
-            'text'    => $btn_text,
-            'href'    => $btn_href,
-            'variant' => $btn_variant,
-            'size'    => 'md',
-            'class'   => 'cta-action-btn'
-        ]);
-
-        ob_start();
-        ?>
-<section class="cta-section cta-variant-<?= htmlspecialchars($variant) ?><?= $extra_class ? ' ' . htmlspecialchars($extra_class) : '' ?>"<?= $id_attr ?>><div class="cta-container"><div class="cta-inner"><div class="cta-text"><h2 class="cta-title"><?= htmlspecialchars($title) ?></h2><?php if ($subtitle): ?><p class="cta-subtitle"><?= htmlspecialchars($subtitle) ?></p><?php endif; ?></div><div class="cta-action"><?= $action_button ?></div></div></div></section><?php
-        return trim(ob_get_clean());
+        return base;
     }
-}
 
-if (!defined('PRONTOSERVE_CTA_CSS_LOADED')):
-define('PRONTOSERVE_CTA_CSS_LOADED', true);
-?>
-<style>
+    var baseUrl = computeBaseUrl();
+
+    function normalizeHref(href) {
+        if (href === null) {
+            return href;
+        }
+        if (href.indexOf('http') === 0 || href.indexOf('#') === 0 || href.indexOf('javascript:') === 0 || href.indexOf('mailto:') === 0 || href.indexOf('tel:') === 0) {
+            return href;
+        }
+        var cleanPath = href.replace(/^\/+/, '');
+        if (baseUrl !== '') {
+            if (href.indexOf(baseUrl) !== 0) {
+                return baseUrl.replace(/\/+$/, '') + '/' + cleanPath;
+            }
+            return href;
+        }
+        return '/' + cleanPath;
+    }
+
+    function renderBtn(options) {
+        if (typeof window.renderButton === 'function') {
+            return window.renderButton(options);
+        }
+        return '';
+    }
+
+    function renderCta(options) {
+        options = options || {};
+
+        var title = pick(options.title, 'Ingin berkolaborasi dengan kami?');
+        var subtitle = pick(options.subtitle, 'Sampaikan kebutuhan Anda dan tim kami akan segera menghubungi.');
+        var btnText = pick(options.btn_text, 'Hubungi Kami');
+        var btnHref = pick(options.btn_href, '#');
+        var variant = pick(options.variant, 'dark');
+        var idAttr = truthy(options.id) ? ' id="' + escapeHtml(options.id) + '"' : '';
+        var extraClass = pick(options.class, '');
+
+        btnHref = normalizeHref(btnHref);
+
+        var btnVariant = variant === 'dark' ? 'white' : 'primary';
+
+        var actionButton = renderBtn({
+            text: btnText,
+            href: btnHref,
+            variant: btnVariant,
+            size: 'md',
+            class: 'cta-action-btn'
+        });
+
+        var subtitleHtml = truthy(subtitle)
+            ? '<p class="cta-subtitle">' + escapeHtml(subtitle) + '</p>'
+            : '';
+
+        return '<section class="cta-section cta-variant-' + escapeHtml(variant) + (extraClass ? ' ' + escapeHtml(extraClass) : '') + '"' + idAttr + '>' +
+            '<div class="cta-container"><div class="cta-inner">' +
+            '<div class="cta-text"><h2 class="cta-title">' + escapeHtml(title) + '</h2>' + subtitleHtml + '</div>' +
+            '<div class="cta-action">' + actionButton + '</div>' +
+            '</div></div></section>';
+    }
+
+    var ctaCss = `
 .cta-section {
     width: 100%;
     margin: 0 !important;
@@ -133,13 +173,11 @@ define('PRONTOSERVE_CTA_CSS_LOADED', true);
     align-items: center;
 }
 
-/* ── Seamless Connection to Footer ── */
 .cta-section + .site-footer,
 .cta-section ~ .site-footer {
     margin-top: 0 !important;
 }
 
-/* ── Responsive Mobile ── */
 @media (max-width: 1024px) {
     .cta-container {
         padding-left: var(--space-24);
@@ -183,17 +221,51 @@ define('PRONTOSERVE_CTA_CSS_LOADED', true);
         width: 100%;
     }
 }
-</style>
-<?php endif; ?>
-<?php
-if (isset($cta_title) || isset($cta_subtitle) || isset($cta_btn_text)) {
-    echo trim(render_cta([
-        'title'       => $cta_title       ?? 'Ingin berkolaborasi dengan kami?',
-        'subtitle'    => $cta_subtitle    ?? '',
-        'btn_text'    => $cta_btn_text    ?? 'Hubungi Kami',
-        'btn_href'    => $cta_btn_href    ?? '#',
-        'variant'     => $cta_variant     ?? 'dark',
-        'id'          => $cta_id          ?? null,
-        'class'       => $cta_class       ?? '',
-    ]));
-}
+`;
+
+    function loadStyle() {
+        if (window.PRONTOSERVE_CTA_CSS_LOADED) {
+            return;
+        }
+        window.PRONTOSERVE_CTA_CSS_LOADED = true;
+        var style = document.createElement('style');
+        style.textContent = ctaCss;
+        document.head.appendChild(style);
+    }
+
+    loadStyle();
+
+    function mountCta(target, options, position) {
+        target.insertAdjacentHTML(position || 'beforeend', renderCta(options));
+    }
+
+    function renderFromGlobals() {
+        var keys = ['cta_title', 'cta_subtitle', 'cta_btn_text'];
+        var hasAny = keys.some(function (key) {
+            return window[key] !== undefined;
+        });
+
+        if (!hasAny || !currentScript || !currentScript.parentNode) {
+            return;
+        }
+
+        var html = renderCta({
+            title: pick(window.cta_title, 'Ingin berkolaborasi dengan kami?'),
+            subtitle: pick(window.cta_subtitle, ''),
+            btn_text: pick(window.cta_btn_text, 'Hubungi Kami'),
+            btn_href: pick(window.cta_btn_href, '#'),
+            variant: pick(window.cta_variant, 'dark'),
+            id: pick(window.cta_id, null),
+            class: pick(window.cta_class, '')
+        });
+
+        currentScript.insertAdjacentHTML('beforebegin', html);
+    }
+
+    renderFromGlobals();
+
+    window.renderCta = renderCta;
+    window.render_cta = renderCta;
+    window.mountCta = mountCta;
+    window.current_page = currentPage;
+})();

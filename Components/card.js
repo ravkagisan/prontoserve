@@ -1,263 +1,283 @@
-<?php
-include_once __DIR__ . '/button.php';
+(function () {
+    var currentScript = document.currentScript;
 
-if (!isset($base_url)) {
-    $script_name = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
-    if (preg_match('#^(.*?)/(Pages|api|Components)#', $script_name, $matches)) {
-        $base_url = $matches[1];
-    } else {
-        $base_url = rtrim(dirname($script_name), '/\\');
-        if ($base_url === '/' || $base_url === '\\') {
-            $base_url = '';
-        }
+    function pick(value, fallback) {
+        return value === undefined || value === null ? fallback : value;
     }
-}
 
-$asset_base = '';
-if (file_exists('Assets/images/dummy.jpg')) {
-    $asset_base = 'Assets/images/';
-} elseif (file_exists('../Assets/images/dummy.jpg')) {
-    $asset_base = '../Assets/images/';
-} elseif (file_exists('../../Assets/images/dummy.jpg')) {
-    $asset_base = '../../Assets/images/';
-} else {
-    $asset_base = (isset($base_url) && $base_url !== '' ? rtrim($base_url, '/') . '/' : '/') . 'Assets/images/';
-}
+    function escapeHtml(value) {
+        return String(value === null || value === undefined ? '' : value)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
 
-$default_placeholder_image = $asset_base . 'dummy.jpg';
+    function truthy(value) {
+        if (value === undefined || value === null || value === false || value === 0 || value === '' || value === '0') {
+            return false;
+        }
+        if (Array.isArray(value) && value.length === 0) {
+            return false;
+        }
+        return true;
+    }
 
-if (!function_exists('render_card')) {
-    function render_card($options = []) {
-        global $base_url, $default_placeholder_image, $asset_base;
-
-        $variant       = $options['variant'] ?? 'service';
-        $title         = $options['title'] ?? '';
-        $subtitle      = $options['subtitle'] ?? '';
-        $description   = $options['description'] ?? '';
-        $category      = $options['category'] ?? '';
-        $extra_info    = $options['extra_info'] ?? null;
-        $button_config = $options['button_config'] ?? null;
-        $social_links  = $options['social_links'] ?? null;
-        $href          = $options['href'] ?? null;
-        $extra_class   = $options['class'] ?? '';
-        $id            = $options['id'] ?? null;
-        $attributes    = $options['attributes'] ?? '';
-        $gradient      = $options['gradient'] ?? null;
-        $icon          = $options['icon'] ?? null;
-
-        $image = !empty($options['image']) ? $options['image'] : $default_placeholder_image;
-        if (!filter_var($image, FILTER_VALIDATE_URL) && !file_exists($image)) {
-            if (file_exists($asset_base . ltrim($image, '/'))) {
-                $image = $asset_base . ltrim($image, '/');
+    function computeBaseUrl() {
+        if (window.base_url !== undefined && window.base_url !== null) {
+            return window.base_url;
+        }
+        var scriptName = (window.location.pathname || '').replace(/\\/g, '/');
+        var matches = scriptName.match(/^(.*?)\/(Pages|api|Components)/);
+        var base;
+        if (matches) {
+            base = matches[1];
+        } else {
+            var idx = scriptName.lastIndexOf('/');
+            base = idx > 0 ? scriptName.substring(0, idx) : '';
+            base = base.replace(/[\/\\]+$/, '');
+            if (base === '/' || base === '\\') {
+                base = '';
             }
         }
-
-        $id_attr = $id ? 'id="' . htmlspecialchars($id) . '"' : '';
-
-        // Kartu "team" bisa diklik penuh jika punya href
-        $is_clickable = $href && in_array($variant, ['team'], true);
-        $card_classes = 'card custom-card card-' . htmlspecialchars($variant)
-            . ($is_clickable ? ' custom-card-clickable' : '')
-            . ($extra_class ? ' ' . htmlspecialchars($extra_class) : '');
-
-        ob_start();
-        ?>
-        <?php if ($variant === 'team' && $href): ?>
-            <a href="<?= htmlspecialchars($href) ?>" class="<?= $card_classes ?>" <?= $id_attr ?> <?= $attributes ?>>
-                <div class="card-inner card-inner-team">
-                    <div class="card-img-portrait-wrap">
-                        <img src="<?= htmlspecialchars($image) ?>" alt="<?= htmlspecialchars($title) ?>" class="card-img">
-                    </div>
-                    <div class="card-body card-body-center">
-                        <h3 class="card-title"><?= htmlspecialchars($title) ?></h3>
-                        <p class="card-subtitle"><?= htmlspecialchars($subtitle ?: $description) ?></p>
-                        <div class="card-social-dots">
-                            <?php if (!empty($social_links) && is_array($social_links)): ?>
-                                <?php foreach ($social_links as $item): ?>
-                                    <span class="social-dot" aria-hidden="true">
-                                        <?= !empty($item['icon']) ? $item['icon'] : '' ?>
-                                    </span>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <span class="social-dot"></span>
-                                <span class="social-dot"></span>
-                                <span class="social-dot"></span>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-        <?php else: ?>
-            <div class="<?= $card_classes ?>" <?= $id_attr ?> <?= $attributes ?>>
-                <?php if ($variant === 'project'): ?>
-                    <div class="card-img-top-wrap" <?= $gradient ? 'style="background: ' . htmlspecialchars($gradient) . ';"' : '' ?>>
-                        <?php if ($icon): ?>
-                            <div class="card-img-placeholder-icon">
-                                <?= $icon ?>
-                            </div>
-                        <?php else: ?>
-                            <img src="<?= htmlspecialchars($image) ?>" alt="<?= htmlspecialchars($title) ?>" class="card-img-top">
-                        <?php endif; ?>
-                    </div>
-                    <div class="card-body">
-                        <?php if ($category): ?>
-                            <div class="card-badge-wrap">
-                                <span class="btn btn-badge"><?= htmlspecialchars($category) ?></span>
-                            </div>
-                        <?php endif; ?>
-                        <h3 class="card-title">
-                            <?php if ($href): ?>
-                                <a href="<?= htmlspecialchars($href) ?>" class="card-title-link"><?= htmlspecialchars($title) ?></a>
-                            <?php else: ?>
-                                <?= htmlspecialchars($title) ?>
-                            <?php endif; ?>
-                        </h3>
-                        <?php if ($description): ?>
-                            <p class="card-desc"><?= htmlspecialchars($description) ?></p>
-                        <?php endif; ?>
-                        <div class="card-action">
-                            <?php
-                            $btn_params = is_array($button_config) ? $button_config : [
-                                'variant' => 'primary',
-                                'text'    => 'Lihat Detail',
-                                'href'    => $href ?? '#',
-                                'size'    => 'sm'
-                            ];
-                            if (!isset($btn_params['size'])) {
-                                $btn_params['size'] = 'sm';
-                            }
-                            if (!isset($btn_params['variant'])) {
-                                $btn_params['variant'] = 'primary';
-                            }
-                            echo render_button($btn_params);
-                            ?>
-                        </div>
-                    </div>
-
-                <?php elseif ($variant === 'training'): ?>
-                    <div class="card-inner">
-                        <div class="card-img-inset-wrap card-img-training">
-                            <img src="<?= htmlspecialchars($image) ?>" alt="<?= htmlspecialchars($title) ?>" class="card-img">
-                        </div>
-                        <div class="card-body">
-                            <?php if ($category): ?>
-                                <div class="card-badge-wrap">
-                                    <span class="btn btn-badge"><?= htmlspecialchars($category) ?></span>
-                                </div>
-                            <?php endif; ?>
-                            <h3 class="card-title">
-                                <?php if ($href): ?>
-                                    <a href="<?= htmlspecialchars($href) ?>" class="card-title-link"><?= htmlspecialchars($title) ?></a>
-                                <?php else: ?>
-                                    <?= htmlspecialchars($title) ?>
-                                <?php endif; ?>
-                            </h3>
-                            <?php if ($description): ?>
-                                <p class="card-desc"><?= htmlspecialchars($description) ?></p>
-                            <?php endif; ?>
-                            <?php if ($extra_info): ?>
-                                <div class="card-extra-info">
-                                    <span class="card-extra-icon">📅</span>
-                                    <span><?= htmlspecialchars(is_array($extra_info) ? implode(' · ', $extra_info) : $extra_info) ?></span>
-                                </div>
-                            <?php endif; ?>
-                            <div class="card-action">
-                                <?php
-                                $btn_params = is_array($button_config) ? $button_config : [
-                                    'variant' => 'primary',
-                                    'text'    => 'Lihat Silabus',
-                                    'href'    => $href ?? 'Pages/HubungiKami/index.php',
-                                    'size'    => 'sm'
-                                ];
-                                if (!isset($btn_params['size'])) {
-                                    $btn_params['size'] = 'sm';
-                                }
-                                if (!isset($btn_params['variant'])) {
-                                    $btn_params['variant'] = 'primary';
-                                }
-                                echo render_button($btn_params);
-                                ?>
-                            </div>
-                        </div>
-                    </div>
-
-                <?php elseif ($variant === 'team'): ?>
-                    <div class="card-inner card-inner-team">
-                        <div class="card-img-portrait-wrap">
-                            <img src="<?= htmlspecialchars($image) ?>" alt="<?= htmlspecialchars($title) ?>" class="card-img">
-                        </div>
-                        <div class="card-body card-body-center">
-                            <h3 class="card-title"><?= htmlspecialchars($title) ?></h3>
-                            <p class="card-subtitle"><?= htmlspecialchars($subtitle ?: $description) ?></p>
-                            <div class="card-social-dots">
-                                <?php if (!empty($social_links) && is_array($social_links)): ?>
-                                    <?php foreach ($social_links as $item): ?>
-                                        <a href="<?= htmlspecialchars($item['url'] ?? '#') ?>" class="social-dot" aria-label="Social Link">
-                                            <?= !empty($item['icon']) ? $item['icon'] : '' ?>
-                                        </a>
-                                    <?php endforeach; ?>
-                                <?php else: ?>
-                                    <span class="social-dot"></span>
-                                    <span class="social-dot"></span>
-                                    <span class="social-dot"></span>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    </div>
-
-                <?php else: ?>
-                    <div class="card-inner">
-                        <div class="card-img-inset-wrap card-img-service">
-                            <img src="<?= htmlspecialchars($image) ?>" alt="<?= htmlspecialchars($title) ?>" class="card-img">
-                        </div>
-                        <div class="card-body">
-                            <h3 class="card-title">
-                                <?php if ($href): ?>
-                                    <a href="<?= htmlspecialchars($href) ?>" class="card-title-link"><?= htmlspecialchars($title) ?></a>
-                                <?php else: ?>
-                                    <?= htmlspecialchars($title) ?>
-                                <?php endif; ?>
-                            </h3>
-                            <?php if ($description): ?>
-                                <p class="card-desc"><?= htmlspecialchars($description) ?></p>
-                            <?php endif; ?>
-                            <?php if ($extra_info): ?>
-                                <div class="card-extra-info card-contact-info">
-                                    <span><?= htmlspecialchars(is_array($extra_info) ? implode(' · ', $extra_info) : $extra_info) ?></span>
-                                </div>
-                            <?php endif; ?>
-                            <div class="card-action">
-                                <?php
-                                $btn_params = is_array($button_config) ? $button_config : [
-                                    'variant' => 'primary',
-                                    'text'    => 'Pelajari Selengkapnya',
-                                    'href'    => $href ?? '#',
-                                    'size'    => 'sm'
-                                ];
-                                if (!isset($btn_params['size'])) {
-                                    $btn_params['size'] = 'sm';
-                                }
-                                if (!isset($btn_params['variant'])) {
-                                    $btn_params['variant'] = 'primary';
-                                }
-                                echo render_button($btn_params);
-                                ?>
-                            </div>
-                        </div>
-                    </div>
-                <?php endif; ?>
-            </div>
-        <?php endif; ?>
-        <?php
-        return ob_get_clean();
+        return base;
     }
-}
 
-if (!defined('PRONTOSERVE_CARD_CSS_LOADED')):
-define('PRONTOSERVE_CARD_CSS_LOADED', true);
-?>
-<style>
+    var baseUrl = computeBaseUrl();
+
+    function detectAssetBase() {
+        if (window.asset_base !== undefined && window.asset_base !== null) {
+            return window.asset_base;
+        }
+        var path = (window.location.pathname || '').replace(/\\/g, '/');
+        var match = path.match(/\/Pages\/(.*)$/);
+        if (match) {
+            var depth = match[1].split('/').length;
+            var prefix = '';
+            for (var i = 0; i < depth; i++) {
+                prefix += '../';
+            }
+            return prefix + 'Assets/images/';
+        }
+        return (baseUrl !== '' ? baseUrl.replace(/\/+$/, '') + '/' : '/') + 'Assets/images/';
+    }
+
+    var assetBase = detectAssetBase();
+    var defaultPlaceholderImage = assetBase + 'dummy.jpg';
+
+    function isUrl(value) {
+        return /^[a-z][a-z0-9+.\-]*:\/\//i.test(value);
+    }
+
+    function resolveImage(image) {
+        var result = truthy(image) ? image : defaultPlaceholderImage;
+        if (!isUrl(result) && result.indexOf('data:') !== 0 && result.indexOf('/') === -1) {
+            result = assetBase + result.replace(/^\/+/, '');
+        }
+        return result;
+    }
+
+    function joinInfo(info) {
+        return Array.isArray(info) ? info.join(' · ') : info;
+    }
+
+    function renderBtn(options) {
+        if (typeof window.renderButton === 'function') {
+            return window.renderButton(options);
+        }
+        return '';
+    }
+
+    function buildButton(buttonConfig, defaults) {
+        var params;
+        if (buttonConfig !== null && typeof buttonConfig === 'object') {
+            params = {};
+            for (var key in buttonConfig) {
+                if (Object.prototype.hasOwnProperty.call(buttonConfig, key)) {
+                    params[key] = buttonConfig[key];
+                }
+            }
+        } else {
+            params = defaults;
+        }
+        if (params.size === undefined || params.size === null) {
+            params.size = 'sm';
+        }
+        if (params.variant === undefined || params.variant === null) {
+            params.variant = 'primary';
+        }
+        return renderBtn(params);
+    }
+
+    function titleHtml(title, href) {
+        if (href) {
+            return '<a href="' + escapeHtml(href) + '" class="card-title-link">' + escapeHtml(title) + '</a>';
+        }
+        return escapeHtml(title);
+    }
+
+    function badgeHtml(category) {
+        if (!truthy(category)) {
+            return '';
+        }
+        return '<div class="card-badge-wrap"><span class="btn btn-badge">' + escapeHtml(category) + '</span></div>';
+    }
+
+    function descHtml(description) {
+        if (!truthy(description)) {
+            return '';
+        }
+        return '<p class="card-desc">' + escapeHtml(description) + '</p>';
+    }
+
+    function renderCard(options) {
+        options = options || {};
+
+        var variant = pick(options.variant, 'service');
+        var title = pick(options.title, '');
+        var subtitle = pick(options.subtitle, '');
+        var description = pick(options.description, '');
+        var category = pick(options.category, '');
+        var extraInfo = pick(options.extra_info, null);
+        var buttonConfig = pick(options.button_config, null);
+        var socialLinks = pick(options.social_links, null);
+        var href = pick(options.href, null);
+        var extraClass = pick(options.class, '');
+        var id = pick(options.id, null);
+        var attributes = pick(options.attributes, '');
+        var gradient = pick(options.gradient, null);
+        var icon = pick(options.icon, null);
+
+        var image = resolveImage(options.image);
+
+        var idAttr = id ? 'id="' + escapeHtml(id) + '"' : '';
+
+        var isClickable = !!href && variant === 'team';
+        var cardClasses = 'card custom-card card-' + escapeHtml(variant) +
+            (isClickable ? ' custom-card-clickable' : '') +
+            (extraClass ? ' ' + escapeHtml(extraClass) : '');
+
+        var hasSocial = truthy(socialLinks) && Array.isArray(socialLinks);
+        var subtitleText = truthy(subtitle) ? subtitle : description;
+        var imgTag = '<img src="' + escapeHtml(image) + '" alt="' + escapeHtml(title) + '" class="card-img">';
+
+        if (variant === 'team' && href) {
+            var spanDots;
+            if (hasSocial) {
+                spanDots = socialLinks.map(function (item) {
+                    return '<span class="social-dot" aria-hidden="true">' + (truthy(item.icon) ? item.icon : '') + '</span>';
+                }).join('');
+            } else {
+                spanDots = '<span class="social-dot"></span><span class="social-dot"></span><span class="social-dot"></span>';
+            }
+
+            return '' +
+                '<a href="' + escapeHtml(href) + '" class="' + cardClasses + '" ' + idAttr + ' ' + attributes + '>' +
+                '<div class="card-inner card-inner-team">' +
+                '<div class="card-img-portrait-wrap">' + imgTag + '</div>' +
+                '<div class="card-body card-body-center">' +
+                '<h3 class="card-title">' + escapeHtml(title) + '</h3>' +
+                '<p class="card-subtitle">' + escapeHtml(subtitleText) + '</p>' +
+                '<div class="card-social-dots">' + spanDots + '</div>' +
+                '</div>' +
+                '</div>' +
+                '</a>';
+        }
+
+        var inner = '';
+
+        if (variant === 'project') {
+            var topStyle = gradient ? 'style="background: ' + escapeHtml(gradient) + ';"' : '';
+            var topContent = icon
+                ? '<div class="card-img-placeholder-icon">' + icon + '</div>'
+                : '<img src="' + escapeHtml(image) + '" alt="' + escapeHtml(title) + '" class="card-img-top">';
+
+            var projectBtn = buildButton(buttonConfig, {
+                variant: 'primary',
+                text: 'Lihat Detail',
+                href: pick(href, '#'),
+                size: 'sm'
+            });
+
+            inner = '' +
+                '<div class="card-img-top-wrap" ' + topStyle + '>' + topContent + '</div>' +
+                '<div class="card-body">' +
+                badgeHtml(category) +
+                '<h3 class="card-title">' + titleHtml(title, href) + '</h3>' +
+                descHtml(description) +
+                '<div class="card-action">' + projectBtn + '</div>' +
+                '</div>';
+        } else if (variant === 'training') {
+            var trainingBtn = buildButton(buttonConfig, {
+                variant: 'primary',
+                text: 'Lihat Silabus',
+                href: pick(href, 'Pages/HubungiKami/index.php'),
+                size: 'sm'
+            });
+
+            var trainingExtra = truthy(extraInfo)
+                ? '<div class="card-extra-info"><span class="card-extra-icon">📅</span><span>' + escapeHtml(joinInfo(extraInfo)) + '</span></div>'
+                : '';
+
+            inner = '' +
+                '<div class="card-inner">' +
+                '<div class="card-img-inset-wrap card-img-training">' + imgTag + '</div>' +
+                '<div class="card-body">' +
+                badgeHtml(category) +
+                '<h3 class="card-title">' + titleHtml(title, href) + '</h3>' +
+                descHtml(description) +
+                trainingExtra +
+                '<div class="card-action">' + trainingBtn + '</div>' +
+                '</div>' +
+                '</div>';
+        } else if (variant === 'team') {
+            var linkDots;
+            if (hasSocial) {
+                linkDots = socialLinks.map(function (item) {
+                    return '<a href="' + escapeHtml(pick(item.url, '#')) + '" class="social-dot" aria-label="Social Link">' + (truthy(item.icon) ? item.icon : '') + '</a>';
+                }).join('');
+            } else {
+                linkDots = '<span class="social-dot"></span><span class="social-dot"></span><span class="social-dot"></span>';
+            }
+
+            inner = '' +
+                '<div class="card-inner card-inner-team">' +
+                '<div class="card-img-portrait-wrap">' + imgTag + '</div>' +
+                '<div class="card-body card-body-center">' +
+                '<h3 class="card-title">' + escapeHtml(title) + '</h3>' +
+                '<p class="card-subtitle">' + escapeHtml(subtitleText) + '</p>' +
+                '<div class="card-social-dots">' + linkDots + '</div>' +
+                '</div>' +
+                '</div>';
+        } else {
+            var serviceBtn = buildButton(buttonConfig, {
+                variant: 'primary',
+                text: 'Pelajari Selengkapnya',
+                href: pick(href, '#'),
+                size: 'sm'
+            });
+
+            var serviceExtra = truthy(extraInfo)
+                ? '<div class="card-extra-info card-contact-info"><span>' + escapeHtml(joinInfo(extraInfo)) + '</span></div>'
+                : '';
+
+            inner = '' +
+                '<div class="card-inner">' +
+                '<div class="card-img-inset-wrap card-img-service">' + imgTag + '</div>' +
+                '<div class="card-body">' +
+                '<h3 class="card-title">' + titleHtml(title, href) + '</h3>' +
+                descHtml(description) +
+                serviceExtra +
+                '<div class="card-action">' + serviceBtn + '</div>' +
+                '</div>' +
+                '</div>';
+        }
+
+        return '<div class="' + cardClasses + '" ' + idAttr + ' ' + attributes + '>' + inner + '</div>';
+    }
+
+    var cardCss = `
 .custom-card {
     background-color: var(--bg-white);
     border-radius: var(--radius-card);
@@ -516,25 +536,56 @@ define('PRONTOSERVE_CARD_CSS_LOADED', true);
     background-color: var(--brand-primary);
     transform: scale(1.15);
 }
-</style>
-<?php endif; ?>
+`;
 
-<?php
-if (isset($card_variant) || isset($card_title) || isset($variant) || isset($title)) {
-    echo render_card([
-        'variant' => $card_variant ?? ($variant ?? 'service'),
-        'title' => $card_title ?? ($title ?? ''),
-        'subtitle' => $card_subtitle ?? ($subtitle ?? ''),
-        'description' => $card_description ?? ($description ?? ''),
-        'image' => $card_image ?? ($image ?? null),
-        'category' => $card_category ?? ($category ?? ''),
-        'extra_info' => $card_extra_info ?? ($extra_info ?? null),
-        'button_config' => $card_button_config ?? ($button_config ?? null),
-        'social_links' => $card_social_links ?? ($social_links ?? null),
-        'href' => $card_href ?? ($href ?? null),
-        'class' => $card_class ?? ($class ?? ''),
-        'id' => $card_id ?? ($id ?? null),
-        'attributes' => $card_attributes ?? ($attributes ?? '')
-    ]);
-}
-?>
+    function loadStyle() {
+        if (window.PRONTOSERVE_CARD_CSS_LOADED) {
+            return;
+        }
+        window.PRONTOSERVE_CARD_CSS_LOADED = true;
+        var style = document.createElement('style');
+        style.textContent = cardCss;
+        document.head.appendChild(style);
+    }
+
+    loadStyle();
+
+    function mountCard(target, options, position) {
+        target.insertAdjacentHTML(position || 'beforeend', renderCard(options));
+    }
+
+    function renderFromGlobals() {
+        var keys = ['card_variant', 'card_title', 'variant', 'title'];
+        var hasAny = keys.some(function (key) {
+            return window[key] !== undefined;
+        });
+
+        if (!hasAny || !currentScript || !currentScript.parentNode) {
+            return;
+        }
+
+        var html = renderCard({
+            variant: pick(window.card_variant, pick(window.variant, 'service')),
+            title: pick(window.card_title, pick(window.title, '')),
+            subtitle: pick(window.card_subtitle, pick(window.subtitle, '')),
+            description: pick(window.card_description, pick(window.description, '')),
+            image: pick(window.card_image, pick(window.image, null)),
+            category: pick(window.card_category, pick(window.category, '')),
+            extra_info: pick(window.card_extra_info, pick(window.extra_info, null)),
+            button_config: pick(window.card_button_config, pick(window.button_config, null)),
+            social_links: pick(window.card_social_links, pick(window.social_links, null)),
+            href: pick(window.card_href, pick(window.href, null)),
+            class: pick(window.card_class, pick(window.class, '')),
+            id: pick(window.card_id, pick(window.id, null)),
+            attributes: pick(window.card_attributes, pick(window.attributes, ''))
+        });
+
+        currentScript.insertAdjacentHTML('beforebegin', html);
+    }
+
+    renderFromGlobals();
+
+    window.renderCard = renderCard;
+    window.render_card = renderCard;
+    window.mountCard = mountCard;
+})();

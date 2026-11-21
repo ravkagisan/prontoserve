@@ -1,57 +1,68 @@
-<?php
-include_once __DIR__ . '/button.php';
+(function () {
+    var currentScript = document.currentScript;
 
-$carousel_type = $carousel_type ?? 'hero';
-$carousel_id = 'carousel_' . substr(md5(uniqid((string)mt_rand(), true)), 0, 8);
-$auto_slide_interval = $auto_slide_interval ?? 7000;
-
-$asset_base = '';
-if (file_exists('Assets/images/dummy.jpg')) {
-    $asset_base = 'Assets/images/';
-} elseif (file_exists('../Assets/images/dummy.jpg')) {
-    $asset_base = '../Assets/images/';
-} elseif (file_exists('../../Assets/images/dummy.jpg')) {
-    $asset_base = '../../Assets/images/';
-} else {
-    $asset_base = 'Assets/images/';
-}
-
-if (!isset($carousel_slides) || !is_array($carousel_slides) || empty($carousel_slides)) {
-    $carousel_slides = [
-        [
-            'id' => 1,
-            'image' => $asset_base . 'dummy.jpg',
-            'title' => "Inovasi Teknologi Terdepan\nBersama TEFA JTI Innovation",
-            'description' => "Menghadirkan riset terapan dan transformasi digital melalui pengembangan perangkat lunak, sistem cerdas, dan solusi industri terpercaya.",
-            'buttons' => [
-                ['text' => 'Jelajahi Pelayanan', 'link' => 'Pages/Pelayanan/index.php', 'variant' => 'primary'],
-                ['text' => 'Hubungi Kami', 'link' => 'Pages/HubungiKami/index.php', 'variant' => 'outline-white']
-            ]
-        ],
-        [
-            'id' => 2,
-            'image' => $asset_base . 'ajasendiri.jpg',
-            'title' => "Program Pelatihan Digital\nBerstandar Industri Terkini",
-            'description' => "Tingkatkan keahlian teknis dan kompetensi profesional mahasiswa serta talenta digital melalui kurikulum praktis dan sertifikasi industri.",
-            'buttons' => [
-                ['text' => 'Lihat Pelatihan', 'link' => 'Pages/Pelatihan/index.php', 'variant' => 'primary'],
-                ['text' => 'Lihat Portofolio', 'link' => 'Pages/Portofolio/index.php', 'variant' => 'outline-white']
-            ]
-        ]
-    ];
-}
-
-foreach ($carousel_slides as &$slide) {
-    if (!empty($slide['image']) && !filter_var($slide['image'], FILTER_VALIDATE_URL) && !file_exists($slide['image'])) {
-        if (file_exists($asset_base . $slide['image'])) {
-            $slide['image'] = $asset_base . $slide['image'];
-        }
+    function pick(value, fallback) {
+        return value === undefined || value === null ? fallback : value;
     }
-}
-unset($slide);
-?>
 
-<style>
+    function escapeHtml(value) {
+        return String(value === null || value === undefined ? '' : value)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
+
+    function isEmpty(value) {
+        if (value === undefined || value === null || value === false || value === 0 || value === '' || value === '0') {
+            return true;
+        }
+        if (Array.isArray(value) && value.length === 0) {
+            return true;
+        }
+        return false;
+    }
+
+    function randomId() {
+        var chars = 'abcdef0123456789';
+        var out = '';
+        for (var i = 0; i < 8; i++) {
+            out += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return 'carousel_' + out;
+    }
+
+    function detectAssetBase() {
+        if (window.asset_base !== undefined && window.asset_base !== null) {
+            return window.asset_base;
+        }
+        var path = (window.location.pathname || '').replace(/\\/g, '/');
+        var match = path.match(/\/Pages\/(.*)$/);
+        if (match) {
+            var parts = match[1].split('/');
+            var depth = parts.length;
+            var prefix = '';
+            for (var i = 0; i < depth; i++) {
+                prefix += '../';
+            }
+            return prefix + 'Assets/images/';
+        }
+        return 'Assets/images/';
+    }
+
+    function isUrlLike(value) {
+        return /^(https?:)?\/\//i.test(value) || value.indexOf('data:') === 0 || value.indexOf('/') === 0;
+    }
+
+    function buttonRenderer(options) {
+        if (typeof window.renderButton === 'function') {
+            return window.renderButton(options);
+        }
+        return '';
+    }
+
+    var carouselCss = `
   @keyframes zoomRight {
     0% { transform: scale(1); }
     50% { transform: scale(1.1); }
@@ -203,7 +214,6 @@ unset($slide);
     margin-top: 32px;
   }
 
-  /* ── Consistent Hero Button Fixed Sizing (KHUSUS CAROUSEL) ── */
   .carousel-hero-btn,
   .carousel-buttons .blob-btn {
     width: 230px !important;
@@ -438,223 +448,318 @@ unset($slide);
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-</style>
+`;
 
-<?php if ($carousel_type === 'cards'): ?>
-  <?php
-    $cards_h1 = $cards_h1 ?? 'Portofolio Terpilih';
-    $cards_h2 = $cards_h2 ?? 'Jelajahi inovasi dan produk yang telah kami kembangkan bersama mitra industri.';
-    $cards_data = $cards_data ?? [
-        [
-            'id' => 1,
-            'title' => 'Sistem Informasi Manajemen Terintegrasi',
-            'desc' => 'Platform digital enterprise untuk otomatisasi operasional dan pelaporan terpadu.',
-            'img' => $asset_base . 'dummy.jpg',
-            'link' => 'Pages/Portofolio/index.php'
-        ],
-        [
-            'id' => 2,
-            'title' => 'Aplikasi Pembelajaran Interaktif EduTech',
-            'desc' => 'Media pembelajaran digital dengan fitur interaktif untuk meningkatkan kualitas edukasi.',
-            'img' => $asset_base . 'ajasendiri.jpg',
-            'link' => 'Pages/Portofolio/index.php'
-        ],
-        [
-            'id' => 3,
-            'title' => 'Implementasi IoT Smart Monitoring',
-            'desc' => 'Sensor jaringan cerdas dan dashboard analitik data real-time berbasis cloud.',
-            'img' => $asset_base . 'dummy.jpg',
-            'link' => 'Pages/Portofolio/index.php'
-        ]
-    ];
-  ?>
-  <section class="cards-carousel-section" id="<?= htmlspecialchars($carousel_id) ?>">
-    <div class="cards-carousel-header">
-      <h2 class="cards-carousel-h1"><?= htmlspecialchars($cards_h1) ?></h2>
-      <p class="cards-carousel-h2"><?= htmlspecialchars($cards_h2) ?></p>
-    </div>
-
-    <div class="cards-carousel-wrap">
-      <div class="cards-scroll-container">
-        <?php foreach ($cards_data as $card): ?>
-          <a href="<?= htmlspecialchars($card['link'] ?? '#') ?>" class="card-item-link">
-            <div class="carousel-card-box">
-              <div class="carousel-card-img-wrap">
-                <img src="<?= htmlspecialchars($card['img']) ?>" alt="<?= htmlspecialchars($card['title']) ?>" class="carousel-card-img">
-              </div>
-              <div class="carousel-card-body">
-                <h3 class="carousel-card-title"><?= htmlspecialchars($card['title']) ?></h3>
-                <p class="carousel-card-desc"><?= htmlspecialchars($card['desc']) ?></p>
-              </div>
-            </div>
-          </a>
-        <?php endforeach; ?>
-      </div>
-    </div>
-  </section>
-
-<?php else: ?>
-  <div class="carousel-wrapper" id="<?= htmlspecialchars($carousel_id) ?>">
-    <?php foreach ($carousel_slides as $index => $slide): ?>
-      <?php
-        $is_active = ($index === 0);
-        $buttons = [];
-        if (!empty($slide['buttons']) && is_array($slide['buttons'])) {
-            $buttons = $slide['buttons'];
-        } elseif (!empty($slide['ctaText']) && !empty($slide['ctaLink'])) {
-            $buttons = [['text' => $slide['ctaText'], 'link' => $slide['ctaLink'], 'variant' => 'outline-white']];
+    function loadStyle() {
+        if (window.PRONTOSERVE_CAROUSEL_CSS_LOADED) {
+            return;
         }
-      ?>
-      <div class="carousel-slide <?= $is_active ? 'active' : '' ?>" data-index="<?= $index ?>">
-        <div class="carousel-bg-wrap">
-          <div class="carousel-bg" style="background-image: url('<?= htmlspecialchars($slide['image']) ?>');"></div>
-          <div class="carousel-overlay"></div>
-        </div>
+        window.PRONTOSERVE_CAROUSEL_CSS_LOADED = true;
+        var style = document.createElement('style');
+        style.textContent = carouselCss;
+        document.head.appendChild(style);
+    }
 
-        <div class="carousel-content-wrap">
-          <div class="carousel-text-box">
-            <h2 class="carousel-title"><?= htmlspecialchars($slide['title']) ?></h2>
-            <?php if (!empty($slide['description'])): ?>
-              <p class="carousel-desc"><?= htmlspecialchars($slide['description']) ?></p>
-            <?php else: ?>
-              <p class="carousel-desc carousel-desc--empty" aria-hidden="true">&nbsp;</p>
-            <?php endif; ?>
+    function defaultSlides(assetBase) {
+        return [
+            {
+                id: 1,
+                image: assetBase + 'dummy.jpg',
+                title: 'Inovasi Teknologi Terdepan\nBersama TEFA JTI Innovation',
+                description: 'Menghadirkan riset terapan dan transformasi digital melalui pengembangan perangkat lunak, sistem cerdas, dan solusi industri terpercaya.',
+                buttons: [
+                    { text: 'Jelajahi Pelayanan', link: 'Pages/Pelayanan/index.php', variant: 'primary' },
+                    { text: 'Hubungi Kami', link: 'Pages/HubungiKami/index.php', variant: 'outline-white' }
+                ]
+            },
+            {
+                id: 2,
+                image: assetBase + 'ajasendiri.jpg',
+                title: 'Program Pelatihan Digital\nBerstandar Industri Terkini',
+                description: 'Tingkatkan keahlian teknis dan kompetensi profesional mahasiswa serta talenta digital melalui kurikulum praktis dan sertifikasi industri.',
+                buttons: [
+                    { text: 'Lihat Pelatihan', link: 'Pages/Pelatihan/index.php', variant: 'primary' },
+                    { text: 'Lihat Portofolio', link: 'Pages/Portofolio/index.php', variant: 'outline-white' }
+                ]
+            }
+        ];
+    }
 
-            <?php if (!empty($buttons)): ?>
-              <div class="carousel-buttons">
-                <?php foreach ($buttons as $btn): ?>
-                  <?php
-                    $btn_variant = $btn['variant'] ?? 'primary';
-                    if ($btn_variant === 'secondary' || $btn_variant === 'outline') {
-                        $btn_variant = 'outline-white';
+    function defaultCards(assetBase) {
+        return [
+            {
+                id: 1,
+                title: 'Sistem Informasi Manajemen Terintegrasi',
+                desc: 'Platform digital enterprise untuk otomatisasi operasional dan pelaporan terpadu.',
+                img: assetBase + 'dummy.jpg',
+                link: 'Pages/Portofolio/index.php'
+            },
+            {
+                id: 2,
+                title: 'Aplikasi Pembelajaran Interaktif EduTech',
+                desc: 'Media pembelajaran digital dengan fitur interaktif untuk meningkatkan kualitas edukasi.',
+                img: assetBase + 'ajasendiri.jpg',
+                link: 'Pages/Portofolio/index.php'
+            },
+            {
+                id: 3,
+                title: 'Implementasi IoT Smart Monitoring',
+                desc: 'Sensor jaringan cerdas dan dashboard analitik data real-time berbasis cloud.',
+                img: assetBase + 'dummy.jpg',
+                link: 'Pages/Portofolio/index.php'
+            }
+        ];
+    }
+
+    function buildCardsCarousel(config, carouselId, assetBase) {
+        var h1 = pick(config.cards_h1, 'Portofolio Terpilih');
+        var h2 = pick(config.cards_h2, 'Jelajahi inovasi dan produk yang telah kami kembangkan bersama mitra industri.');
+        var cards = pick(config.cards_data, defaultCards(assetBase));
+
+        var cardsHtml = cards.map(function (card) {
+            return '' +
+                '<a href="' + escapeHtml(pick(card.link, '#')) + '" class="card-item-link">' +
+                '<div class="carousel-card-box">' +
+                '<div class="carousel-card-img-wrap">' +
+                '<img src="' + escapeHtml(card.img) + '" alt="' + escapeHtml(card.title) + '" class="carousel-card-img">' +
+                '</div>' +
+                '<div class="carousel-card-body">' +
+                '<h3 class="carousel-card-title">' + escapeHtml(card.title) + '</h3>' +
+                '<p class="carousel-card-desc">' + escapeHtml(card.desc) + '</p>' +
+                '</div>' +
+                '</div>' +
+                '</a>';
+        }).join('');
+
+        return '' +
+            '<section class="cards-carousel-section" id="' + escapeHtml(carouselId) + '">' +
+            '<div class="cards-carousel-header">' +
+            '<h2 class="cards-carousel-h1">' + escapeHtml(h1) + '</h2>' +
+            '<p class="cards-carousel-h2">' + escapeHtml(h2) + '</p>' +
+            '</div>' +
+            '<div class="cards-carousel-wrap">' +
+            '<div class="cards-scroll-container">' + cardsHtml + '</div>' +
+            '</div>' +
+            '</section>';
+    }
+
+    function buildHeroCarousel(config, carouselId, assetBase) {
+        var slides = config.carousel_slides;
+        if (!Array.isArray(slides) || slides.length === 0) {
+            slides = defaultSlides(assetBase);
+        }
+
+        slides = slides.map(function (slide) {
+            var copy = {};
+            for (var key in slide) {
+                if (Object.prototype.hasOwnProperty.call(slide, key)) {
+                    copy[key] = slide[key];
+                }
+            }
+            if (!isEmpty(copy.image) && !isUrlLike(copy.image) && copy.image.indexOf('/') === -1) {
+                copy.image = assetBase + copy.image;
+            }
+            return copy;
+        });
+
+        var slidesHtml = slides.map(function (slide, index) {
+            var isActive = index === 0;
+            var buttons = [];
+
+            if (!isEmpty(slide.buttons) && Array.isArray(slide.buttons)) {
+                buttons = slide.buttons;
+            } else if (!isEmpty(slide.ctaText) && !isEmpty(slide.ctaLink)) {
+                buttons = [{ text: slide.ctaText, link: slide.ctaLink, variant: 'outline-white' }];
+            }
+
+            var descHtml = !isEmpty(slide.description)
+                ? '<p class="carousel-desc">' + escapeHtml(slide.description) + '</p>'
+                : '<p class="carousel-desc carousel-desc--empty" aria-hidden="true">&nbsp;</p>';
+
+            var buttonsHtml = '';
+            if (buttons.length > 0) {
+                buttonsHtml = '<div class="carousel-buttons">' + buttons.map(function (btn) {
+                    var variant = pick(btn.variant, 'primary');
+                    if (variant === 'secondary' || variant === 'outline') {
+                        variant = 'outline-white';
                     }
-                    $btn_href = $btn['link'] ?? ($btn['href'] ?? null);
-                    echo render_button([
-                        'variant'       => $btn_variant,
-                        'text'          => $btn['text'] ?? '',
-                        'href'          => $btn_href,
-                        'size'          => $btn['size'] ?? 'md',
-                        'icon'          => $btn['icon'] ?? null,
-                        'icon_position' => $btn['icon_position'] ?? 'right',
-                        'class'         => trim('carousel-hero-btn ' . ($btn['class'] ?? ''))
-                    ]);
-                  ?>
-                <?php endforeach; ?>
-              </div>
-            <?php endif; ?>
-          </div>
-        </div>
-      </div>
-    <?php endforeach; ?>
+                    var href = pick(btn.link, pick(btn.href, null));
+                    return buttonRenderer({
+                        variant: variant,
+                        text: pick(btn.text, ''),
+                        href: href,
+                        size: pick(btn.size, 'md'),
+                        icon: pick(btn.icon, null),
+                        icon_position: pick(btn.icon_position, 'right'),
+                        class: ('carousel-hero-btn ' + pick(btn.class, '')).trim()
+                    });
+                }).join('') + '</div>';
+            }
 
-    <?php if (count($carousel_slides) > 1): ?>
-      <div class="carousel-dots">
-        <?php foreach ($carousel_slides as $index => $slide): ?>
-          <button type="button" 
-                  class="carousel-dot <?= ($index === 0) ? 'active' : '' ?>" 
-                  data-target="<?= $index ?>" 
-                  aria-label="Menuju slide <?= $index + 1 ?>">
-          </button>
-        <?php endforeach; ?>
-      </div>
-    <?php endif; ?>
-  </div>
+            return '' +
+                '<div class="carousel-slide ' + (isActive ? 'active' : '') + '" data-index="' + index + '">' +
+                '<div class="carousel-bg-wrap">' +
+                '<div class="carousel-bg" style="background-image: url(\'' + escapeHtml(slide.image) + '\');"></div>' +
+                '<div class="carousel-overlay"></div>' +
+                '</div>' +
+                '<div class="carousel-content-wrap">' +
+                '<div class="carousel-text-box">' +
+                '<h2 class="carousel-title">' + escapeHtml(slide.title) + '</h2>' +
+                descHtml +
+                buttonsHtml +
+                '</div>' +
+                '</div>' +
+                '</div>';
+        }).join('');
 
-  <script>
-    (function() {
-      const root = document.getElementById('<?= $carousel_id ?>');
-      if (!root) return;
-
-      const slides = root.querySelectorAll('.carousel-slide');
-      const dots = root.querySelectorAll('.carousel-dot');
-      const totalSlides = slides.length;
-      const intervalDuration = <?= (int)$auto_slide_interval ?>;
-
-      if (totalSlides <= 1) return;
-
-      let current = 0;
-      let timer = null;
-      let isPaused = false;
-
-      function goTo(index) {
-        if (index < 0) {
-          current = totalSlides - 1;
-        } else if (index >= totalSlides) {
-          current = 0;
-        } else {
-          current = index;
+        var dotsHtml = '';
+        if (slides.length > 1) {
+            dotsHtml = '<div class="carousel-dots">' + slides.map(function (slide, index) {
+                return '<button type="button" class="carousel-dot ' + (index === 0 ? 'active' : '') + '" data-target="' + index + '" aria-label="Menuju slide ' + (index + 1) + '"></button>';
+            }).join('') + '</div>';
         }
 
-        slides.forEach((slide, idx) => {
-          slide.classList.toggle('active', idx === current);
-        });
+        return '<div class="carousel-wrapper" id="' + escapeHtml(carouselId) + '">' + slidesHtml + dotsHtml + '</div>';
+    }
 
-        dots.forEach((dot, idx) => {
-          dot.classList.toggle('active', idx === current);
-        });
-      }
+    function initSlider(carouselId, intervalDuration) {
+        var root = document.getElementById(carouselId);
+        if (!root) return;
 
-      function next() {
-        goTo(current + 1);
-      }
+        var slides = root.querySelectorAll('.carousel-slide');
+        var dots = root.querySelectorAll('.carousel-dot');
+        var totalSlides = slides.length;
 
-      function prev() {
-        goTo(current - 1);
-      }
+        if (totalSlides <= 1) return;
 
-      function startTimer() {
-        stopTimer();
-        timer = setInterval(() => {
-          if (!isPaused) {
-            next();
-          }
-        }, intervalDuration);
-      }
+        var current = 0;
+        var timer = null;
+        var isPaused = false;
 
-      function stopTimer() {
-        if (timer) {
-          clearInterval(timer);
-          timer = null;
+        function goTo(index) {
+            if (index < 0) {
+                current = totalSlides - 1;
+            } else if (index >= totalSlides) {
+                current = 0;
+            } else {
+                current = index;
+            }
+
+            slides.forEach(function (slide, idx) {
+                slide.classList.toggle('active', idx === current);
+            });
+
+            dots.forEach(function (dot, idx) {
+                dot.classList.toggle('active', idx === current);
+            });
         }
-      }
 
-      dots.forEach((dot) => {
-        dot.addEventListener('click', () => {
-          const target = parseInt(dot.getAttribute('data-target'), 10);
-          goTo(target);
-          startTimer();
-        });
-      });
-
-      root.addEventListener('mouseenter', () => {
-        isPaused = true;
-      });
-
-      root.addEventListener('mouseleave', () => {
-        isPaused = false;
-      });
-
-      let touchStartX = 0;
-      let touchEndX = 0;
-
-      root.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-      }, { passive: true });
-
-      root.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        const diff = touchStartX - touchEndX;
-        if (Math.abs(diff) > 40) {
-          if (diff > 0) {
-            next();
-          } else {
-            prev();
-          }
-          startTimer();
+        function next() {
+            goTo(current + 1);
         }
-      }, { passive: true });
 
-      startTimer();
-    })();
-  </script>
-<?php endif; ?>
+        function prev() {
+            goTo(current - 1);
+        }
+
+        function stopTimer() {
+            if (timer) {
+                clearInterval(timer);
+                timer = null;
+            }
+        }
+
+        function startTimer() {
+            stopTimer();
+            timer = setInterval(function () {
+                if (!isPaused) {
+                    next();
+                }
+            }, intervalDuration);
+        }
+
+        dots.forEach(function (dot) {
+            dot.addEventListener('click', function () {
+                var target = parseInt(dot.getAttribute('data-target'), 10);
+                goTo(target);
+                startTimer();
+            });
+        });
+
+        root.addEventListener('mouseenter', function () {
+            isPaused = true;
+        });
+
+        root.addEventListener('mouseleave', function () {
+            isPaused = false;
+        });
+
+        var touchStartX = 0;
+        var touchEndX = 0;
+
+        root.addEventListener('touchstart', function (e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        root.addEventListener('touchend', function (e) {
+            touchEndX = e.changedTouches[0].screenX;
+            var diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 40) {
+                if (diff > 0) {
+                    next();
+                } else {
+                    prev();
+                }
+                startTimer();
+            }
+        }, { passive: true });
+
+        startTimer();
+    }
+
+    function renderCarousel(config) {
+        config = config || {};
+        loadStyle();
+
+        var type = pick(config.carousel_type, 'hero');
+        var carouselId = randomId();
+        var interval = parseInt(pick(config.auto_slide_interval, 7000), 10) || 0;
+        var assetBase = detectAssetBase();
+
+        var html = type === 'cards'
+            ? buildCardsCarousel(config, carouselId, assetBase)
+            : buildHeroCarousel(config, carouselId, assetBase);
+
+        return { html: html, id: carouselId, type: type, interval: interval };
+    }
+
+    function mountCarousel(target, config, position) {
+        var result = renderCarousel(config);
+        target.insertAdjacentHTML(position || 'beforeend', result.html);
+        if (result.type !== 'cards') {
+            initSlider(result.id, result.interval);
+        }
+        return result.id;
+    }
+
+    window.renderCarousel = renderCarousel;
+    window.mountCarousel = mountCarousel;
+
+    function autoMount() {
+        if (!currentScript || !currentScript.parentNode) {
+            return;
+        }
+        mountCarousel(currentScript, {
+            carousel_type: window.carousel_type,
+            carousel_slides: window.carousel_slides,
+            auto_slide_interval: window.auto_slide_interval,
+            cards_h1: window.cards_h1,
+            cards_h2: window.cards_h2,
+            cards_data: window.cards_data
+        }, 'beforebegin');
+    }
+
+    if (window.carousel_autorender !== false) {
+        autoMount();
+    }
+})();

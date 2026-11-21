@@ -1,126 +1,36 @@
-<?php
-$current_page = 'beranda';
-
-$script_name = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
-if (preg_match('#^(.*?)/(Pages|api|Components)#', $script_name, $matches)) {
-    $base_url = $matches[1];
-} else {
-    $base_url = rtrim(dirname($script_name), '/\\');
-    if ($base_url === '/' || $base_url === '\\') {
-        $base_url = '';
-    }
-}
-
-$images_url    = $base_url . '/Assets/images/';
-$pelayanan_url = $base_url . '/Pages/Pelayanan/index.php';
-$pelatihan_url = $base_url . '/Pages/Pelatihan/index.php';
-$portofolio_url = $base_url . '/Pages/Portofolio/index.php';
-$tim_url        = $base_url . '/Pages/Tim/index.php';
-$tentang_url    = $base_url . '/Pages/TentangKami/index.php';
-$hubungi_url    = $base_url . '/Pages/HubungiKami/index.php';
-$detail_url     = $base_url . '/Pages/Pelayanan/Detail/index.php';
-
-$layanan = [
-    [
-        'judul'     => 'IT Consultant',
-        'deskripsi' => 'Konsultasi kebutuhan, perancangan, dan strategi transformasi digital.',
-        'href'      => $detail_url,
-        'img'       => 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&q=80&auto=format&fit=crop',
-        'icon_path' => 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 1 1 7.072 0l-.548.547A3.374 3.374 0 0 0 14 18.469V19a2 2 0 1 1-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z',
-    ],
-    [
-        'judul'     => 'IT Solution',
-        'deskripsi' => 'Pengembangan website, aplikasi mobile, dan sistem informasi.',
-        'href'      => $detail_url,
-        'img'       => 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80&auto=format&fit=crop',
-        'icon_path' => 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4',
-    ],
-    [
-        'judul'     => 'Pelatihan',
-        'deskripsi' => 'Pelatihan teknologi informasi dengan kurikulum berbasis industri.',
-        'href'      => $pelatihan_url,
-        'img'       => 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&q=80&auto=format&fit=crop',
-        'icon_path' => 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253',
-    ],
-    [
-        'judul'     => 'Pendampingan',
-        'deskripsi' => 'Pendampingan pengembangan produk digital dan UMKM.',
-        'href'      => $detail_url,
-        'img'       => 'https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=600&q=80&auto=format&fit=crop',
-        'icon_path' => 'M17 20h5v-2a3 3 0 0 0-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 0 1 5.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 0 1 9.288 0M15 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0z',
-    ],
-];
-
-$alur = [
-    ['judul' => 'Konsultasi',           'teks' => 'Sampaikan kebutuhan dan tujuan Anda kepada tim kami.'],
-    ['judul' => 'Proposal & Penawaran', 'teks' => 'Kami menyusun solusi, estimasi waktu, dan biaya.'],
-    ['judul' => 'Pengerjaan',           'teks' => 'Tim dan mahasiswa mengerjakan sesuai kesepakatan.'],
-    ['judul' => 'Serah Terima',         'teks' => 'Produk diserahkan beserta dokumentasi dan dukungan.'],
-];
-
-$pencapaian = [
-    ['value' => '50+', 'label' => 'Proyek selesai'],
-    ['value' => '12+', 'label' => 'Mitra kerja sama'],
-    ['value' => '8+',  'label' => 'Program pelatihan'],
-    ['value' => '30+', 'label' => 'Tenaga profesional'],
-];
-
-$pelatihan_terbaru = [
-    ['judul' => 'Pemrograman Web Fullstack', 'badge' => 'Sertifikasi', 'tanggal' => '15 Nov 2026', 'mode' => 'Tatap muka / hybrid', 'kuota' => 30],
-    ['judul' => 'UI/UX Design dengan Figma',  'badge' => 'Sertifikasi', 'tanggal' => '29 Nov 2026', 'mode' => 'Tatap muka / hybrid', 'kuota' => 25],
-    ['judul' => 'Pemrograman Mobile',          'badge' => 'Sertifikasi', 'tanggal' => '13 Des 2026', 'mode' => 'Tatap muka / hybrid', 'kuota' => 30],
-    ['judul' => 'Data & Analitik',             'badge' => 'Pre-Master',  'tanggal' => '20 Des 2026', 'mode' => 'Hybrid',              'kuota' => 30],
-];
-
-$proyek_unggulan = [
-    [
-        'title'    => 'Sistem Informasi Akademik',
-        'category' => 'Website',
-        'href'     => $portofolio_url,
-        'img'      => 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=700&q=80&auto=format&fit=crop',
-        'color'    => '#1E3A5F',
-    ],
-    [
-        'title'    => 'Aplikasi Absensi Mahasiswa',
-        'category' => 'Mobile App',
-        'href'     => $portofolio_url,
-        'img'      => 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=700&q=80&auto=format&fit=crop',
-        'color'    => '#1e293b',
-    ],
-    [
-        'title'    => 'Smart Monitoring Pertanian',
-        'category' => 'IoT',
-        'href'     => $portofolio_url,
-        'img'      => 'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=700&q=80&auto=format&fit=crop',
-        'color'    => '#14532d',
-    ],
-    [
-        'title'    => 'Aplikasi Layanan Desa',
-        'category' => 'Web & Mobile',
-        'href'     => $portofolio_url,
-        'img'      => 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=700&q=80&auto=format&fit=crop',
-        'color'    => '#0369a1',
-    ],
-];
-
-$keunggulan = [
-    ['title' => 'Berbasis Proyek Nyata',  'text' => 'Mahasiswa terlibat langsung pada proyek industri.', 'icon' => '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>'],
-    ['title' => 'Instruktur Profesional', 'text' => 'Dibimbing dosen dan praktisi berpengalaman.',        'icon' => '<path d="M4 7h16M4 12h16M4 17h16"/>'],
-    ['title' => 'Bersertifikasi',         'text' => 'Pelatihan dengan sertifikat kompetensi.',            'icon' => '<path d="M5 13l4 4L19 7"/>'],
-    ['title' => 'Kolaborasi Industri',    'text' => 'Kemitraan dengan perusahaan dan instansi.',          'icon' => '<path d="M7 7h12l-3-3M17 17H5l3 3"/>'],
-];
-
-?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beranda - JTI NOVA</title>
-    <link rel="stylesheet" href="<?= htmlspecialchars($base_url) ?>/Style/style.css">
-    <?php require_once __DIR__ . '/../Components/button.php'; ?>
+    <script>
+        (function () {
+            var path = (window.location.pathname || '').replace(/\\/g, '/');
+            var matches = path.match(/^(.*?)\/(Pages|api|Components)/);
+            var base;
+            if (matches) {
+                base = matches[1];
+            } else {
+                var idx = path.lastIndexOf('/');
+                base = idx > 0 ? path.substring(0, idx) : '';
+                base = base.replace(/[\/\\]+$/, '');
+                if (base === '/' || base === '\\') {
+                    base = '';
+                }
+            }
+            window.base_url = base;
+            window.current_page = 'beranda';
+            document.write('<link rel="stylesheet" href="' + base + '/Style/style.css">');
+        })();
+    </script>
+    <script src="../Components/button.js"></script>
+    <script>
+        function placeButton(options) {
+            document.currentScript.insertAdjacentHTML('beforebegin', renderButton(options));
+        }
+    </script>
 <style>
-
 .reveal {
     opacity: 0;
     transform: translateY(26px);
@@ -875,154 +785,151 @@ $keunggulan = [
     stroke-linecap: round; stroke-linejoin: round;
 }
 
-.container { box-sizing: border-box; width: 100%; }
+@media (max-width: 1024px) {
+    .layanan-grid  { grid-template-columns: 1fr 1fr; }
+    .layan-card--featured { grid-row: auto; }
+    .layan-card--featured .layan-card__thumb { height: 180px; }
+    .alur-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+    .alur-card--center { transform: none; }
+    .alur-card--center:hover { transform: translateY(-4px); }
+    .proyek-grid { grid-template-columns: 1fr 1fr; }
+    .proyek-card--wide { grid-column: auto; }
+    .proyek-card--wide .proyek-card__img { height: 190px; }
+    .pel-kg-split { grid-template-columns: 1fr; gap: 48px; }
+    .achieve-inner { grid-template-columns: 1fr; gap: 48px; }
+    .achieve-right { display: none; }
+    .promo-strip { grid-template-columns: 1fr; }
+    .promo-strip__img { height: 220px; }
+    .promo-strip__content { padding: 40px 32px; }
+}
+@media (max-width: 768px) {
+    .hs { padding: 56px 0; }
+    .hs--lg { padding: 72px 0; }
+    .layanan-grid { grid-template-columns: 1fr; gap: 14px; }
+    .layan-card--featured .layan-card__thumb { height: 200px; }
+    .alur-grid { grid-template-columns: 1fr 1fr; }
+    .proyek-grid { grid-template-columns: 1fr; }
+    .proyek-card--wide { grid-column: auto; }
+    .achieve-stats { grid-template-columns: 1fr 1fr; gap: 20px; }
+    .pel-row__date { display: none; }
+    .kg-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 540px) {
+    .alur-grid { grid-template-columns: 1fr; }
+    .achieve-stats { grid-template-columns: 1fr 1fr; }
+    .promo-strip__big { font-size: 30px; }
+    .promo-strip__content { padding: 32px 20px; }
+    .proyek-grid { grid-template-columns: 1fr; }
+}
+html { -webkit-text-size-adjust: 100%; }
+body { overflow-x: clip; }
+img { max-width: 100%; }
+
+.container {
+    box-sizing: border-box;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pel-kg-split > *,
+.layanan-grid > *,
+.proyek-grid > *,
+.alur-grid > *,
+.kg-grid > *,
+.achieve-inner > *,
+.achieve-stats > *,
+.promo-strip > * { min-width: 0; }
+
+.pel-row__left { flex: 1; min-width: 0; }
+.hs__title,
+.layan-card__title,
+.proyek-card__title,
+.kg-card__title,
+.alur-card__title,
+.pel-row__judul { overflow-wrap: anywhere; }
 
 @media (max-width: 1280px) {
     .container { padding-left: 64px; padding-right: 64px; }
 }
+
 @media (max-width: 1024px) {
     .container { padding-left: 40px; padding-right: 40px; }
-}
-@media (max-width: 768px) {
-    .container { padding-left: 24px; padding-right: 24px; }
-}
-@media (max-width: 400px) {
-    .container { padding-left: 16px; padding-right: 16px; }
-}
-
-html { -webkit-text-size-adjust: 100%; }
-body { overflow-x: clip; }
-img  { max-width: 100%; }
-
-.hs__title, .layan-card__title, .proyek-card__title,
-.kg-card__title, .alur-card__title { overflow-wrap: anywhere; }
-.pel-row__left { flex: 1; }
-
-@media (max-width: 1200px) {
-    .pel-kg-split  { gap: 48px; }
-    .achieve-inner { gap: 48px; }
-    .hero-tech__glow { width: 480px; height: 480px; }
-}
-
-@media (max-width: 1024px) {
-    .hs                { padding: 64px 0; }
-    .alur-section,
-    .achieve-section   { padding: 72px 0; }
-    .proyek-section    { padding: 64px 0; }
-
     .hero-tech { padding: 96px 0 140px; min-height: 76vh; }
     .hero-tech__bottom-fade { height: 160px; }
     .hero-tech__glow { width: 420px; height: 420px; right: -5%; }
-
-    .layanan-grid { grid-template-columns: 1fr 1fr; }
-    .layan-card--featured { grid-row: auto; }
-    .layan-card--featured .layan-card__thumb,
+    .alur-section,
+    .achieve-section { padding: 72px 0; }
+    .proyek-section { padding: 64px 0; }
     .layan-card--small .layan-card__thumb { height: 170px; }
-
-    .alur-grid { grid-template-columns: 1fr 1fr; gap: 14px; align-items: stretch; }
-    .alur-card--center { transform: none; }
-    .alur-card--center:hover { transform: translateY(-4px); }
-
-    .proyek-grid { grid-template-columns: 1fr 1fr; }
-    .proyek-card--wide { grid-column: 1 / 3; }
-    .proyek-card--wide .proyek-card__img { height: 240px; }
     .proyek-card--normal .proyek-card__img { height: 190px; }
-
-    .pel-kg-split { grid-template-columns: 1fr; gap: 48px; }
-    .kg-grid { grid-template-columns: 1fr 1fr; }
-
-    .achieve-inner { grid-template-columns: 1fr; gap: 48px; }
-    .achieve-right { display: block; max-width: 640px; margin-bottom: 24px; }
-    .achieve-img-wrap { aspect-ratio: 16 / 9; }
-
-    .promo-strip { grid-template-columns: 1fr; }
-    .promo-strip__img { height: 240px; }
-    .promo-strip__content { padding: 44px 36px; }
 }
 
 @media (max-width: 768px) {
-    .hs                { padding: 52px 0; }
-    .hs--lg            { padding: 64px 0; }
-    .alur-section,
-    .achieve-section   { padding: 56px 0; }
-    .proyek-section    { padding: 52px 0; }
-
+    .container { padding-left: 24px; padding-right: 24px; }
     .hs__sub { max-width: 100%; font-size: 15px; }
-
-    .hero-tech { padding: 72px 0 96px; min-height: auto; }
+    .hero-tech { padding: 72px 0 96px; }
     .hero-tech__bottom-fade { height: 110px; }
     .hero-tech__glow { width: 300px; height: 300px; top: 10%; right: -15%; }
-    .hero-tech__badge { font-size: 10.5px; letter-spacing: 1.6px; padding: 6px 14px; }
-
-    .layanan-grid { grid-template-columns: 1fr; gap: 14px; }
-    .layan-card--featured .layan-card__thumb,
-    .layan-card--small .layan-card__thumb { height: 190px; }
-
-    .alur-grid { grid-template-columns: 1fr 1fr; margin-top: 36px; }
+    .alur-section,
+    .achieve-section { padding: 56px 0; }
+    .proyek-section { padding: 52px 0; }
+    .alur-grid { margin-top: 36px; }
     .alur-card { padding: 22px 18px; }
-
-    .proyek-grid { grid-template-columns: 1fr; }
-    .proyek-card--wide { grid-column: auto; }
+    .layan-card--small .layan-card__thumb { height: 190px; }
     .proyek-card--wide .proyek-card__img,
     .proyek-card--normal .proyek-card__img { height: 200px; }
-
     .pel-row { padding: 16px 18px; gap: 12px; }
-    .pel-row__date { display: none; }
-
-    .achieve-stats { gap: 20px; }
-    .achieve-right { max-width: 100%; }
-
     .promo-strip__sub { max-width: 100%; }
 }
 
 @media (max-width: 540px) {
     .hero-tech__title { font-size: clamp(32px, 10vw, 38px); letter-spacing: -0.6px; }
-    .hero-tech__desc  { margin-bottom: 28px; }
-
-    .alur-grid { grid-template-columns: 1fr; }
-
+    .hero-tech__desc { margin-bottom: 28px; }
     .pel-row { align-items: flex-start; }
     .pel-row__left { flex-direction: column; align-items: flex-start; gap: 8px; }
     .pel-row__judul { white-space: normal; overflow: visible; text-overflow: clip; }
     .pel-row__right { align-self: center; gap: 10px; }
-
-    .achieve-stats { grid-template-columns: 1fr 1fr; }
-    .achieve-badge { left: 14px; right: 14px; bottom: -18px; padding: 12px 14px; }
-
     .promo-strip__img { height: 200px; }
-    .promo-strip__big { font-size: 30px; }
-    .promo-strip__content { padding: 32px 20px; }
     .promo-strip__actions { flex-direction: column; align-items: flex-start; }
 }
 
 @media (max-width: 400px) {
-    .kg-grid { grid-template-columns: 1fr; }
+    .container { padding-left: 16px; padding-right: 16px; }
     .kg-card { padding: 20px 16px; }
     .achieve-stat__value { font-size: 30px; }
     .hs__title { font-size: 23px; }
 }
+:root { --page-zoom: 1; }
+html { zoom: var(--page-zoom, 1); }
+.hero-tech { min-height: calc(86vh / var(--page-zoom, 1)); }
 
-@media (hover: none) {
-    .layan-card:hover,
-    .proyek-card:hover,
-    .kg-card:hover,
-    .alur-card:hover { transform: none; }
-    .layan-card:hover .layan-card__thumb img,
-    .proyek-card:hover .proyek-card__img img { transform: none; }
+@media (min-width: 1400px) and (max-width: 1599px) {
+    :root { --page-zoom: 1.15; }
+}
+
+@media (min-width: 1600px) {
+    :root { --page-zoom: 1.33; }
+}
+
+@media (max-width: 1024px) {
+    .hero-tech { min-height: 76vh; }
+}
+
+@media (max-width: 768px) {
+    .hero-tech { min-height: auto; }
 }
 </style>
 </head>
 <body>
 
-<?php require_once __DIR__ . '/../Components/navbar.php'; ?>
+<script src="../Components/navbar.js"></script>
 
 <section class="hero-tech" aria-labelledby="hero-tech-title">
     <div class="hero-tech__glow" aria-hidden="true"></div>
 
-    
     <div class="hero-tech__visual" aria-hidden="true">
         <svg viewBox="0 0 800 700" fill="none" xmlns="http://www.w3.org/2000/svg" class="hero-tech__svg">
-            
             <line x1="600" y1="360" x2="420" y2="200" stroke="rgba(56, 189, 248, 0.42)" stroke-width="1.5" stroke-dasharray="5 5" class="tech-line"/>
             <line x1="600" y1="360" x2="680" y2="520" stroke="rgba(56, 189, 248, 0.38)" stroke-width="1.5" class="tech-line"/>
             <line x1="420" y1="200" x2="280" y2="280" stroke="rgba(56, 189, 248, 0.32)" stroke-width="1.5" stroke-dasharray="4 4" class="tech-line"/>
@@ -1033,19 +940,16 @@ img  { max-width: 100%; }
             <line x1="350" y1="530" x2="520" y2="610" stroke="rgba(56, 189, 248, 0.32)" stroke-width="1.5" class="tech-line"/>
             <line x1="600" y1="360" x2="760" y2="280" stroke="rgba(56, 189, 248, 0.3)" stroke-width="1.5" stroke-dasharray="4 4" class="tech-line"/>
 
-            
             <circle cx="600" cy="360" r="160" stroke="rgba(0, 212, 255, 0.16)" stroke-width="1.5" stroke-dasharray="6 6" class="tech-ring tech-ring--1"/>
             <circle cx="600" cy="360" r="110" stroke="rgba(0, 212, 255, 0.32)" stroke-width="1.5" class="tech-ring tech-ring--2"/>
             <circle cx="600" cy="360" r="68" stroke="rgba(0, 212, 255, 0.55)" stroke-width="2" class="tech-ring tech-ring--3"/>
             <circle cx="600" cy="360" r="16" fill="#00e5ff" class="tech-node-core"/>
             <circle cx="600" cy="360" r="8" fill="#ffffff"/>
 
-            
             <circle cx="420" cy="200" r="28" stroke="rgba(56, 189, 248, 0.4)" stroke-width="1.5" class="tech-ring-sub"/>
             <circle cx="420" cy="200" r="9" fill="#38bdf8" class="tech-node--pulse"/>
             <circle cx="420" cy="200" r="4" fill="#ffffff"/>
 
-            
             <circle cx="280" cy="280" r="7" fill="#00e5ff" class="tech-node--pulse"/>
             <circle cx="680" cy="520" r="8" fill="#38bdf8" class="tech-node--pulse"/>
             <circle cx="520" cy="610" r="7" fill="#00e5ff" class="tech-node--pulse"/>
@@ -1054,7 +958,6 @@ img  { max-width: 100%; }
             <circle cx="490" cy="80"  r="6" fill="#38bdf8"/>
             <circle cx="760" cy="280" r="6" fill="#00e5ff"/>
 
-            
             <circle cx="550" cy="180" r="3" fill="#a5f3fc" class="tech-float-dot dot-1"/>
             <circle cx="720" cy="340" r="2.5" fill="#a5f3fc" class="tech-float-dot dot-2"/>
             <circle cx="330" cy="170" r="3" fill="#a5f3fc" class="tech-float-dot dot-3"/>
@@ -1062,7 +965,6 @@ img  { max-width: 100%; }
         </svg>
     </div>
 
-    
     <div class="container hero-tech__container">
         <div class="hero-tech__content">
 
@@ -1077,20 +979,24 @@ img  { max-width: 100%; }
             </p>
 
             <div class="hero-tech__actions reveal-hero rv-hero-3">
-                <?= render_button([
-                    'text'    => 'Konsultasi Sekarang',
-                    'href'    => $hubungi_url,
-                    'variant' => 'primary-solid',
-                    'size'    => 'lg',
-                    'class'   => 'hero-tech__btn-primary'
-                ]) ?>
-                <?= render_button([
-                    'text'    => 'Lihat Portofolio',
-                    'href'    => $portofolio_url,
-                    'variant' => 'outline-white',
-                    'size'    => 'lg',
-                    'class'   => 'hero-tech__btn-secondary'
-                ]) ?>
+                <script>
+                    placeButton({
+                        text: 'Konsultasi Sekarang',
+                        href: '/Pages/HubungiKami/index.html',
+                        variant: 'primary-solid',
+                        size: 'lg',
+                        class: 'hero-tech__btn-primary'
+                    });
+                </script>
+                <script>
+                    placeButton({
+                        text: 'Lihat Portofolio',
+                        href: '/Pages/Portofolio/index.html',
+                        variant: 'outline-white',
+                        size: 'lg',
+                        class: 'hero-tech__btn-secondary'
+                    });
+                </script>
             </div>
         </div>
     </div>
@@ -1107,36 +1013,76 @@ img  { max-width: 100%; }
                 <p class="hs__sub">Dari konsultasi hingga pengembangan dan pelatihan, semua dikerjakan tim terlatih bersama mahasiswa Polije.</p>
             </div>
             <div class="reveal rv1">
-                <?= render_button(['text' => 'Semua Layanan', 'href' => $pelayanan_url, 'variant' => 'outline', 'size' => 'sm']) ?>
+                <script>placeButton({ text: 'Semua Layanan', href: '/Pages/Pelayanan/index.html', variant: 'outline', size: 'sm' });</script>
             </div>
         </div>
 
         <div class="layanan-grid">
-            <?php foreach ($layanan as $i => $layan):
-                $is_feat = $i === 0;
-                $cls = $is_feat ? 'layan-card layan-card--featured reveal' : 'layan-card layan-card--small reveal rv' . $i;
-            ?>
-            <a href="<?= htmlspecialchars($layan['href']) ?>" class="<?= $cls ?>"
-               aria-label="Layanan <?= htmlspecialchars($layan['judul']) ?>">
+            <a href="/Pages/Pelayanan/Detail/index.html" class="layan-card layan-card--featured reveal" aria-label="Layanan IT Consultant">
                 <div class="layan-card__thumb">
-                    <img src="<?= htmlspecialchars($layan['img']) ?>"
-                         alt="Ilustrasi <?= htmlspecialchars($layan['judul']) ?>"
-                         width="600" height="<?= $is_feat ? 240 : 140 ?>"
-                         <?= $i === 0 ? 'fetchpriority="high"' : 'loading="lazy"' ?>>
+                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&amp;q=80&amp;auto=format&amp;fit=crop"
+                         alt="Ilustrasi IT Consultant"
+                         width="600" height="240"
+                         fetchpriority="high">
                 </div>
                 <div class="layan-card__body">
                     <span class="layan-card__cat">Layanan</span>
-                    <h3 class="layan-card__title"><?= htmlspecialchars($layan['judul']) ?></h3>
-                    <?php if ($is_feat): ?>
-                    <p class="layan-card__desc"><?= htmlspecialchars($layan['deskripsi']) ?></p>
-                    <?php endif; ?>
+                    <h3 class="layan-card__title">IT Consultant</h3>
+                    <p class="layan-card__desc">Konsultasi kebutuhan, perancangan, dan strategi transformasi digital.</p>
                     <span class="layan-card__cta">
                         Lihat detail
                         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                     </span>
                 </div>
             </a>
-            <?php endforeach; ?>
+            <a href="/Pages/Pelayanan/Detail/index.html" class="layan-card layan-card--small reveal rv1" aria-label="Layanan IT Solution">
+                <div class="layan-card__thumb">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&amp;q=80&amp;auto=format&amp;fit=crop"
+                         alt="Ilustrasi IT Solution"
+                         width="600" height="140"
+                         loading="lazy">
+                </div>
+                <div class="layan-card__body">
+                    <span class="layan-card__cat">Layanan</span>
+                    <h3 class="layan-card__title">IT Solution</h3>
+                    <span class="layan-card__cta">
+                        Lihat detail
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </span>
+                </div>
+            </a>
+            <a href="/Pages/Pelatihan/index.html" class="layan-card layan-card--small reveal rv2" aria-label="Layanan Pelatihan">
+                <div class="layan-card__thumb">
+                    <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&amp;q=80&amp;auto=format&amp;fit=crop"
+                         alt="Ilustrasi Pelatihan"
+                         width="600" height="140"
+                         loading="lazy">
+                </div>
+                <div class="layan-card__body">
+                    <span class="layan-card__cat">Layanan</span>
+                    <h3 class="layan-card__title">Pelatihan</h3>
+                    <span class="layan-card__cta">
+                        Lihat detail
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </span>
+                </div>
+            </a>
+            <a href="/Pages/Pelayanan/Detail/index.html" class="layan-card layan-card--small reveal rv3" aria-label="Layanan Pendampingan">
+                <div class="layan-card__thumb">
+                    <img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=600&amp;q=80&amp;auto=format&amp;fit=crop"
+                         alt="Ilustrasi Pendampingan"
+                         width="600" height="140"
+                         loading="lazy">
+                </div>
+                <div class="layan-card__body">
+                    <span class="layan-card__cat">Layanan</span>
+                    <h3 class="layan-card__title">Pendampingan</h3>
+                    <span class="layan-card__cta">
+                        Lihat detail
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </span>
+                </div>
+            </a>
         </div>
     </div>
 </section>
@@ -1150,28 +1096,46 @@ img  { max-width: 100%; }
         </div>
 
         <div class="alur-grid">
-            <?php
-            $alur_icons = [
-                '<path d="M8 12h8M8 8h8M8 16h4"/>',
-                '<path d="M9 12l2 2 4-4"/><rect x="3" y="4" width="18" height="16" rx="2"/>',
-                '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>',
-                '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>',
-            ];
-            foreach ($alur as $i => $step):
-                $is_center = ($i === 1 || $i === 2);
-                $cls = $is_center ? 'alur-card alur-card--center reveal rv' . ($i + 1) : 'alur-card alur-card--side reveal rv' . ($i + 1);
-            ?>
-            <div class="<?= $cls ?>">
-                <span class="alur-card__no">Langkah <?= sprintf('%02d', $i + 1) ?></span>
+            <div class="alur-card alur-card--side reveal rv1">
+                <span class="alur-card__no">Langkah 01</span>
                 <div class="alur-card__icon-wrap">
                     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                        <?= $alur_icons[$i] ?>
+                        <path d="M8 12h8M8 8h8M8 16h4"/>
                     </svg>
                 </div>
-                <h3 class="alur-card__title"><?= htmlspecialchars($step['judul']) ?></h3>
-                <p class="alur-card__desc"><?= htmlspecialchars($step['teks']) ?></p>
+                <h3 class="alur-card__title">Konsultasi</h3>
+                <p class="alur-card__desc">Sampaikan kebutuhan dan tujuan Anda kepada tim kami.</p>
             </div>
-            <?php endforeach; ?>
+            <div class="alur-card alur-card--center reveal rv2">
+                <span class="alur-card__no">Langkah 02</span>
+                <div class="alur-card__icon-wrap">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M9 12l2 2 4-4"/><rect x="3" y="4" width="18" height="16" rx="2"/>
+                    </svg>
+                </div>
+                <h3 class="alur-card__title">Proposal &amp; Penawaran</h3>
+                <p class="alur-card__desc">Kami menyusun solusi, estimasi waktu, dan biaya.</p>
+            </div>
+            <div class="alur-card alur-card--center reveal rv3">
+                <span class="alur-card__no">Langkah 03</span>
+                <div class="alur-card__icon-wrap">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                </div>
+                <h3 class="alur-card__title">Pengerjaan</h3>
+                <p class="alur-card__desc">Tim dan mahasiswa mengerjakan sesuai kesepakatan.</p>
+            </div>
+            <div class="alur-card alur-card--side reveal rv4">
+                <span class="alur-card__no">Langkah 04</span>
+                <div class="alur-card__icon-wrap">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                </div>
+                <h3 class="alur-card__title">Serah Terima</h3>
+                <p class="alur-card__desc">Produk diserahkan beserta dokumentasi dan dukungan.</p>
+            </div>
         </div>
     </div>
 </section>
@@ -1185,30 +1149,63 @@ img  { max-width: 100%; }
                 <p class="hs__sub">Produk dan sistem yang sudah berjalan, dikembangkan bersama mitra instansi dan industri.</p>
             </div>
             <div class="reveal rv1">
-                <?= render_button(['text' => 'Semua Proyek', 'href' => $portofolio_url, 'variant' => 'outline', 'size' => 'sm']) ?>
+                <script>placeButton({ text: 'Semua Proyek', href: '/Pages/Portofolio/index.html', variant: 'outline', size: 'sm' });</script>
             </div>
         </div>
 
         <div class="proyek-grid">
-            <?php foreach ($proyek_unggulan as $i => $p):
-                $wide  = ($i === 0);
-                $cls   = 'proyek-card ' . ($wide ? 'proyek-card--wide' : 'proyek-card--normal') . ' reveal rv' . ($i + 1);
-            ?>
-            <a href="<?= htmlspecialchars($p['href']) ?>" class="<?= $cls ?>"
-               aria-label="Proyek: <?= htmlspecialchars($p['title']) ?>">
+            <a href="/Pages/Portofolio/index.html" class="proyek-card proyek-card--wide reveal rv1" aria-label="Proyek: Sistem Informasi Akademik">
                 <div class="proyek-card__img">
-                    <img src="<?= htmlspecialchars($p['img']) ?>"
-                         alt="<?= htmlspecialchars($p['title']) ?>"
-                         width="700" height="<?= $wide ? 260 : 190 ?>"
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=700&amp;q=80&amp;auto=format&amp;fit=crop"
+                         alt="Sistem Informasi Akademik"
+                         width="700" height="260"
                          loading="lazy">
                     <div class="proyek-card__overlay" aria-hidden="true"></div>
                 </div>
                 <div class="proyek-card__body">
-                    <span class="proyek-card__cat"><?= htmlspecialchars($p['category']) ?></span>
-                    <h3 class="proyek-card__title"><?= htmlspecialchars($p['title']) ?></h3>
+                    <span class="proyek-card__cat">Website</span>
+                    <h3 class="proyek-card__title">Sistem Informasi Akademik</h3>
                 </div>
             </a>
-            <?php endforeach; ?>
+            <a href="/Pages/Portofolio/index.html" class="proyek-card proyek-card--normal reveal rv2" aria-label="Proyek: Aplikasi Absensi Mahasiswa">
+                <div class="proyek-card__img">
+                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=700&amp;q=80&amp;auto=format&amp;fit=crop"
+                         alt="Aplikasi Absensi Mahasiswa"
+                         width="700" height="190"
+                         loading="lazy">
+                    <div class="proyek-card__overlay" aria-hidden="true"></div>
+                </div>
+                <div class="proyek-card__body">
+                    <span class="proyek-card__cat">Mobile App</span>
+                    <h3 class="proyek-card__title">Aplikasi Absensi Mahasiswa</h3>
+                </div>
+            </a>
+            <a href="/Pages/Portofolio/index.html" class="proyek-card proyek-card--normal reveal rv3" aria-label="Proyek: Smart Monitoring Pertanian">
+                <div class="proyek-card__img">
+                    <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=700&amp;q=80&amp;auto=format&amp;fit=crop"
+                         alt="Smart Monitoring Pertanian"
+                         width="700" height="190"
+                         loading="lazy">
+                    <div class="proyek-card__overlay" aria-hidden="true"></div>
+                </div>
+                <div class="proyek-card__body">
+                    <span class="proyek-card__cat">IoT</span>
+                    <h3 class="proyek-card__title">Smart Monitoring Pertanian</h3>
+                </div>
+            </a>
+            <a href="/Pages/Portofolio/index.html" class="proyek-card proyek-card--normal reveal rv4" aria-label="Proyek: Aplikasi Layanan Desa">
+                <div class="proyek-card__img">
+                    <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=700&amp;q=80&amp;auto=format&amp;fit=crop"
+                         alt="Aplikasi Layanan Desa"
+                         width="700" height="190"
+                         loading="lazy">
+                    <div class="proyek-card__overlay" aria-hidden="true"></div>
+                </div>
+                <div class="proyek-card__body">
+                    <span class="proyek-card__cat">Web &amp; Mobile</span>
+                    <h3 class="proyek-card__title">Aplikasi Layanan Desa</h3>
+                </div>
+            </a>
         </div>
     </div>
 </section>
@@ -1216,7 +1213,6 @@ img  { max-width: 100%; }
 <section class="hs" aria-label="Pelatihan dan keunggulan JTI NOVA">
     <div class="container">
         <div class="pel-kg-split">
-            
             <div>
                 <div class="reveal" style="margin-bottom:28px;">
                     <span class="hs__eyebrow">Jadwal terdekat</span>
@@ -1224,44 +1220,102 @@ img  { max-width: 100%; }
                     <p class="hs__sub">Kurikulum praktis, instruktur berpengalaman, sertifikat kompetensi.</p>
                 </div>
                 <div class="pelatihan-list" role="list">
-                    <?php foreach ($pelatihan_terbaru as $i => $item): ?>
-                    <a href="<?= htmlspecialchars($pelatihan_url) ?>"
-                       class="pel-row reveal rv<?= $i + 1 ?>"
+                    <a href="/Pages/Pelatihan/index.html"
+                       class="pel-row reveal rv1"
                        role="listitem"
-                       aria-label="<?= htmlspecialchars($item['judul']) ?>, <?= htmlspecialchars($item['tanggal']) ?>">
+                       aria-label="Pemrograman Web Fullstack, 15 Nov 2026">
                         <div class="pel-row__left">
-                            <span class="pel-row__badge"><?= htmlspecialchars($item['badge']) ?></span>
-                            <p class="pel-row__judul"><?= htmlspecialchars($item['judul']) ?></p>
+                            <span class="pel-row__badge">Sertifikasi</span>
+                            <p class="pel-row__judul">Pemrograman Web Fullstack</p>
                         </div>
                         <div class="pel-row__right">
-                            <span class="pel-row__date"><?= htmlspecialchars($item['tanggal']) ?></span>
-                            <span class="pel-row__kuota"><?= (int)$item['kuota'] ?> kursi</span>
+                            <span class="pel-row__date">15 Nov 2026</span>
+                            <span class="pel-row__kuota">30 kursi</span>
                             <svg class="pel-row__chev" viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
                         </div>
                     </a>
-                    <?php endforeach; ?>
+                    <a href="/Pages/Pelatihan/index.html"
+                       class="pel-row reveal rv2"
+                       role="listitem"
+                       aria-label="UI/UX Design dengan Figma, 29 Nov 2026">
+                        <div class="pel-row__left">
+                            <span class="pel-row__badge">Sertifikasi</span>
+                            <p class="pel-row__judul">UI/UX Design dengan Figma</p>
+                        </div>
+                        <div class="pel-row__right">
+                            <span class="pel-row__date">29 Nov 2026</span>
+                            <span class="pel-row__kuota">25 kursi</span>
+                            <svg class="pel-row__chev" viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+                        </div>
+                    </a>
+                    <a href="/Pages/Pelatihan/index.html"
+                       class="pel-row reveal rv3"
+                       role="listitem"
+                       aria-label="Pemrograman Mobile, 13 Des 2026">
+                        <div class="pel-row__left">
+                            <span class="pel-row__badge">Sertifikasi</span>
+                            <p class="pel-row__judul">Pemrograman Mobile</p>
+                        </div>
+                        <div class="pel-row__right">
+                            <span class="pel-row__date">13 Des 2026</span>
+                            <span class="pel-row__kuota">30 kursi</span>
+                            <svg class="pel-row__chev" viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+                        </div>
+                    </a>
+                    <a href="/Pages/Pelatihan/index.html"
+                       class="pel-row reveal rv4"
+                       role="listitem"
+                       aria-label="Data &amp; Analitik, 20 Des 2026">
+                        <div class="pel-row__left">
+                            <span class="pel-row__badge">Pre-Master</span>
+                            <p class="pel-row__judul">Data &amp; Analitik</p>
+                        </div>
+                        <div class="pel-row__right">
+                            <span class="pel-row__date">20 Des 2026</span>
+                            <span class="pel-row__kuota">30 kursi</span>
+                            <svg class="pel-row__chev" viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+                        </div>
+                    </a>
                 </div>
                 <div style="margin-top:20px;" class="reveal rv4">
-                    <?= render_button(['text' => 'Lihat Semua Pelatihan', 'href' => $pelatihan_url, 'variant' => 'primary', 'size' => 'md']) ?>
+                    <script>placeButton({ text: 'Lihat Semua Pelatihan', href: '/Pages/Pelatihan/index.html', variant: 'primary', size: 'md' });</script>
                 </div>
             </div>
 
-            
             <div>
                 <div class="reveal" style="margin-bottom:28px;">
                     <span class="hs__eyebrow">Mengapa JTI NOVA</span>
                     <h2 class="hs__title">Apa yang membedakan kami</h2>
                 </div>
                 <div class="kg-grid">
-                    <?php foreach ($keunggulan as $i => $kg): ?>
-                    <div class="kg-card reveal rv<?= $i + 1 ?>">
+                    <div class="kg-card reveal rv1">
                         <div class="kg-card__icon">
-                            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><?= $kg['icon'] ?></svg>
+                            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>
                         </div>
-                        <h3 class="kg-card__title"><?= htmlspecialchars($kg['title']) ?></h3>
-                        <p class="kg-card__text"><?= htmlspecialchars($kg['text']) ?></p>
+                        <h3 class="kg-card__title">Berbasis Proyek Nyata</h3>
+                        <p class="kg-card__text">Mahasiswa terlibat langsung pada proyek industri.</p>
                     </div>
-                    <?php endforeach; ?>
+                    <div class="kg-card reveal rv2">
+                        <div class="kg-card__icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                        </div>
+                        <h3 class="kg-card__title">Instruktur Profesional</h3>
+                        <p class="kg-card__text">Dibimbing dosen dan praktisi berpengalaman.</p>
+                    </div>
+                    <div class="kg-card reveal rv3">
+                        <div class="kg-card__icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 13l4 4L19 7"/></svg>
+                        </div>
+                        <h3 class="kg-card__title">Bersertifikasi</h3>
+                        <p class="kg-card__text">Pelatihan dengan sertifikat kompetensi.</p>
+                    </div>
+                    <div class="kg-card reveal rv4">
+                        <div class="kg-card__icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 7h12l-3-3M17 17H5l3 3"/></svg>
+                        </div>
+                        <h3 class="kg-card__title">Kolaborasi Industri</h3>
+                        <p class="kg-card__text">Kemitraan dengan perusahaan dan instansi.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1275,21 +1329,31 @@ img  { max-width: 100%; }
                 <span class="hs__eyebrow">Dalam angka</span>
                 <h2 class="hs__title" id="achieve-ttl">Hasil yang berbicara sendiri</h2>
                 <div class="achieve-stats" role="list">
-                    <?php foreach ($pencapaian as $stat): ?>
                     <div class="achieve-stat" role="listitem">
-                        <span class="achieve-stat__value"><?= htmlspecialchars($stat['value']) ?></span>
-                        <span class="achieve-stat__label"><?= htmlspecialchars($stat['label']) ?></span>
+                        <span class="achieve-stat__value">50+</span>
+                        <span class="achieve-stat__label">Proyek selesai</span>
                     </div>
-                    <?php endforeach; ?>
+                    <div class="achieve-stat" role="listitem">
+                        <span class="achieve-stat__value">12+</span>
+                        <span class="achieve-stat__label">Mitra kerja sama</span>
+                    </div>
+                    <div class="achieve-stat" role="listitem">
+                        <span class="achieve-stat__value">8+</span>
+                        <span class="achieve-stat__label">Program pelatihan</span>
+                    </div>
+                    <div class="achieve-stat" role="listitem">
+                        <span class="achieve-stat__value">30+</span>
+                        <span class="achieve-stat__label">Tenaga profesional</span>
+                    </div>
                 </div>
                 <div style="margin-top:36px;">
-                    <?= render_button(['text' => 'Tentang JTI NOVA', 'href' => $tentang_url, 'variant' => 'white', 'size' => 'md']) ?>
+                    <script>placeButton({ text: 'Tentang JTI NOVA', href: '/Pages/TentangKami/index.html', variant: 'white', size: 'md' });</script>
                 </div>
             </div>
 
             <div class="achieve-right reveal rv2">
                 <div class="achieve-img-wrap">
-                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80&auto=format&fit=crop"
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&amp;q=80&amp;auto=format&amp;fit=crop"
                          alt="Mahasiswa JTI NOVA bekerja dalam proyek"
                          width="800" height="600"
                          loading="lazy">
@@ -1310,7 +1374,7 @@ img  { max-width: 100%; }
 
 <div class="promo-strip" aria-label="Mulai proyek bersama JTI NOVA">
     <div class="promo-strip__img">
-        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=900&q=80&auto=format&fit=crop"
+        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=900&amp;q=80&amp;auto=format&amp;fit=crop"
              alt="Tim sedang mengerjakan proyek digital"
              width="900" height="600"
              loading="lazy">
@@ -1323,7 +1387,7 @@ img  { max-width: 100%; }
             Tim JTI NOVA siap mendampingi dari tahap konsultasi hingga produk siap digunakan. Berbasis proyek nyata, bersama mahasiswa terlatih.
         </p>
         <div class="promo-strip__actions reveal rv2">
-            <?= render_button(['text' => 'Mulai Konsultasi', 'href' => $hubungi_url, 'variant' => 'primary', 'size' => 'md']) ?>
+            <script>placeButton({ text: 'Mulai Konsultasi', href: '/Pages/HubungiKami/index.html', variant: 'primary', size: 'md' });</script>
             <span class="promo-strip__tag">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                 Respons dalam 1 hari kerja
@@ -1332,19 +1396,22 @@ img  { max-width: 100%; }
     </div>
 </div>
 
-<?php
-    $cta_title    = 'Siap memulai proyek Anda?';
-    $cta_subtitle = 'Konsultasikan kebutuhan Anda bersama tim JTI NOVA.';
-    $cta_btn_text = 'Hubungi Kami';
-    $cta_btn_href = $hubungi_url;
-    $cta_variant  = 'dark';
-    require_once __DIR__ . '/../Components/ctacontainer.php';
-    require_once __DIR__ . '/../Components/footer.php';
-?>
+<script>
+    window.cta_title = 'Siap memulai proyek Anda?';
+    window.cta_subtitle = 'Konsultasikan kebutuhan Anda bersama tim JTI NOVA.';
+    window.cta_btn_text = 'Hubungi Kami';
+    window.cta_btn_href = '/Pages/HubungiKami/index.html';
+    window.cta_variant = 'dark';
+</script>
+<script src="../Components/ctacontainer.js"></script>
+<script src="../Components/footer.js"></script>
 
-</body>
 <script>
 (function () {
+    document.querySelectorAll('a[href^="/Pages/"]').forEach(function (a) {
+        a.setAttribute('href', window.base_url + a.getAttribute('href'));
+    });
+
     var els = document.querySelectorAll('.reveal');
     if (!window.IntersectionObserver) {
         els.forEach(function (el) { el.classList.add('vis'); });
@@ -1358,4 +1425,5 @@ img  { max-width: 100%; }
     els.forEach(function (el) { io.observe(el); });
 })();
 </script>
+</body>
 </html>

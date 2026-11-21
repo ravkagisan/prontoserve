@@ -1,31 +1,138 @@
-<?php
-require_once __DIR__ . '/button.php';
+(function () {
+    var currentScript = document.currentScript;
 
-if (!isset($current_page)) {
-    $current_page = '';
-}
-
-$script_name = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
-if (preg_match('#^(.*?)/(Pages|api|Components|error)#', $script_name, $matches)) {
-    $base_url = $matches[1];
-} else {
-    $base_url = rtrim(dirname($script_name), '/\\');
-    if ($base_url === '/' || $base_url === '\\') {
-        $base_url = '';
+    function pick(value, fallback) {
+        return value === undefined || value === null ? fallback : value;
     }
-}
 
-$nav_links = [
-    ['name' => 'Beranda', 'href' => $base_url . '/Pages/index.php', 'key' => 'beranda'],
-    ['name' => 'Tentang Kami', 'href' => $base_url . '/Pages/TentangKami/index.php', 'key' => 'tentang-kami'],
-    ['name' => 'Pelayanan', 'href' => $base_url . '/Pages/Pelayanan/index.php', 'key' => 'pelayanan'],
-    ['name' => 'Pelatihan', 'href' => $base_url . '/Pages/Pelatihan/index.php', 'key' => 'pelatihan'],
-    ['name' => 'Portofolio', 'href' => $base_url . '/Pages/Portofolio/index.php', 'key' => 'portofolio'],
-    ['name' => 'Tim', 'href' => $base_url . '/Pages/Tim/index.php', 'key' => 'tim'],
-];
-?>
+    function escapeHtml(value) {
+        return String(value === null || value === undefined ? '' : value)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
 
-<style>
+    function normalizeHtmlHref(href) {
+        if (!href || typeof href !== 'string') return '#';
+        if (/^(https?:|mailto:|tel:|#)/i.test(href)) return href;
+        return href.replace(/\.php(\?|#|$)/i, '.html$1');
+    }
+
+    function computeBaseUrl() {
+        if (window.base_url !== undefined && window.base_url !== null) {
+            return window.base_url;
+        }
+        var scriptName = (window.location.pathname || '').replace(/\\/g, '/');
+        var matches = scriptName.match(/^(.*?)\/(Pages|api|Components|error)/);
+        var base;
+        if (matches) {
+            base = matches[1];
+        } else {
+            var idx = scriptName.lastIndexOf('/');
+            base = idx > 0 ? scriptName.substring(0, idx) : '';
+            base = base.replace(/[\/\\]+$/, '');
+            if (base === '/' || base === '\\') {
+                base = '';
+            }
+        }
+        return base;
+    }
+
+    var baseUrl = computeBaseUrl();
+
+    function buildNavLinks(base) {
+        return [
+            { name: 'Beranda', href: base + '/Pages/index.html', key: 'beranda' },
+            { name: 'Tentang Kami', href: base + '/Pages/TentangKami/index.html', key: 'tentang-kami' },
+            { name: 'Pelayanan', href: base + '/Pages/Pelayanan/index.html', key: 'pelayanan' },
+            { name: 'Pelatihan', href: base + '/Pages/Pelatihan/index.html', key: 'pelatihan' },
+            { name: 'Portofolio', href: base + '/Pages/Portofolio/index.html', key: 'portofolio' },
+            { name: 'Tim', href: base + '/Pages/Tim/index.html', key: 'tim' }
+        ];
+    }
+
+    function renderBtn(options) {
+        if (typeof window.renderButton === 'function') {
+            return window.renderButton(options);
+        }
+        return '';
+    }
+
+    function renderNavbar(options) {
+        options = options || {};
+
+        var base = pick(options.base_url, baseUrl);
+        var currentPage = pick(options.current_page, pick(window.current_page, ''));
+        var navLinks = pick(options.nav_links, buildNavLinks(base));
+
+        var desktopItems = navLinks.map(function (link) {
+            var isActive = currentPage === link.key;
+            var href = normalizeHtmlHref(link.href);
+            return '<li class="nav-item">' +
+                '<a href="' + escapeHtml(href) + '" class="nav-link' + (isActive ? ' active' : '') + '" ' + (isActive ? 'aria-current="page"' : '') + '>' +
+                escapeHtml(link.name) +
+                '</a>' +
+                '</li>';
+        }).join('');
+
+        var mobileItems = navLinks.map(function (link) {
+            var isActive = currentPage === link.key;
+            var href = normalizeHtmlHref(link.href);
+            return '<li class="mobile-nav-item">' +
+                '<a href="' + escapeHtml(href) + '" class="mobile-nav-link' + (isActive ? ' active' : '') + '" ' + (isActive ? 'aria-current="page"' : '') + '>' +
+                escapeHtml(link.name) +
+                '</a>' +
+                '</li>';
+        }).join('');
+
+        var ctaHref = normalizeHtmlHref(base + '/Pages/HubungiKami/index.html');
+        var brandHref = normalizeHtmlHref(base + '/Pages/index.html');
+
+        var desktopCta = renderBtn({
+            href: ctaHref,
+            text: 'Hubungi Kami',
+            variant: 'teal',
+            size: 'sm',
+            class: 'navbar-cta'
+        });
+
+        var mobileCta = renderBtn({
+            href: ctaHref,
+            text: 'Hubungi Kami',
+            variant: 'teal',
+            size: 'md',
+            class: 'mobile-cta btn-block'
+        });
+
+        return '' +
+            '<header class="navbar" id="mainNavbar" role="banner">' +
+            '<div class="navbar-container">' +
+            '<a href="' + escapeHtml(brandHref) + '" class="navbar-brand" aria-label="Nova JTI - Halaman Utama">' +
+            '<img src="' + escapeHtml(base) + '/Assets/images/logo.png" alt="Nova JTI" width="120" height="40">' +
+            '</a>' +
+            '<button type="button" class="navbar-toggle" id="navToggle" aria-label="Menu navigasi" aria-expanded="false" aria-controls="mobileOverlay">' +
+            '<span class="hamburger-box">' +
+            '<span class="hamburger-line"></span>' +
+            '<span class="hamburger-line"></span>' +
+            '<span class="hamburger-line"></span>' +
+            '</span>' +
+            '</button>' +
+            '<div class="navbar-menu-wrapper" role="navigation" aria-label="Menu utama">' +
+            '<ul class="navbar-menu">' + desktopItems + '</ul>' +
+            desktopCta +
+            '</div>' +
+            '</div>' +
+            '</header>' +
+            '<div class="mobile-overlay" id="mobileOverlay" role="dialog" aria-modal="true" aria-label="Menu navigasi mobile">' +
+            '<ul class="mobile-nav-list">' + mobileItems + '</ul>' +
+            '<div class="mobile-divider"></div>' +
+            mobileCta +
+            '</div>';
+    }
+
+    var navbarCss = `
 .navbar {
     position: fixed;
     top: 0;
@@ -441,187 +548,144 @@ $nav_links = [
         animation: none;
     }
 }
-</style>
+`;
 
-<?php
-$chevron_svg = '<svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>';
-?>
-
-<header class="navbar" id="mainNavbar" role="banner">
-    <div class="navbar-container">
-        <a href="<?= $base_url ?>/Pages/index.php" class="navbar-brand" aria-label="Nova JTI - Halaman Utama">
-            <img src="<?= $base_url ?>/Assets/images/logo.png" alt="Nova JTI" width="120" height="40">
-        </a>
-
-        <button
-            type="button"
-            class="navbar-toggle"
-            id="navToggle"
-            aria-label="Menu navigasi"
-            aria-expanded="false"
-            aria-controls="mobileOverlay"
-        >
-            <span class="hamburger-box">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </span>
-        </button>
-
-        <div class="navbar-menu-wrapper" role="navigation" aria-label="Menu utama">
-            <ul class="navbar-menu">
-                <?php foreach ($nav_links as $link): ?>
-                <li class="nav-item">
-                    <a
-                        href="<?= htmlspecialchars($link['href']) ?>"
-                        class="nav-link<?= ($current_page === $link['key']) ? ' active' : '' ?>"
-                        <?= ($current_page === $link['key']) ? 'aria-current="page"' : '' ?>
-                    >
-                        <?= htmlspecialchars($link['name']) ?>
-                    </a>
-                </li>
-                <?php endforeach; ?>
-            </ul>
-
-            <?= render_button([
-                'href'    => $base_url . '/Pages/HubungiKami/index.php',
-                'text'    => 'Hubungi Kami',
-                'variant' => 'teal',
-                'size'    => 'sm',
-                'class'   => 'navbar-cta'
-            ]) ?>
-        </div>
-    </div>
-</header>
-
-<div class="mobile-overlay" id="mobileOverlay" role="dialog" aria-modal="true" aria-label="Menu navigasi mobile">
-    <ul class="mobile-nav-list">
-        <?php foreach ($nav_links as $link): ?>
-        <li class="mobile-nav-item">
-            <a
-                href="<?= htmlspecialchars($link['href']) ?>"
-                class="mobile-nav-link<?= ($current_page === $link['key']) ? ' active' : '' ?>"
-                <?= ($current_page === $link['key']) ? 'aria-current="page"' : '' ?>
-            >
-                <?= htmlspecialchars($link['name']) ?>
-            </a>
-        </li>
-        <?php endforeach; ?>
-    </ul>
-
-    <div class="mobile-divider"></div>
-
-    <?= render_button([
-        'href'    => $base_url . '/Pages/HubungiKami/index.php',
-        'text'    => 'Hubungi Kami',
-        'variant' => 'teal',
-        'size'    => 'md',
-        'class'   => 'mobile-cta btn-block'
-    ]) ?>
-</div>
-
-<script>
-(function () {
-    const navbar = document.getElementById('mainNavbar');
-    const toggle = document.getElementById('navToggle');
-    const overlay = document.getElementById('mobileOverlay');
-    let mobileOpen = false;
-    let closeTimer = null;
-
-    function setScrolled() {
-        navbar.classList.toggle('scrolled', window.scrollY >= 80);
+    function loadStyle() {
+        if (window.PRONTOSERVE_NAVBAR_CSS_LOADED) {
+            return;
+        }
+        window.PRONTOSERVE_NAVBAR_CSS_LOADED = true;
+        var style = document.createElement('style');
+        style.textContent = navbarCss;
+        document.head.appendChild(style);
     }
 
-    function openMobile() {
-        if (mobileOpen) return;
-        mobileOpen = true;
-        clearTimeout(closeTimer);
-        overlay.classList.remove('closing');
-        overlay.querySelectorAll('.mobile-nav-item, .mobile-divider, .mobile-cta').forEach(function (el) {
-            el.style.animation = 'none';
-            el.offsetHeight;
-            el.style.animation = '';
-        });
-        overlay.classList.add('open');
-        toggle.classList.add('active');
-        toggle.setAttribute('aria-expanded', 'true');
-        toggle.setAttribute('aria-label', 'Tutup menu navigasi');
-        document.body.style.overflow = 'hidden';
-    }
+    function initNavbar() {
+        var navbar = document.getElementById('mainNavbar');
+        var toggle = document.getElementById('navToggle');
+        var overlay = document.getElementById('mobileOverlay');
 
-    function closeMobile() {
-        if (!mobileOpen) return;
-        mobileOpen = false;
-        clearTimeout(closeTimer);
-        overlay.classList.remove('open');
-        overlay.querySelectorAll('.mobile-nav-item, .mobile-divider, .mobile-cta').forEach(function (el) {
-            el.style.animation = 'none';
-            el.offsetHeight;
-            el.style.animation = '';
-        });
-        overlay.classList.add('closing');
-        toggle.classList.remove('active');
-        toggle.setAttribute('aria-expanded', 'false');
-        toggle.setAttribute('aria-label', 'Buka menu navigasi');
-        document.body.style.overflow = '';
+        if (!navbar || !toggle || !overlay) {
+            return;
+        }
 
-        closeTimer = setTimeout(function () {
+        var mobileOpen = false;
+        var closeTimer = null;
+
+        function setScrolled() {
+            navbar.classList.toggle('scrolled', window.scrollY >= 80);
+        }
+
+        function resetAnimations() {
+            overlay.querySelectorAll('.mobile-nav-item, .mobile-divider, .mobile-cta').forEach(function (el) {
+                el.style.animation = 'none';
+                void el.offsetHeight;
+                el.style.animation = '';
+            });
+        }
+
+        function openMobile() {
+            if (mobileOpen) return;
+            mobileOpen = true;
+            clearTimeout(closeTimer);
             overlay.classList.remove('closing');
-        }, 880);
-    }
-
-    toggle.addEventListener('click', function (e) {
-        e.stopPropagation();
-        mobileOpen ? closeMobile() : openMobile();
-    });
-
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') {
-            closeMobile();
-            closeAllDropdowns();
+            resetAnimations();
+            overlay.classList.add('open');
+            toggle.classList.add('active');
+            toggle.setAttribute('aria-expanded', 'true');
+            toggle.setAttribute('aria-label', 'Tutup menu navigasi');
+            document.body.style.overflow = 'hidden';
         }
-    });
 
-    overlay.querySelectorAll('.mobile-nav-link, .mobile-dropdown-link, .mobile-cta').forEach(function (link) {
-        link.addEventListener('click', function () {
-            closeMobile();
-        });
-    });
+        function closeMobile() {
+            if (!mobileOpen) return;
+            mobileOpen = false;
+            clearTimeout(closeTimer);
+            overlay.classList.remove('open');
+            resetAnimations();
+            overlay.classList.add('closing');
+            toggle.classList.remove('active');
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.setAttribute('aria-label', 'Buka menu navigasi');
+            document.body.style.overflow = '';
 
-    function closeAllDropdowns() {
-        document.querySelectorAll('.nav-item.open').forEach(function (item) {
-            item.classList.remove('open');
-        });
-    }
-
-    document.querySelectorAll('.nav-item').forEach(function (item) {
-        const btn = item.querySelector('.nav-link[data-dropdown]');
-        if (!btn) return;
-
-        btn.addEventListener('click', function (e) {
-            e.preventDefault();
-            const isOpen = item.classList.contains('open');
-            closeAllDropdowns();
-            if (!isOpen) item.classList.add('open');
-        });
-    });
-
-    document.addEventListener('click', function (e) {
-        if (!e.target.closest('.nav-item')) {
-            closeAllDropdowns();
+            closeTimer = setTimeout(function () {
+                overlay.classList.remove('closing');
+            }, 880);
         }
-    });
 
-    const resizeObserver = new ResizeObserver(function (entries) {
-        for (const entry of entries) {
-            if (entry.contentRect.width > 900 && mobileOpen) {
+        function closeAllDropdowns() {
+            document.querySelectorAll('.nav-item.open').forEach(function (item) {
+                item.classList.remove('open');
+            });
+        }
+
+        toggle.addEventListener('click', function (e) {
+            e.stopPropagation();
+            if (mobileOpen) {
                 closeMobile();
+            } else {
+                openMobile();
             }
-        }
-    });
-    resizeObserver.observe(document.body);
+        });
 
-    window.addEventListener('scroll', setScrolled, { passive: true });
-    setScrolled();
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeMobile();
+                closeAllDropdowns();
+            }
+        });
+
+        overlay.querySelectorAll('.mobile-nav-link, .mobile-dropdown-link, .mobile-cta').forEach(function (link) {
+            link.addEventListener('click', function () {
+                closeMobile();
+            });
+        });
+
+        document.querySelectorAll('.nav-item').forEach(function (item) {
+            var btn = item.querySelector('.nav-link[data-dropdown]');
+            if (!btn) return;
+
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                var isOpen = item.classList.contains('open');
+                closeAllDropdowns();
+                if (!isOpen) item.classList.add('open');
+            });
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.nav-item')) {
+                closeAllDropdowns();
+            }
+        });
+
+        if (typeof ResizeObserver !== 'undefined') {
+            var resizeObserver = new ResizeObserver(function (entries) {
+                for (var i = 0; i < entries.length; i++) {
+                    if (entries[i].contentRect.width > 900 && mobileOpen) {
+                        closeMobile();
+                    }
+                }
+            });
+            resizeObserver.observe(document.body);
+        }
+
+        window.addEventListener('scroll', setScrolled, { passive: true });
+        setScrolled();
+    }
+
+    function mountNavbar(target, options, position) {
+        loadStyle();
+        target.insertAdjacentHTML(position || 'beforeend', renderNavbar(options));
+        initNavbar();
+    }
+
+    window.renderNavbar = renderNavbar;
+    window.mountNavbar = mountNavbar;
+    window.initNavbar = initNavbar;
+
+    if (window.navbar_autorender !== false && currentScript && currentScript.parentNode) {
+        mountNavbar(currentScript, {}, 'beforebegin');
+    }
 })();
-</script>
