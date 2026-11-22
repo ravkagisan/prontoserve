@@ -28,7 +28,7 @@ $katalog = [
         'mode'       => 'Tatap muka / hybrid',
         'kuota'      => 30,
         'instruktur' => 'Instruktur 1',
-        'gambar'     => 'pelatihan-web.jpg',
+        'gambar'     => 'fullstack.jpg',
         'silabus'    => [
             ['pertemuan' => 'Pertemuan 1', 'materi' => 'Dasar HTML & CSS',   'ringkasan' => 'Struktur halaman, styling, dan layout responsif'],
             ['pertemuan' => 'Pertemuan 2', 'materi' => 'JavaScript Dasar',   'ringkasan' => 'Variabel, fungsi, DOM, dan event'],
@@ -45,7 +45,7 @@ $katalog = [
         'mode'       => 'Tatap muka / hybrid',
         'kuota'      => 25,
         'instruktur' => 'Instruktur 2',
-        'gambar'     => 'pelatihan-uiux.jpg',
+        'gambar'     => 'uiux.jpg',
         'silabus'    => [
             ['pertemuan' => 'Pertemuan 1', 'materi' => 'Dasar UI/UX',       'ringkasan' => 'Prinsip desain dan alur kerja desainer'],
             ['pertemuan' => 'Pertemuan 2', 'materi' => 'Riset & Wireframe',  'ringkasan' => 'User persona, user flow, dan wireframe'],
@@ -62,7 +62,7 @@ $katalog = [
         'mode'       => 'Tatap muka',
         'kuota'      => 35,
         'instruktur' => 'Instruktur 3',
-        'gambar'     => 'pelatihan-jaringan.jpg',
+        'gambar'     => 'jaringan.jpg',
         'silabus'    => [
             ['pertemuan' => 'Pertemuan 1', 'materi' => 'Konsep Jaringan',   'ringkasan' => 'Model OSI, TCP/IP, dan topologi'],
             ['pertemuan' => 'Pertemuan 2', 'materi' => 'Pengalamatan IP',   'ringkasan' => 'IPv4, subnetting, dan routing dasar'],
@@ -79,7 +79,7 @@ $katalog = [
         'mode'       => 'Tatap muka / hybrid',
         'kuota'      => 30,
         'instruktur' => 'Instruktur 1',
-        'gambar'     => 'pelatihan-mobile.jpg',
+        'gambar'     => 'mobile.jpg',
         'silabus'    => [
             ['pertemuan' => 'Pertemuan 1', 'materi' => 'Dasar Mobile',      'ringkasan' => 'Lingkungan kerja dan komponen antarmuka'],
             ['pertemuan' => 'Pertemuan 2', 'materi' => 'Navigasi & State',  'ringkasan' => 'Perpindahan layar dan pengelolaan state'],
@@ -96,7 +96,7 @@ $katalog = [
         'mode'       => 'Hybrid',
         'kuota'      => 30,
         'instruktur' => 'Instruktur 4',
-        'gambar'     => 'pelatihan-data.jpg',
+        'gambar'     => 'data-analitik.jpg',
         'silabus'    => [
             ['pertemuan' => 'Pertemuan 1', 'materi' => 'Pengantar Data',   'ringkasan' => 'Jenis data dan alur analisis'],
             ['pertemuan' => 'Pertemuan 2', 'materi' => 'Pembersihan Data', 'ringkasan' => 'Menangani data kosong, duplikat, dan outlier'],
@@ -113,7 +113,7 @@ $katalog = [
         'mode'       => 'Tatap muka',
         'kuota'      => 20,
         'instruktur' => 'Instruktur 2',
-        'gambar'     => 'pelatihan-kids.jpg',
+        'gambar'     => 'scratch.jpg',
         'silabus'    => [
             ['pertemuan' => 'Pertemuan 1', 'materi' => 'Mengenal Logika', 'ringkasan' => 'Urutan perintah dan pola sederhana'],
             ['pertemuan' => 'Pertemuan 2', 'materi' => 'Animasi',         'ringkasan' => 'Membuat tokoh dan gerakan'],
