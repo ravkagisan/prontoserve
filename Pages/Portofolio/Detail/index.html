@@ -1,111 +1,13 @@
-<?php
-require_once __DIR__ . '/../../../Components/button.php';
-
-$current_page = 'portofolio';
-
-$script_name = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
-if (preg_match('#^(.*?)/(Pages|api|Components)#', $script_name, $matches)) {
-    $base_url = $matches[1];
-} else {
-    $base_url = rtrim(dirname($script_name), '/\\');
-    if ($base_url === '/' || $base_url === '\\') {
-        $base_url = '';
-    }
-}
-
-$proyek_katalog = [
-    1 => [
-        'id' => 1,
-        'title' => 'Sistem Informasi Akademik',
-        'category' => 'Website',
-        'image' => $base_url . '/Assets/images/dummy.jpg',
-        'overview' => 'Sistem Informasi Akademik terpadu yang dirancang untuk memfasilitasi manajemen data perkuliahan, registrasi mahasiswa, penginputan kartu rencana studi (KRS), hingga penilaian berkala secara efisien dan transparan.',
-        'p1' => 'Lorem ipsum dolor sit amet. Qui excepturi dolor ut consequatur cupiditate et ratione rerum aut dolorem sapiente sit mollitia asperiores id quis rerum. Sed odio asperiores non galisum sunt est doloribus adipisci id fuga omnis ea mollitia ullam ea animi officia ut tempore possimus. Ut error nihil eos reprehenderit voluptas aut laudantium perspiciatis vel iure consectetur et enim atque 33 sint rerum! Aut similique iste aut neque dolor non omnis libero sit nihil similique et doloremque molestias sit rerum autem ut voluptatem deleniti. Ab expedita magnam ut repellat deserunt qui sunt voluptatum sed voluptas omnis ea eaque nostrum. Ut voluptate nihil est aliquam sint rem tempora mollitia non dolore tempora hic dicta eligendi sed dolorem alias eos nostrum corporis. Sed fuga expedita ut ullam nulla sed beatae numquam ea nihil nesciunt et illo reiciendis vel fuga rerum aut internos fuga? Est quam illo et harum repudiandae eum nobis odio eum reiciendis galisum.',
-        'p2' => 'Ut aliquid commodi et illo omnis ea perspiciatis praesentium eum fugiat dolor nam laboriosam maiores sit voluptatem voluptates! Qui deleniti nulla et eaque veniam qui pariatur eaque hic nobis quaerat aut accusantium deleniti in sunt nihil sit asperiores laboriosam. In saepe porro et soluta quam eum totam inventore ut esse quisquam. Aut quisquam dolores eum assumenda voluptas non Quis architecto eum voluptatem eligendi aut voluptatem dolor sed eveniet consequatur? Sit dolorem consequatur id alias accusamus non tempora molestiae? Aut dolores odio non quas debitis ut dolore esse sit aliquam dolores et nisi saepe et sapiente odit. Ea galisum temporibus non nisi natus qui vitae quod in aliquid nisi. Et molestiae suscipit est optio facilis in aperiam reiciendis et quos officia id libero adipisci et incidunt ipsam. Qui perspiciatis accusantium sit fuga voluptatem qui incidunt voluptatibus ad corporis quia qui temporibus fugiat aut quam quia. Aut animi temporibus quo veniam nulla sit molestiae voluptas. Non tempora dolores ea accusamus exercitationem eum dolorem aperiam id omnis illum ut earum magni sit quis galisum hic officia reiciendis. Qui dolor possimus est laborum ipsa ex error quia cum ipsum dolorem et quam sint et eius consequatur. Eum adipisci sunt qui veniam dolor quo galisum labore ea nemo minus ab odio vero! Id voluptatum itaque ea saepe laboriosam est exercitationem iusto.'
-    ],
-    2 => [
-        'id' => 2,
-        'title' => 'Aplikasi Absensi Mahasiswa',
-        'category' => 'Mobile App',
-        'image' => $base_url . '/Assets/images/dummy.jpg',
-        'overview' => 'Aplikasi presensi digital berbasis mobile dengan verifikasi lokasi geofencing dan pemindaian QR dinamis guna menjamin akurasi dan integritas kehadiran mahasiswa.',
-        'p1' => 'Lorem ipsum dolor sit amet. Qui excepturi dolor ut consequatur cupiditate et ratione rerum aut dolorem sapiente sit mollitia asperiores id quis rerum. Sed odio asperiores non galisum sunt est doloribus adipisci id fuga omnis ea mollitia ullam ea animi officia ut tempore possimus. Ut error nihil eos reprehenderit voluptas aut laudantium perspiciatis vel iure consectetur et enim atque 33 sint rerum! Aut similique iste aut neque dolor non omnis libero sit nihil similique et doloremque molestias sit rerum autem ut voluptatem deleniti.',
-        'p2' => 'Ut aliquid commodi et illo omnis ea perspiciatis praesentium eum fugiat dolor nam laboriosam maiores sit voluptatem voluptates! Qui deleniti nulla et eaque veniam qui pariatur eaque hic nobis quaerat aut accusantium deleniti in sunt nihil sit asperiores laboriosam. In saepe porro et soluta quam eum totam inventore ut esse quisquam. Aut quisquam dolores eum assumenda voluptas non Quis architecto eum voluptatem eligendi aut voluptatem dolor sed eveniet consequatur?'
-    ],
-    3 => [
-        'id' => 3,
-        'title' => 'Smart Monitoring Pertanian',
-        'category' => 'IoT',
-        'image' => $base_url . '/Assets/images/dummy.jpg',
-        'overview' => 'Sistem pemantauan lingkungan pertanian cerdas berbasis Internet of Things (IoT) yang mengukur kelembapan tanah, suhu udara, serta mengotomatisasi irigasi secara presisi.',
-        'p1' => 'Lorem ipsum dolor sit amet. Qui excepturi dolor ut consequatur cupiditate et ratione rerum aut dolorem sapiente sit mollitia asperiores id quis rerum. Sed odio asperiores non galisum sunt est doloribus adipisci id fuga omnis ea mollitia ullam ea animi officia ut tempore possimus. Ut error nihil eos reprehenderit voluptas aut laudantium perspiciatis vel iure consectetur et enim atque 33 sint rerum!',
-        'p2' => 'Ut aliquid commodi et illo omnis ea perspiciatis praesentium eum fugiat dolor nam laboriosam maiores sit voluptatem voluptates! Qui deleniti nulla et eaque veniam qui pariatur eaque hic nobis quaerat aut accusantium deleniti in sunt nihil sit asperiores laboriosam.'
-    ],
-    4 => [
-        'id' => 4,
-        'title' => 'Aplikasi Layanan Desa',
-        'category' => 'Web & Mobile App',
-        'image' => $base_url . '/Assets/images/dummy.jpg',
-        'overview' => 'Platform digitalisasi administrasi kependudukan desa terpadu untuk pengajuan surat pengantar, pendataan warga, serta transparansi pelayanan publik.',
-        'p1' => 'Lorem ipsum dolor sit amet. Qui excepturi dolor ut consequatur cupiditate et ratione rerum aut dolorem sapiente sit mollitia asperiores id quis rerum. Sed odio asperiores non galisum sunt est doloribus adipisci id fuga omnis ea mollitia ullam ea animi officia ut tempore possimus. Ut error nihil eos reprehenderit voluptas aut laudantium perspiciatis vel iure consectetur et enim atque 33 sint rerum! Aut similique iste aut neque dolor non omnis libero sit nihil similique et doloremque molestias sit rerum autem ut voluptatem deleniti. Ab expedita magnam ut repellat deserunt qui sunt voluptatum sed voluptas omnis ea eaque nostrum.',
-        'p2' => 'Ut aliquid commodi et illo omnis ea perspiciatis praesentium eum fugiat dolor nam laboriosam maiores sit voluptatem voluptates! Qui deleniti nulla et eaque veniam qui pariatur eaque hic nobis quaerat aut accusantium deleniti in sunt nihil sit asperiores laboriosam. In saepe porro et soluta quam eum totam inventore ut esse quisquam. Aut quisquam dolores eum assumenda voluptas non Quis architecto eum voluptatem eligendi aut voluptatem dolor sed eveniet consequatur?'
-    ],
-    5 => [
-        'id' => 5,
-        'title' => 'Video Profil Instansi',
-        'category' => 'Multimedia',
-        'image' => $base_url . '/Assets/images/dummy.jpg',
-        'overview' => 'Produksi video profil korporat sinematik dengan visualisasi komprehensif mengenai visi, pencapaian, serta layanan unggulan instansi mitra.',
-        'p1' => 'Lorem ipsum dolor sit amet. Qui excepturi dolor ut consequatur cupiditate et ratione rerum aut dolorem sapiente sit mollitia asperiores id quis rerum. Sed odio asperiores non galisum sunt est doloribus adipisci id fuga omnis ea mollitia ullam ea animi officia ut tempore possimus. Ut error nihil eos reprehenderit voluptas aut laudantium perspiciatis vel iure consectetur et enim atque 33 sint rerum!',
-        'p2' => 'Ut aliquid commodi et illo omnis ea perspiciatis praesentium eum fugiat dolor nam laboriosam maiores sit voluptatem voluptates! Qui deleniti nulla et eaque veniam qui pariatur eaque hic nobis quaerat aut accusantium deleniti in sunt nihil sit asperiores laboriosam.'
-    ],
-    6 => [
-        'id' => 6,
-        'title' => 'Webinar Transformasi Digital',
-        'category' => 'Webinar',
-        'image' => $base_url . '/Assets/images/dummy.jpg',
-        'overview' => 'Pelaksanaan seminar daring berskala nasional mengenai adopsi teknologi terapan dan kesiapan talenta digital menghadapi revolusi industri terkini.',
-        'p1' => 'Lorem ipsum dolor sit amet. Qui excepturi dolor ut consequatur cupiditate et ratione rerum aut dolorem sapiente sit mollitia asperiores id quis rerum. Sed odio asperiores non galisum sunt est doloribus adipisci id fuga omnis ea mollitia ullam ea animi officia ut tempore possimus. Ut error nihil eos reprehenderit voluptas aut laudantium perspiciatis vel iure consectetur et enim atque 33 sint rerum!',
-        'p2' => 'Ut aliquid commodi et illo omnis ea perspiciatis praesentium eum fugiat dolor nam laboriosam maiores sit voluptatem voluptates! Qui deleniti nulla et eaque veniam qui pariatur eaque hic nobis quaerat aut accusantium deleniti in sunt nihil sit asperiores laboriosam.'
-    ],
-];
-
-$id = (int) ($_GET['id'] ?? 1);
-$proyek = $proyek_katalog[$id] ?? $proyek_katalog[1];
-
-$portofolio_url = $base_url . '/Pages/Portofolio/index.php';
-
-// Konfigurasi Carousel 2 Slide (Slide 1: Detail Proyek, Slide 2: Menggunakan ajasendiri.jpg)
-$carousel_slides = [
-    [
-        'id' => $proyek['id'],
-        'image' => $proyek['image'],
-        'title' => $proyek['title'],
-        'description' => $proyek['overview'],
-        'buttons' => [
-            ['text' => 'Hubungi Kami', 'link' => $base_url . '/Pages/HubungiKami/index.php', 'variant' => 'primary'],
-            ['text' => 'Kembali ke Portofolio', 'link' => $portofolio_url, 'variant' => 'outline-white']
-        ]
-    ],
-    [
-        'id' => 'overview',
-        'image' => $base_url . '/Assets/images/ajasendiri.jpg',
-        'title' => "Portofolio Proyek Unggulan\nSolusi Digital JTI NOVA",
-        'description' => "Eksplorasi karya inovatif aplikasi web, mobile, IoT, dan multimedia yang dikembangkan oleh mahasiswa dan talenta profesional TEFA JTI Polije.",
-        'buttons' => [
-            ['text' => 'Lihat Studi Kasus', 'link' => $portofolio_url, 'variant' => 'primary'],
-            ['text' => 'Hubungi Kami', 'link' => $base_url . '/Pages/HubungiKami/index.php', 'variant' => 'outline-white']
-        ]
-    ]
-];
-?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars($proyek['title']) ?> - Detail Portofolio JTI NOVA</title>
-    <link rel="stylesheet" href="<?= htmlspecialchars($base_url) ?>/Style/style.css">
+    <title>Detail Portofolio - JTI NOVA</title>
+
+    <link rel="stylesheet" href="../../../Style/style.css">
+
     <style>
         .detail-page-section {
             padding: var(--space-48) 0 var(--space-80);
@@ -244,7 +146,7 @@ $carousel_slides = [
         }
 
         html { -webkit-text-size-adjust: 100%; }
-        body { overflow-x: clip; }
+        body { overflow-x: clip; margin: 0; }
         img  { max-width: 100%; }
 
         .detail-layout-grid > *,
@@ -468,36 +370,37 @@ $carousel_slides = [
         }
     </style>
 </head>
+
 <body>
 
-    <?php require_once __DIR__ . '/../../../Components/navbar.php'; ?>
+    <div id="navbar-container"></div>
 
-    <?php require_once __DIR__ . '/../../../Components/carousel.php'; ?>
+    <div id="carousel-container"></div>
 
     <section class="detail-page-section">
         <div class="container">
-            <a class="dt-hero__back" href="<?= htmlspecialchars($portofolio_url) ?>" aria-label="Kembali ke Portofolio">
+            <a class="dt-hero__back" id="detail-back-link" href="../index.html" aria-label="Kembali ke Portofolio">
                 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-                    <circle cx="12" cy="12" r="10"/>
-                    <path d="M16 12H8M12 8l-4 4 4 4"/>
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M16 12H8M12 8l-4 4 4 4" />
                 </svg>
             </a>
 
             <div class="detail-hero-banner">
-                <img src="<?= htmlspecialchars($proyek['image']) ?>" alt="<?= htmlspecialchars($proyek['title']) ?>">
+                <img id="detail-banner-img" src="" alt="">
             </div>
 
             <div class="detail-layout-grid">
                 <main class="detail-main-content">
-                    <h1 class="detail-main-title"><?= htmlspecialchars($proyek['title']) ?></h1>
-                    <p class="detail-paragraph"><?= htmlspecialchars($proyek['p1']) ?></p>
-                    <p class="detail-paragraph"><?= htmlspecialchars($proyek['p2']) ?></p>
+                    <h1 class="detail-main-title" id="detail-main-title"></h1>
+                    <p class="detail-paragraph" id="detail-p1"></p>
+                    <p class="detail-paragraph" id="detail-p2"></p>
                 </main>
 
                 <aside class="detail-sidebar-card">
                     <h3 class="sidebar-card-title">Hubungi Kami</h3>
                     <p class="sidebar-card-desc">Tertarik dengan proyek ini? Hubungi tim JTI NOVA.</p>
-                    
+
                     <div class="sidebar-contact-info">
                         <div class="sidebar-contact-item">
                             <span class="sidebar-contact-label">WhatsApp:</span>
@@ -511,28 +414,202 @@ $carousel_slides = [
 
                     <p class="sidebar-card-hours">Jam layanan: Senin–Jumat, 08.00–16.00 WIB</p>
 
-                    <div class="sidebar-btn-group">
-                        <?= render_button([
-                            'href'    => $base_url . '/Pages/HubungiKami/index.php',
-                            'text'    => 'Hubungi Kami',
-                            'variant' => 'primary',
-                            'size'    => 'md',
-                            'class'   => 'btn-block'
-                        ]) ?>
-                        <?= render_button([
-                            'href'    => $portofolio_url,
-                            'text'    => 'Kembali ke Portofolio',
-                            'variant' => 'outline',
-                            'size'    => 'md',
-                            'class'   => 'btn-block'
-                        ]) ?>
-                    </div>
+                    <div class="sidebar-btn-group" id="sidebar-btn-group"></div>
                 </aside>
             </div>
         </div>
     </section>
 
-    <?php require_once __DIR__ . '/../../../Components/footer.php'; ?>
+    <div id="cta-container"></div>
+
+    <div id="footer-container"></div>
+
+    <script>
+        window.current_page = 'portofolio';
+        window.navbar_autorender = false;
+        window.carousel_autorender = false;
+        window.footer_autorender = false;
+    </script>
+
+    <script src="../../../Components/button.js"></script>
+    <script src="../../../Components/card.js"></script>
+    <script src="../../../Components/carousel.js"></script>
+    <script src="../../../Components/navbar.js"></script>
+    <script src="../../../Components/ctacontainer.js"></script>
+    <script src="../../../Components/footer.js"></script>
+
+    <script>
+        (function () {
+            "use strict";
+
+            var baseUrl = (typeof window.baseUrl === 'string' && window.baseUrl !== '') ? window.baseUrl : '../../..';
+            var imagesUrl = baseUrl + '/Assets/images/';
+            var portofolioUrl = baseUrl + '/Pages/Portofolio/index.html';
+            var hubungiUrl = baseUrl + '/Pages/HubungiKami/index.html';
+
+            var proyekKatalog = {
+                1: {
+                    id: 1,
+                    title: "Sistem Informasi Akademik",
+                    category: "Website",
+                    image: "dummy.jpg",
+                    overview: "Sistem Informasi Akademik terpadu yang dirancang untuk memfasilitasi manajemen data perkuliahan, registrasi mahasiswa, penginputan kartu rencana studi (KRS), hingga penilaian berkala secara efisien dan transparan.",
+                    p1: "Lorem ipsum dolor sit amet. Qui excepturi dolor ut consequatur cupiditate et ratione rerum aut dolorem sapiente sit mollitia asperiores id quis rerum. Sed odio asperiores non galisum sunt est doloribus adipisci id fuga omnis ea mollitia ullam ea animi officia ut tempore possimus. Ut error nihil eos reprehenderit voluptas aut laudantium perspiciatis vel iure consectetur et enim atque 33 sint rerum! Aut similique iste aut neque dolor non omnis libero sit nihil similique et doloremque molestias sit rerum autem ut voluptatem deleniti. Ab expedita magnam ut repellat deserunt qui sunt voluptatum sed voluptas omnis ea eaque nostrum. Ut voluptate nihil est aliquam sint rem tempora mollitia non dolore tempora hic dicta eligendi sed dolorem alias eos nostrum corporis. Sed fuga expedita ut ullam nulla sed beatae numquam ea nihil nesciunt et illo reiciendis vel fuga rerum aut internos fuga? Est quam illo et harum repudiandae eum nobis odio eum reiciendis galisum.",
+                    p2: "Ut aliquid commodi et illo omnis ea perspiciatis praesentium eum fugiat dolor nam laboriosam maiores sit voluptatem voluptates! Qui deleniti nulla et eaque veniam qui pariatur eaque hic nobis quaerat aut accusantium deleniti in sunt nihil sit asperiores laboriosam. In saepe porro et soluta quam eum totam inventore ut esse quisquam. Aut quisquam dolores eum assumenda voluptas non Quis architecto eum voluptatem eligendi aut voluptatem dolor sed eveniet consequatur? Sit dolorem consequatur id alias accusamus non tempora molestiae? Aut dolores odio non quas debitis ut dolore esse sit aliquam dolores et nisi saepe et sapiente odit. Ea galisum temporibus non nisi natus qui vitae quod in aliquid nisi. Et molestiae suscipit est optio facilis in aperiam reiciendis et quos officia id libero adipisci et incidunt ipsam. Qui perspiciatis accusantium sit fuga voluptatem qui incidunt voluptatibus ad corporis quia qui temporibus fugiat aut quam quia. Aut animi temporibus quo veniam nulla sit molestiae voluptas. Non tempora dolores ea accusamus exercitationem eum dolorem aperiam id omnis illum ut earum magni sit quis galisum hic officia reiciendis. Qui dolor possimus est laborum ipsa ex error quia cum ipsum dolorem et quam sint et eius consequatur. Eum adipisci sunt qui veniam dolor quo galisum labore ea nemo minus ab odio vero! Id voluptatum itaque ea saepe laboriosam est exercitationem iusto."
+                },
+                2: {
+                    id: 2,
+                    title: "Aplikasi Absensi Mahasiswa",
+                    category: "Mobile App",
+                    image: "dummy.jpg",
+                    overview: "Aplikasi presensi digital berbasis mobile dengan verifikasi lokasi geofencing dan pemindaian QR dinamis guna menjamin akurasi dan integritas kehadiran mahasiswa.",
+                    p1: "Lorem ipsum dolor sit amet. Qui excepturi dolor ut consequatur cupiditate et ratione rerum aut dolorem sapiente sit mollitia asperiores id quis rerum. Sed odio asperiores non galisum sunt est doloribus adipisci id fuga omnis ea mollitia ullam ea animi officia ut tempore possimus. Ut error nihil eos reprehenderit voluptas aut laudantium perspiciatis vel iure consectetur et enim atque 33 sint rerum! Aut similique iste aut neque dolor non omnis libero sit nihil similique et doloremque molestias sit rerum autem ut voluptatem deleniti.",
+                    p2: "Ut aliquid commodi et illo omnis ea perspiciatis praesentium eum fugiat dolor nam laboriosam maiores sit voluptatem voluptates! Qui deleniti nulla et eaque veniam qui pariatur eaque hic nobis quaerat aut accusantium deleniti in sunt nihil sit asperiores laboriosam. In saepe porro et soluta quam eum totam inventore ut esse quisquam. Aut quisquam dolores eum assumenda voluptas non Quis architecto eum voluptatem eligendi aut voluptatem dolor sed eveniet consequatur?"
+                },
+                3: {
+                    id: 3,
+                    title: "Smart Monitoring Pertanian",
+                    category: "IoT",
+                    image: "dummy.jpg",
+                    overview: "Sistem pemantauan lingkungan pertanian cerdas berbasis Internet of Things (IoT) yang mengukur kelembapan tanah, suhu udara, serta mengotomatisasi irigasi secara presisi.",
+                    p1: "Lorem ipsum dolor sit amet. Qui excepturi dolor ut consequatur cupiditate et ratione rerum aut dolorem sapiente sit mollitia asperiores id quis rerum. Sed odio asperiores non galisum sunt est doloribus adipisci id fuga omnis ea mollitia ullam ea animi officia ut tempore possimus. Ut error nihil eos reprehenderit voluptas aut laudantium perspiciatis vel iure consectetur et enim atque 33 sint rerum!",
+                    p2: "Ut aliquid commodi et illo omnis ea perspiciatis praesentium eum fugiat dolor nam laboriosam maiores sit voluptatem voluptates! Qui deleniti nulla et eaque veniam qui pariatur eaque hic nobis quaerat aut accusantium deleniti in sunt nihil sit asperiores laboriosam."
+                },
+                4: {
+                    id: 4,
+                    title: "Aplikasi Layanan Desa",
+                    category: "Web & Mobile App",
+                    image: "dummy.jpg",
+                    overview: "Platform digitalisasi administrasi kependudukan desa terpadu untuk pengajuan surat pengantar, pendataan warga, serta transparansi pelayanan publik.",
+                    p1: "Lorem ipsum dolor sit amet. Qui excepturi dolor ut consequatur cupiditate et ratione rerum aut dolorem sapiente sit mollitia asperiores id quis rerum. Sed odio asperiores non galisum sunt est doloribus adipisci id fuga omnis ea mollitia ullam ea animi officia ut tempore possimus. Ut error nihil eos reprehenderit voluptas aut laudantium perspiciatis vel iure consectetur et enim atque 33 sint rerum! Aut similique iste aut neque dolor non omnis libero sit nihil similique et doloremque molestias sit rerum autem ut voluptatem deleniti. Ab expedita magnam ut repellat deserunt qui sunt voluptatum sed voluptas omnis ea eaque nostrum.",
+                    p2: "Ut aliquid commodi et illo omnis ea perspiciatis praesentium eum fugiat dolor nam laboriosam maiores sit voluptatem voluptates! Qui deleniti nulla et eaque veniam qui pariatur eaque hic nobis quaerat aut accusantium deleniti in sunt nihil sit asperiores laboriosam. In saepe porro et soluta quam eum totam inventore ut esse quisquam. Aut quisquam dolores eum assumenda voluptas non Quis architecto eum voluptatem eligendi aut voluptatem dolor sed eveniet consequatur?"
+                },
+                5: {
+                    id: 5,
+                    title: "Video Profil Instansi",
+                    category: "Multimedia",
+                    image: "dummy.jpg",
+                    overview: "Produksi video profil korporat sinematik dengan visualisasi komprehensif mengenai visi, pencapaian, serta layanan unggulan instansi mitra.",
+                    p1: "Lorem ipsum dolor sit amet. Qui excepturi dolor ut consequatur cupiditate et ratione rerum aut dolorem sapiente sit mollitia asperiores id quis rerum. Sed odio asperiores non galisum sunt est doloribus adipisci id fuga omnis ea mollitia ullam ea animi officia ut tempore possimus. Ut error nihil eos reprehenderit voluptas aut laudantium perspiciatis vel iure consectetur et enim atque 33 sint rerum!",
+                    p2: "Ut aliquid commodi et illo omnis ea perspiciatis praesentium eum fugiat dolor nam laboriosam maiores sit voluptatem voluptates! Qui deleniti nulla et eaque veniam qui pariatur eaque hic nobis quaerat aut accusantium deleniti in sunt nihil sit asperiores laboriosam."
+                },
+                6: {
+                    id: 6,
+                    title: "Webinar Transformasi Digital",
+                    category: "Webinar",
+                    image: "dummy.jpg",
+                    overview: "Pelaksanaan seminar daring berskala nasional mengenai adopsi teknologi terapan dan kesiapan talenta digital menghadapi revolusi industri terkini.",
+                    p1: "Lorem ipsum dolor sit amet. Qui excepturi dolor ut consequatur cupiditate et ratione rerum aut dolorem sapiente sit mollitia asperiores id quis rerum. Sed odio asperiores non galisum sunt est doloribus adipisci id fuga omnis ea mollitia ullam ea animi officia ut tempore possimus. Ut error nihil eos reprehenderit voluptas aut laudantium perspiciatis vel iure consectetur et enim atque 33 sint rerum!",
+                    p2: "Ut aliquid commodi et illo omnis ea perspiciatis praesentium eum fugiat dolor nam laboriosam maiores sit voluptatem voluptates! Qui deleniti nulla et eaque veniam qui pariatur eaque hic nobis quaerat aut accusantium deleniti in sunt nihil sit asperiores laboriosam."
+                }
+            };
+
+            var params = new URLSearchParams(window.location.search);
+            var rawId = params.get("id");
+            var parsedId = rawId !== null ? parseInt(rawId, 10) : 1;
+            var proyek = proyekKatalog[parsedId] || proyekKatalog[1];
+            var proyekImageUrl = imagesUrl + (proyek.image || "dummy.jpg");
+
+            document.title = proyek.title + " - Detail Portofolio JTI NOVA";
+
+            var backLink = document.getElementById("detail-back-link");
+            if (backLink) {
+                backLink.href = portofolioUrl;
+            }
+
+            var navContainer = document.getElementById("navbar-container");
+            if (navContainer && typeof window.mountNavbar === "function") {
+                window.mountNavbar(navContainer, { current_page: "portofolio", base_url: baseUrl });
+            }
+
+            var carouselSlides = [
+                {
+                    id: proyek.id,
+                    image: proyekImageUrl,
+                    title: proyek.title,
+                    description: proyek.overview,
+                    buttons: [
+                        { text: "Hubungi Kami", link: hubungiUrl, variant: "primary" },
+                        { text: "Kembali ke Portofolio", link: portofolioUrl, variant: "outline-white" }
+                    ]
+                },
+                {
+                    id: "overview",
+                    image: imagesUrl + "ajasendiri.jpg",
+                    title: "Portofolio Proyek Unggulan\nSolusi Digital JTI NOVA",
+                    description: "Eksplorasi karya inovatif aplikasi web, mobile, IoT, dan multimedia yang dikembangkan oleh mahasiswa dan talenta profesional TEFA JTI Polije.",
+                    buttons: [
+                        { text: "Lihat Studi Kasus", link: portofolioUrl, variant: "primary" },
+                        { text: "Hubungi Kami", link: hubungiUrl, variant: "outline-white" }
+                    ]
+                }
+            ];
+
+            var carouselContainer = document.getElementById("carousel-container");
+            if (carouselContainer && typeof window.mountCarousel === "function") {
+                window.mountCarousel(carouselContainer, {
+                    carousel_type: "hero",
+                    carousel_slides: carouselSlides
+                });
+            }
+
+            var bannerImg = document.getElementById("detail-banner-img");
+            if (bannerImg) {
+                bannerImg.src = proyekImageUrl;
+                bannerImg.alt = proyek.title;
+                bannerImg.addEventListener("error", function () {
+                    if (bannerImg.src.indexOf("dummy.jpg") === -1) {
+                        bannerImg.src = imagesUrl + "dummy.jpg";
+                    }
+                });
+            }
+
+            var titleEl = document.getElementById("detail-main-title");
+            if (titleEl) titleEl.textContent = proyek.title;
+
+            var p1El = document.getElementById("detail-p1");
+            if (p1El) p1El.textContent = proyek.p1;
+
+            var p2El = document.getElementById("detail-p2");
+            if (p2El) p2El.textContent = proyek.p2;
+
+            var btnGroup = document.getElementById("sidebar-btn-group");
+            if (btnGroup && typeof window.renderButton === "function") {
+                btnGroup.innerHTML =
+                    window.renderButton({
+                        href: hubungiUrl,
+                        text: "Hubungi Kami",
+                        variant: "primary",
+                        size: "md",
+                        class: "btn-block"
+                    }) +
+                    window.renderButton({
+                        href: portofolioUrl,
+                        text: "Kembali ke Portofolio",
+                        variant: "outline",
+                        size: "md",
+                        class: "btn-block"
+                    });
+            }
+
+            var ctaContainer = document.getElementById("cta-container");
+            if (ctaContainer && typeof window.mountCta === "function") {
+                window.mountCta(ctaContainer, {
+                    title: "Punya ide proyek atau kebutuhan solusi digital?",
+                    subtitle: "Diskusikan kebutuhan Anda bersama tim JTI NOVA.",
+                    btn_text: "Hubungi Kami",
+                    btn_href: hubungiUrl,
+                    variant: "dark"
+                });
+            }
+
+            var footerContainer = document.getElementById("footer-container");
+            if (footerContainer && typeof window.mountFooter === "function") {
+                window.mountFooter(footerContainer, { current_page: "portofolio", base_url: baseUrl });
+            }
+        })();
+    </script>
 
 </body>
+
 </html>
