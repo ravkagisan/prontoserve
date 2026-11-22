@@ -54,7 +54,7 @@ $proyek_list = [
         'title' => 'Sistem Informasi Akademik',
         'category' => 'Website',
         'category_slug' => 'website',
-        'image' => $base_url . '/Assets/images/dummy.jpg',
+        'image' => $base_url . '/Assets/images/sia.jpg',
         'gradient' => 'linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #38bdf8 100%)',
         'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>'
     ],
@@ -64,7 +64,7 @@ $proyek_list = [
         'title' => 'Aplikasi Absensi Mahasiswa',
         'category' => 'Mobile App',
         'category_slug' => 'mobile-app',
-        'image' => $base_url . '/Assets/images/dummy.jpg',
+        'image' => $base_url . '/Assets/images/aplikasi.png',
         'gradient' => 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)',
         'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>'
     ],
@@ -74,7 +74,7 @@ $proyek_list = [
         'title' => 'Smart Monitoring Pertanian',
         'category' => 'IoT',
         'category_slug' => 'iot',
-        'image' => $base_url . '/Assets/images/dummy.jpg',
+        'image' => $base_url . '/Assets/images/pertanian.jpg',
         'gradient' => 'linear-gradient(135deg, #14532d 0%, #166534 50%, #15803d 100%)',
         'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12A10 10 0 0 1 12 2z"/><path d="M12 6v6l4 2"/></svg>'
     ],
@@ -84,7 +84,7 @@ $proyek_list = [
         'title' => 'Aplikasi Layanan Desa',
         'category' => 'Web & Mobile App',
         'category_slug' => 'web-mobile-app',
-        'image' => $base_url . '/Assets/images/dummy.jpg',
+        'image' => $base_url . '/Assets/images/layanan-desa.png',
         'gradient' => 'linear-gradient(135deg, #0369a1 0%, #0284c7 50%, #38bdf8 100%)',
         'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>'
     ],
@@ -94,7 +94,7 @@ $proyek_list = [
         'title' => 'Video Profil Instansi',
         'category' => 'Multimedia',
         'category_slug' => 'multimedia',
-        'image' => $base_url . '/Assets/images/dummy.jpg',
+        'image' => $base_url . '/Assets/images/pp.jpg',
         'gradient' => 'linear-gradient(135deg, #312e81 0%, #4338ca 50%, #6366f1 100%)',
         'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>'
     ],
@@ -104,7 +104,7 @@ $proyek_list = [
         'title' => 'Webinar Transformasi Digital',
         'category' => 'Webinar',
         'category_slug' => 'webinar',
-        'image' => $base_url . '/Assets/images/dummy.jpg',
+        'image' => $base_url . '/Assets/images/webinar.jpg',
         'gradient' => 'linear-gradient(135deg, #1e1b4b 0%, #2e1065 50%, #3b0764 100%)',
         'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>'
     ],

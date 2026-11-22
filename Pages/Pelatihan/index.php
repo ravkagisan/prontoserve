@@ -124,10 +124,10 @@ $katalog = [
 ];
 
 $instruktur = [
-    ['id' => 1, 'nama' => 'Nama Instruktur 1', 'peran' => 'Web Development',     'foto' => 'instruktur-1.jpg'],
-    ['id' => 2, 'nama' => 'Nama Instruktur 2', 'peran' => 'UI/UX Design',         'foto' => 'instruktur-2.jpg'],
-    ['id' => 3, 'nama' => 'Nama Instruktur 3', 'peran' => 'Jaringan & Keamanan', 'foto' => 'instruktur-3.jpg'],
-    ['id' => 4, 'nama' => 'Nama Instruktur 4', 'peran' => 'Data & Analitik',     'foto' => 'instruktur-4.jpg'],
+    ['id' => 1, 'nama' => 'Nama Instruktur 1', 'peran' => 'Web Development',     'foto' => 'tim-8.jpg'],
+    ['id' => 2, 'nama' => 'Nama Instruktur 2', 'peran' => 'UI/UX Design',         'foto' => 'tim-7.jpg'],
+    ['id' => 3, 'nama' => 'Nama Instruktur 3', 'peran' => 'Jaringan & Keamanan', 'foto' => 'tim-6.jpg'],
+    ['id' => 4, 'nama' => 'Nama Instruktur 4', 'peran' => 'Data & Analitik',     'foto' => 'tim-5.jpg'],
 ];
 
 $jadwal = array_slice($katalog, 0, 3);
