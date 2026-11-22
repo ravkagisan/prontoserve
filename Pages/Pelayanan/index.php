@@ -27,37 +27,37 @@ $layanan = [
     [
         'judul'     => 'IT Consultant',
         'deskripsi' => 'Konsultasi kebutuhan, perancangan, dan strategi transformasi digital.',
-        'gambar'    => 'layanan-it-consultant.jpg',
+        'gambar'    => 'it-consultant.jpg',
         'href'      => $base_url . '/Pages/Pelayanan/Detail/index.php?id=1',
     ],
     [
         'judul'     => 'IT Solution',
         'deskripsi' => 'Pengembangan website, aplikasi mobile, dan sistem informasi.',
-        'gambar'    => 'layanan-it-solution.jpg',
+        'gambar'    => 'it-solution.jpg',
         'href'      => $base_url . '/Pages/Pelayanan/Detail/index.php?id=2',
     ],
     [
         'judul'     => 'Pelatihan',
         'deskripsi' => 'Pelatihan teknologi informasi dengan kurikulum berbasis industri.',
-        'gambar'    => 'layanan-pelatihan.jpg',
+        'gambar'    => 'pelatihan.jpg',
         'href'      => $base_url . '/Pages/Pelayanan/Detail/index.php?id=3',
     ],
     [
         'judul'     => 'Pendampingan',
         'deskripsi' => 'Pendampingan pengembangan produk digital dan UMKM.',
-        'gambar'    => 'layanan-pendampingan.jpg',
+        'gambar'    => 'pendampingan.jpg',
         'href'      => $base_url . '/Pages/Pelayanan/Detail/index.php?id=4',
     ],
     [
         'judul'     => 'Instruktur',
         'deskripsi' => 'Penyediaan instruktur profesional untuk program pelatihan.',
-        'gambar'    => 'layanan-instruktur.jpg',
+        'gambar'    => 'instruktur.png',
         'href'      => $base_url . '/Pages/Pelayanan/Detail/index.php?id=5',
     ],
     [
         'judul'     => 'Magang Mahasiswa MBKM',
         'deskripsi' => 'Program magang MBKM pada proyek nyata teaching factory.',
-        'gambar'    => 'layanan-magang-mbkm.jpg',
+        'gambar'    => 'magang.jpg',
         'href'      => $base_url . '/Pages/Pelayanan/Detail/index.php?id=6',
     ],
 ];
