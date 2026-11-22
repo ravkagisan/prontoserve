@@ -60,7 +60,7 @@ $portofolio_url = $base_url . '/Pages/Portofolio/index.php';
 $carousel_slides = [
     [
         'id'          => 1,
-        'image'       => $images_url . 'dummy.jpg',
+        'image'       => $images_url . 'layanan it terbaru.jpg',
         'title'       => "Inovasi Teknologi Terdepan\nBersama TEFA JTI Innovation",
         'description' => 'Menghadirkan riset terapan dan transformasi digital melalui pengembangan perangkat lunak, sistem cerdas, dan solusi industri terpercaya.',
         'buttons'     => [
