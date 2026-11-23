@@ -252,7 +252,9 @@
 .hero-tech__gradient {
     background: linear-gradient(135deg, #00d2ff 0%, #00f2fe 50%, #4facfe 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
+    color: transparent;
     display: inline-block;
     filter: drop-shadow(0 2px 14px rgba(0, 210, 255, 0.32));
 }
@@ -687,7 +689,6 @@
 .achieve-inner {
     display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center;
 }
-.achieve-left {}
 .achieve-left .hs__eyebrow { color: var(--brand-teal); }
 .achieve-left .hs__title   { color: var(--bg-white); margin-bottom: 32px; }
 .achieve-stats {
