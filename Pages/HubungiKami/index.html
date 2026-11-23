@@ -1,115 +1,35 @@
-<?php
-require_once __DIR__ . '/../../Components/button.php';
-
-$current_page = 'hubungi-kami';
-
-$script_name = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
-if (preg_match('#^(.*?)/(Pages|api|Components)#', $script_name, $matches)) {
-    $base_url = $matches[1];
-} else {
-    $base_url = rtrim(dirname($script_name), '/\\');
-    if ($base_url === '/' || $base_url === '\\') {
-        $base_url = '';
-    }
-}
-
-$pesan_terkirim = isset($_GET['sent']) && $_GET['sent'] === '1';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'kirim_pesan') {
-    date_default_timezone_set('Asia/Jakarta');
-    $hour = (int) date('H');
-    $minute = (int) date('i');
-    $time_val = $hour + ($minute / 60);
-
-    if ($time_val >= 4.0 && $time_val <= 10.0) {
-        $waktu = 'pagi';
-    } elseif ($time_val > 10.0 && $time_val <= 15.0) {
-        $waktu = 'siang';
-    } elseif ($time_val > 15.0 && $time_val <= 18.0) {
-        $waktu = 'sore';
-    } else {
-        $waktu = 'malam';
-    }
-
-    $nama = trim($_POST['nama'] ?? '');
-    $email = trim($_POST['email'] ?? '');
-    $layanan = trim($_POST['layanan'] ?? '');
-    $pesan = trim($_POST['pesan'] ?? '');
-
-    $template = "Halo Admin JTI NOVA, selamat {$waktu}! 😊\n\n"
-              . "Saya tertarik dengan layanan JTI NOVA dan ingin bertanya lebih lanjut.\n\n"
-              . "Nama: {$nama}\n\n"
-              . "Email: {$email}\n\n"
-              . "Layanan: {$layanan}\n\n"
-              . "Pertanyaan/Kebutuhan: {$pesan}\n\n"
-              . "Ditunggu respons dan informasi selanjutnya. Terima kasih! 🙏";
-
-    $wa_number = '6281200000000';
-    $wa_url = "https://api.whatsapp.com/send?phone={$wa_number}&text=" . rawurlencode($template);
-
-    header("Location: {$wa_url}");
-    exit;
-}
-
-$carousel_slides = [
-    [
-        'id' => 1,
-        'image' => $base_url . '/Assets/images/dummy.jpg',
-        'title' => "Hubungi JTI NOVA\nSolusi Digital & Kemitraan",
-        'description' => "Kami siap membantu mewujudkan transformasi digital, kolaborasi proyek nyata, serta pelatihan teknologi informasi berstandar industri.",
-        'buttons' => [
-            ['text' => 'Kirim Pesan', 'link' => '#kontak-form', 'variant' => 'primary'],
-            ['text' => 'Lihat Portofolio', 'link' => $base_url . '/Pages/Portofolio/index.php', 'variant' => 'outline-white']
-        ]
-    ]
-];
-
-$polije_ti_map_src = "https://maps.google.com/maps?q=-8.1581561,113.7226039+(Gedung%20Jurusan%20Teknologi%20Informasi%20Politeknik%20Negeri%20Jember)&t=&z=17&ie=UTF8&iwloc=B&output=embed";
-
-$layanan_pilihan = [];
-$pelayanan_file = __DIR__ . '/../Pelayanan/index.php';
-if (file_exists($pelayanan_file)) {
-    $pelayanan_content = file_get_contents($pelayanan_file);
-    if (preg_match('/\$layanan\s*=\s*\[(.*?)\]\s*;\s*\$alur/s', $pelayanan_content, $matches_layanan)) {
-        if (preg_match_all("/'judul'\s*=>\s*'([^']+)'/", $matches_layanan[1], $matches_judul)) {
-            $icons_map = [
-                'IT Consultant' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
-                'IT Solution' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>',
-                'Pelatihan' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>',
-                'Pendampingan' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
-                'Instruktur' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>',
-                'Magang Mahasiswa MBKM' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>'
-            ];
-            foreach ($matches_judul[1] as $idx => $item_judul) {
-                $item_id = strtolower(preg_replace('/[^a-zA-Z0-9]+/', '_', $item_judul));
-                $layanan_pilihan[] = [
-                    'id' => $item_id,
-                    'label' => $item_judul,
-                    'icon' => $icons_map[$item_judul] ?? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>'
-                ];
-            }
-        }
-    }
-}
-
-if (empty($layanan_pilihan)) {
-    $layanan_pilihan = [
-        ['id' => 'it_consultant', 'label' => 'IT Consultant', 'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'],
-        ['id' => 'it_solution', 'label' => 'IT Solution', 'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>'],
-        ['id' => 'pelatihan', 'label' => 'Pelatihan', 'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>'],
-        ['id' => 'pendampingan', 'label' => 'Pendampingan', 'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>'],
-        ['id' => 'instruktur', 'label' => 'Instruktur', 'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>'],
-        ['id' => 'magang_mbkm', 'label' => 'Magang Mahasiswa MBKM', 'icon' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>']
-    ];
-}
-?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hubungi Kami - JTI NOVA</title>
-    <link rel="stylesheet" href="<?= htmlspecialchars($base_url) ?>/Style/style.css">
+    <script>
+        (function () {
+            var path = (window.location.pathname || '').replace(/\\/g, '/');
+            var matches = path.match(/^(.*?)\/(Pages|api|Components)/);
+            var base;
+            if (matches) {
+                base = matches[1];
+            } else {
+                var idx = path.lastIndexOf('/');
+                base = idx > 0 ? path.substring(0, idx) : '';
+                base = base.replace(/[\/\\]+$/, '');
+                if (base === '/' || base === '\\') {
+                    base = '';
+                }
+            }
+            window.base_url = base;
+            window.current_page = 'hubungi-kami';
+            document.write('<link rel="stylesheet" href="' + base + '/Style/style.css">');
+        })();
+    </script>
+    <script src="../../Components/button.js"></script>
+    <script>
+        function placeButton(options) {
+            document.currentScript.insertAdjacentHTML('beforebegin', renderButton(options));
+        }
+    </script>
     <style>
         html {
             -webkit-text-size-adjust: 100%;
@@ -605,7 +525,6 @@ if (empty($layanan_pilihan)) {
             max-width: 240px;
         }
 
-        /* Responsivitas Tablet & Layar Menengah (<= 1024px) */
         @media (max-width: 1024px) {
             .container {
                 padding-left: 40px;
@@ -622,7 +541,6 @@ if (empty($layanan_pilihan)) {
             }
         }
 
-        /* Responsivitas Tablet Kecil / Phablet (<= 768px) */
         @media (max-width: 768px) {
             .container {
                 padding-left: 24px;
@@ -639,7 +557,6 @@ if (empty($layanan_pilihan)) {
             }
         }
 
-        /* Responsivitas Smartphone / Android / iPhone (<= 640px) */
         @media (max-width: 640px) {
             .container {
                 padding-left: 16px;
@@ -681,14 +598,28 @@ if (empty($layanan_pilihan)) {
 </head>
 <body>
 
-    <?php require_once __DIR__ . '/../../Components/navbar.php'; ?>
+    <script src="../../Components/navbar.js"></script>
 
-    <?php require_once __DIR__ . '/../../Components/carousel.php'; ?>
+    <script>
+        window.carousel_slides = [
+            {
+                id: 1,
+                image: window.base_url + '/Assets/images/dummy.jpg',
+                title: 'Hubungi JTI NOVA\nSolusi Digital & Kemitraan',
+                description: 'Kami siap membantu mewujudkan transformasi digital, kolaborasi proyek nyata, serta pelatihan teknologi informasi berstandar industri.',
+                buttons: [
+                    { text: 'Kirim Pesan', link: '#kontak-form', variant: 'primary' },
+                    { text: 'Lihat Portofolio', link: '/Pages/Portofolio/index.html', variant: 'outline-white' }
+                ]
+            }
+        ];
+    </script>
+    <script src="../../Components/carousel.js"></script>
 
     <section id="kontak-form" class="contact-page-section">
         <div class="container">
 
-            <div id="successView" class="success-box-wrapper" style="<?= $pesan_terkirim ? '' : 'display: none;' ?>">
+            <div id="successView" class="success-box-wrapper" style="display: none;">
                 <div class="success-card">
                     <div class="success-icon-badge">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -700,36 +631,40 @@ if (empty($layanan_pilihan)) {
                         Terima kasih telah menghubungi JTI NOVA. Tim kami akan membalas melalui email atau WhatsApp dalam 1×24 jam kerja.
                     </p>
                     <div class="success-btn-group">
-                        <?= render_button([
-                            'href'    => $base_url . '/Pages/index.php',
-                            'text'    => 'Kembali ke Beranda',
-                            'variant' => 'primary',
-                            'size'    => 'md',
-                            'class'   => 'btn-block'
-                        ]) ?>
-                        <?= render_button([
-                            'href'    => $base_url . '/Pages/HubungiKami/index.php',
-                            'text'    => 'Kirim Pesan Lagi',
-                            'variant' => 'outline',
-                            'size'    => 'md',
-                            'id'      => 'btnKirimLagi',
-                            'class'   => 'btn-block'
-                        ]) ?>
+                        <script>
+                            placeButton({
+                                href: '/Pages/index.html',
+                                text: 'Kembali ke Beranda',
+                                variant: 'primary',
+                                size: 'md',
+                                class: 'btn-block'
+                            });
+                        </script>
+                        <script>
+                            placeButton({
+                                href: '/Pages/HubungiKami/index.html',
+                                text: 'Kirim Pesan Lagi',
+                                variant: 'outline',
+                                size: 'md',
+                                id: 'btnKirimLagi',
+                                class: 'btn-block'
+                            });
+                        </script>
                     </div>
                 </div>
             </div>
 
-            <div id="formView" class="contact-layout-grid" style="<?= $pesan_terkirim ? 'display: none;' : '' ?>">
-                
+            <div id="formView" class="contact-layout-grid">
+
                 <div class="contact-card">
                     <div class="contact-form-header">
                         <h2 class="contact-form-title">Mulai Diskusi Proyek Anda</h2>
                         <p class="contact-form-subtitle">Ceritakan rencana sistem, aplikasi, atau kebutuhan pelatihan digital instansi Anda bersama tim ahli JTI NOVA.</p>
                     </div>
 
-                    <form id="contactForm" action="<?= htmlspecialchars($_SERVER['REQUEST_URI']) ?>" method="POST">
+                    <form id="contactForm" method="POST">
                         <input type="hidden" name="action" value="kirim_pesan">
-                        
+
                         <div class="form-row-2col">
                             <div class="form-group">
                                 <label for="nama" class="form-label">Nama Lengkap</label>
@@ -757,27 +692,55 @@ if (empty($layanan_pilihan)) {
                                 <span class="form-label-hint">Pilih salah satu</span>
                             </label>
                             <div class="service-selection-grid">
-                                <?php foreach ($layanan_pilihan as $idx => $opt): ?>
-                                    <div class="service-option-item">
-                                        <input type="radio" 
-                                               id="srv_<?= $opt['id'] ?>" 
-                                               name="layanan" 
-                                               value="<?= htmlspecialchars($opt['label']) ?>" 
-                                               <?= $idx === 0 ? 'checked' : '' ?> 
-                                               required>
-                                        <label for="srv_<?= $opt['id'] ?>" class="service-option-label">
-                                            <span class="service-option-icon"><?= $opt['icon'] ?></span>
-                                            <span class="service-option-text"><?= htmlspecialchars($opt['label']) ?></span>
-                                        </label>
-                                    </div>
-                                <?php endforeach; ?>
+                                <div class="service-option-item">
+                                    <input type="radio" id="srv_it_consultant" name="layanan" value="IT Consultant" checked required>
+                                    <label for="srv_it_consultant" class="service-option-label">
+                                        <span class="service-option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+                                        <span class="service-option-text">IT Consultant</span>
+                                    </label>
+                                </div>
+                                <div class="service-option-item">
+                                    <input type="radio" id="srv_it_solution" name="layanan" value="IT Solution" required>
+                                    <label for="srv_it_solution" class="service-option-label">
+                                        <span class="service-option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></span>
+                                        <span class="service-option-text">IT Solution</span>
+                                    </label>
+                                </div>
+                                <div class="service-option-item">
+                                    <input type="radio" id="srv_pelatihan" name="layanan" value="Pelatihan" required>
+                                    <label for="srv_pelatihan" class="service-option-label">
+                                        <span class="service-option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
+                                        <span class="service-option-text">Pelatihan</span>
+                                    </label>
+                                </div>
+                                <div class="service-option-item">
+                                    <input type="radio" id="srv_pendampingan" name="layanan" value="Pendampingan" required>
+                                    <label for="srv_pendampingan" class="service-option-label">
+                                        <span class="service-option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+                                        <span class="service-option-text">Pendampingan</span>
+                                    </label>
+                                </div>
+                                <div class="service-option-item">
+                                    <input type="radio" id="srv_instruktur" name="layanan" value="Instruktur" required>
+                                    <label for="srv_instruktur" class="service-option-label">
+                                        <span class="service-option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg></span>
+                                        <span class="service-option-text">Instruktur</span>
+                                    </label>
+                                </div>
+                                <div class="service-option-item">
+                                    <input type="radio" id="srv_magang_mbkm" name="layanan" value="Magang Mahasiswa MBKM" required>
+                                    <label for="srv_magang_mbkm" class="service-option-label">
+                                        <span class="service-option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
+                                        <span class="service-option-text">Magang Mahasiswa MBKM</span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="pesan" class="form-label">
                                 <span>Detail Kebutuhan atau Pertanyaan</span>
-                                <span class="form-label-hint">Singkat & jelas</span>
+                                <span class="form-label-hint">Singkat &amp; jelas</span>
                             </label>
                             <textarea id="pesan" name="pesan" class="form-textarea" placeholder="Jelaskan gambaran proyek, target waktu, atau ekspektasi hasil yang diinginkan..." required></textarea>
                         </div>
@@ -785,23 +748,25 @@ if (empty($layanan_pilihan)) {
                         <div class="form-footer-action">
                             <div class="form-privacy-note">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                                <span>Data Anda aman & dirahasiakan</span>
+                                <span>Data Anda aman &amp; dirahasiakan</span>
                             </div>
-                            <?= render_button([
-                                'type'          => 'submit',
-                                'text'          => 'Kirim Pesan',
-                                'icon'          => 'send',
-                                'icon_position' => 'right',
-                                'variant'       => 'primary',
-                                'size'          => 'md',
-                                'class'         => 'btn-submit-message'
-                            ]) ?>
+                            <script>
+                                placeButton({
+                                    type: 'submit',
+                                    text: 'Kirim Pesan',
+                                    icon: 'send',
+                                    icon_position: 'right',
+                                    variant: 'primary',
+                                    size: 'md',
+                                    class: 'btn-submit-message'
+                                });
+                            </script>
                         </div>
                     </form>
                 </div>
 
                 <div class="contact-info-column">
-                    
+
                     <a href="https://wa.me/6281200000000" target="_blank" rel="noopener noreferrer" class="info-pill-card">
                         <div class="info-icon-bubble icon-wa">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -855,10 +820,10 @@ if (empty($layanan_pilihan)) {
 
                     <div class="contact-map-wrapper">
                         <div class="contact-map-card">
-                            <iframe 
-                                src="<?= htmlspecialchars($polije_ti_map_src) ?>" 
-                                allowfullscreen="" 
-                                loading="lazy" 
+                            <iframe
+                                src="https://maps.google.com/maps?q=-8.1581561,113.7226039+(Gedung%20Jurusan%20Teknologi%20Informasi%20Politeknik%20Negeri%20Jember)&amp;t=&amp;z=17&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+                                allowfullscreen=""
+                                loading="lazy"
                                 referrerpolicy="no-referrer-when-downgrade"
                                 title="Peta Interaktif Lokasi Gedung Jurusan TI Politeknik Negeri Jember">
                             </iframe>
@@ -881,7 +846,72 @@ if (empty($layanan_pilihan)) {
         </div>
     </section>
 
-    <?php require_once __DIR__ . '/../../Components/footer.php'; ?>
+    <script src="../../Components/footer.js"></script>
+
+    <script>
+        (function () {
+            var successView = document.getElementById('successView');
+            var formView = document.getElementById('formView');
+            var params = new URLSearchParams(window.location.search);
+
+            if (params.get('sent') === '1') {
+                successView.style.display = '';
+                formView.style.display = 'none';
+            }
+
+            function getWaktu() {
+                var parts = new Intl.DateTimeFormat('en-GB', {
+                    timeZone: 'Asia/Jakarta',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hourCycle: 'h23'
+                }).formatToParts(new Date());
+
+                var hour = 0;
+                var minute = 0;
+                parts.forEach(function (part) {
+                    if (part.type === 'hour') hour = parseInt(part.value, 10);
+                    if (part.type === 'minute') minute = parseInt(part.value, 10);
+                });
+
+                var timeVal = hour + (minute / 60);
+
+                if (timeVal >= 4.0 && timeVal <= 10.0) {
+                    return 'pagi';
+                } else if (timeVal > 10.0 && timeVal <= 15.0) {
+                    return 'siang';
+                } else if (timeVal > 15.0 && timeVal <= 18.0) {
+                    return 'sore';
+                }
+                return 'malam';
+            }
+
+            var form = document.getElementById('contactForm');
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                var waktu = getWaktu();
+                var nama = form.elements['nama'].value.trim();
+                var email = form.elements['email'].value.trim();
+                var layananEl = form.querySelector('input[name="layanan"]:checked');
+                var layanan = layananEl ? layananEl.value.trim() : '';
+                var pesan = form.elements['pesan'].value.trim();
+
+                var template = 'Halo Admin JTI NOVA, selamat ' + waktu + '! 😊\n\n' +
+                    'Saya tertarik dengan layanan JTI NOVA dan ingin bertanya lebih lanjut.\n\n' +
+                    'Nama: ' + nama + '\n\n' +
+                    'Email: ' + email + '\n\n' +
+                    'Layanan: ' + layanan + '\n\n' +
+                    'Pertanyaan/Kebutuhan: ' + pesan + '\n\n' +
+                    'Ditunggu respons dan informasi selanjutnya. Terima kasih! 🙏';
+
+                var waNumber = '+6285282439141';
+                var waUrl = 'https://api.whatsapp.com/send?phone=' + waNumber + '&text=' + encodeURIComponent(template);
+
+                window.location.href = waUrl;
+            });
+        })();
+    </script>
 
 </body>
 </html>
