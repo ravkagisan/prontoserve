@@ -1,68 +1,3 @@
-<?php
-$current_page = 'tentang-kami';
-
-$script_name = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
-if (preg_match('#^(.*?)/(Pages|api|Components)#', $script_name, $matches)) {
-    $base_url = $matches[1];
-} else {
-    $base_url = rtrim(dirname($script_name), '/\\');
-    if ($base_url === '/' || $base_url === '\\') {
-        $base_url = '';
-    }
-}
-
-$siapa_kami = [
-    'image'      => $base_url . '/Assets/images/Halodek.jpg',
-    'title'      => 'Siapa Kami',
-    'paragraphs' => [
-        'JTI NOVA adalah wadah teaching factory yang menghasilkan produk dan layanan digital, mulai dari pengembangan website dan aplikasi, konsultasi IT, hingga pelatihan bersertifikasi.',
-        'Seluruh kegiatan melibatkan mahasiswa secara langsung sehingga pengalaman belajar selaras dengan kebutuhan industri.',
-    ],
-];
-
-$visi_misi = [
-    ['no' => '01', 'title' => 'Visi', 'text' => 'Menjadi teaching factory teknologi informasi yang unggul, inovatif, dan berdaya saing dalam menghasilkan solusi digital serta talenta profesional.'],
-    ['no' => '02', 'title' => 'Misi', 'text' => 'Menyelenggarakan layanan IT, pelatihan, dan pendampingan berbasis industri yang melibatkan mahasiswa dalam proyek nyata.'],
-];
-
-$keunggulan = [
-    [
-        'title' => 'Berbasis Proyek Nyata',
-        'text'  => 'Mahasiswa terlibat langsung pada proyek industri.',
-        'icon'  => '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>',
-    ],
-    [
-        'title' => 'Instruktur Profesional',
-        'text'  => 'Dibimbing dosen dan praktisi berpengalaman.',
-        'icon'  => '<path d="M4 7h16M4 12h16M4 17h16"/>',
-    ],
-    [
-        'title' => 'Bersertifikasi',
-        'text'  => 'Pelatihan dengan sertifikat kompetensi.',
-        'icon'  => '<path d="M5 13l4 4L19 7"/>',
-    ],
-    [
-        'title' => 'Kolaborasi Industri',
-        'text'  => 'Kemitraan dengan perusahaan dan instansi.',
-        'icon'  => '<path d="M7 7h12l-3-3M17 17H5l3 3"/>',
-    ],
-];
-
-$pencapaian = [
-    ['value' => '50+', 'label' => 'Proyek selesai'],
-    ['value' => '12+', 'label' => 'Mitra kerja sama'],
-    ['value' => '8+',  'label' => 'Program pelatihan'],
-    ['value' => '30+', 'label' => 'Tenaga profesional'],
-];
-
-$mitra = [
-    ['name' => 'SNAV DAW 2024',  'logo' => $base_url . '/Assets/images/mitra/snavdaw.png'],
-    ['name' => 'Dikantin Polije', 'logo' => $base_url . '/Assets/images/mitra/dikantin.png'],
-    ['name' => 'Dexagon',         'logo' => $base_url . '/Assets/images/mitra/dexagon.png'],
-    ['name' => 'Java Cup',        'logo' => $base_url . '/Assets/images/mitra/javacup.png'],
-    ['name' => 'CDC Polije',      'logo' => $base_url . '/Assets/images/mitra/cdc.png'],
-];
-?>
 <!DOCTYPE html>
 <html lang="id">
 
@@ -70,8 +5,27 @@ $mitra = [
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>jtinova - Tentang Kami</title>
-
-    <link rel="stylesheet" href="<?= $base_url ?>/Style/style.css">
+    <script>
+        (function () {
+            var path = (window.location.pathname || '').replace(/\\/g, '/');
+            var matches = path.match(/^(.*?)\/(Pages|api|Components)/);
+            var base;
+            if (matches) {
+                base = matches[1];
+            } else {
+                var idx = path.lastIndexOf('/');
+                base = idx > 0 ? path.substring(0, idx) : '';
+                base = base.replace(/[\/\\]+$/, '');
+                if (base === '/' || base === '\\') {
+                    base = '';
+                }
+            }
+            window.base_url = base;
+            window.current_page = 'tentang-kami';
+            document.write('<link rel="stylesheet" href="' + base + '/Style/style.css">');
+        })();
+    </script>
+    <script src="../../Components/button.js"></script>
 
     <style>
     .section {
@@ -247,7 +201,6 @@ $mitra = [
         transition: filter 0.3s ease, opacity 0.3s ease;
     }
 
-    /* Hanya logo yang di-hover saja yang berubah abu-abu */
     .marquee__item:hover {
         filter: grayscale(100%);
         opacity: 0.6;
@@ -441,44 +394,43 @@ $mitra = [
 
 <body>
 
-    <?php include_once __DIR__ . '/../../Components/navbar.php'; ?>
+    <script src="../../Components/navbar.js"></script>
 
-    <?php
-    $carousel_slides = [
-      [
-        'id' => 1,
-        'image' => $base_url . '/Assets/images/dummy.jpg',
-        'title' => "Inovasi Digital Terdepan\nBersama TEFA JTI",
-        'description' => "Menghadirkan riset terapan, kolaborasi industri, dan talenta teknologi unggul untuk transformasi digital masa depan.",
-        'buttons' => [
-          ['text' => 'Jelajahi Layanan', 'link' => '#', 'variant' => 'primary'],
-          ['text' => 'Hubungi Kami', 'link' => '#', 'variant' => 'secondary']
-        ]
-      ],
-      [
-        'id' => 2,
-        'image' => $base_url . '/Assets/images/ajasendiri.jpg',
-        'title' => "Pelatihan Profesional &\nSertifikasi Kompetensi",
-        'description' => "Kurikulum berbasis industri terkini yang membekali peserta dengan skill praktis siap kerja di era teknologi modern.",
-        'buttons' => [
-          ['text' => 'Daftar Pelatihan', 'link' => '#', 'variant' => 'primary'],
-          ['text' => 'Lihat Silabus', 'link' => '#', 'variant' => 'secondary']
-        ]
-      ]
-    ];
-    include __DIR__ . '../../../Components/carousel.php';
-    ?>
+    <script>
+        window.carousel_slides = [
+            {
+                id: 1,
+                image: window.base_url + '/Assets/images/dummy.jpg',
+                title: 'Inovasi Digital Terdepan\nBersama TEFA JTI',
+                description: 'Menghadirkan riset terapan, kolaborasi industri, dan talenta teknologi unggul untuk transformasi digital masa depan.',
+                buttons: [
+                    { text: 'Jelajahi Layanan', link: '#', variant: 'primary' },
+                    { text: 'Hubungi Kami', link: '#', variant: 'secondary' }
+                ]
+            },
+            {
+                id: 2,
+                image: window.base_url + '/Assets/images/ajasendiri.jpg',
+                title: 'Pelatihan Profesional &\nSertifikasi Kompetensi',
+                description: 'Kurikulum berbasis industri terkini yang membekali peserta dengan skill praktis siap kerja di era teknologi modern.',
+                buttons: [
+                    { text: 'Daftar Pelatihan', link: '#', variant: 'primary' },
+                    { text: 'Lihat Silabus', link: '#', variant: 'secondary' }
+                ]
+            }
+        ];
+    </script>
+    <script src="../../Components/carousel.js"></script>
 
     <section class="section">
         <div class="container about">
             <img class="about__image"
-                 src="<?= htmlspecialchars($siapa_kami['image']) ?>"
-                 alt="<?= htmlspecialchars($siapa_kami['title']) ?>">
+                 data-src="/Assets/images/Halodek.jpg"
+                 alt="Siapa Kami">
             <div>
-                <h2 class="heading-3 about__title"><?= htmlspecialchars($siapa_kami['title']) ?></h2>
-                <?php foreach ($siapa_kami['paragraphs'] as $paragraf): ?>
-                    <p class="about__text"><?= htmlspecialchars($paragraf) ?></p>
-                <?php endforeach; ?>
+                <h2 class="heading-3 about__title">Siapa Kami</h2>
+                <p class="about__text">JTI NOVA adalah wadah teaching factory yang menghasilkan produk dan layanan digital, mulai dari pengembangan website dan aplikasi, konsultasi IT, hingga pelatihan bersertifikasi.</p>
+                <p class="about__text">Seluruh kegiatan melibatkan mahasiswa secara langsung sehingga pengalaman belajar selaras dengan kebutuhan industri.</p>
             </div>
         </div>
     </section>
@@ -489,15 +441,20 @@ $mitra = [
                 <h2 class="heading-2 section__title">Visi dan Misi</h2>
             </div>
             <div class="vm-grid">
-                <?php foreach ($visi_misi as $item): ?>
-                    <article class="card vm-card">
-                        <span class="vm-card__no"><?= htmlspecialchars($item['no']) ?></span>
-                        <div>
-                            <h3 class="vm-card__title"><?= htmlspecialchars($item['title']) ?></h3>
-                            <p class="vm-card__text"><?= htmlspecialchars($item['text']) ?></p>
-                        </div>
-                    </article>
-                <?php endforeach; ?>
+                <article class="card vm-card">
+                    <span class="vm-card__no">01</span>
+                    <div>
+                        <h3 class="vm-card__title">Visi</h3>
+                        <p class="vm-card__text">Menjadi teaching factory teknologi informasi yang unggul, inovatif, dan berdaya saing dalam menghasilkan solusi digital serta talenta profesional.</p>
+                    </div>
+                </article>
+                <article class="card vm-card">
+                    <span class="vm-card__no">02</span>
+                    <div>
+                        <h3 class="vm-card__title">Misi</h3>
+                        <p class="vm-card__text">Menyelenggarakan layanan IT, pelatihan, dan pendampingan berbasis industri yang melibatkan mahasiswa dalam proyek nyata.</p>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
@@ -509,15 +466,34 @@ $mitra = [
                 <p class="section__subtitle">Alasan mitra dan peserta memilih JTI NOVA</p>
             </div>
             <div class="adv-grid">
-                <?php foreach ($keunggulan as $item): ?>
-                    <article class="card adv-card">
-                        <span class="adv-card__icon">
-                            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><?= $item['icon'] ?></svg>
-                        </span>
-                        <h3 class="label adv-card__title"><?= htmlspecialchars($item['title']) ?></h3>
-                        <p class="adv-card__text"><?= htmlspecialchars($item['text']) ?></p>
-                    </article>
-                <?php endforeach; ?>
+                <article class="card adv-card">
+                    <span class="adv-card__icon">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>
+                    </span>
+                    <h3 class="label adv-card__title">Berbasis Proyek Nyata</h3>
+                    <p class="adv-card__text">Mahasiswa terlibat langsung pada proyek industri.</p>
+                </article>
+                <article class="card adv-card">
+                    <span class="adv-card__icon">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                    </span>
+                    <h3 class="label adv-card__title">Instruktur Profesional</h3>
+                    <p class="adv-card__text">Dibimbing dosen dan praktisi berpengalaman.</p>
+                </article>
+                <article class="card adv-card">
+                    <span class="adv-card__icon">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
+                    </span>
+                    <h3 class="label adv-card__title">Bersertifikasi</h3>
+                    <p class="adv-card__text">Pelatihan dengan sertifikat kompetensi.</p>
+                </article>
+                <article class="card adv-card">
+                    <span class="adv-card__icon">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h12l-3-3M17 17H5l3 3"/></svg>
+                    </span>
+                    <h3 class="label adv-card__title">Kolaborasi Industri</h3>
+                    <p class="adv-card__text">Kemitraan dengan perusahaan dan instansi.</p>
+                </article>
             </div>
         </div>
     </section>
@@ -528,12 +504,22 @@ $mitra = [
                 <h2 class="heading-2 section__title">Pencapaian</h2>
             </div>
             <div class="stat-grid">
-                <?php foreach ($pencapaian as $item): ?>
-                    <div class="card stat-card">
-                        <p class="stat-card__value"><?= htmlspecialchars($item['value']) ?></p>
-                        <p class="stat-card__label"><?= htmlspecialchars($item['label']) ?></p>
-                    </div>
-                <?php endforeach; ?>
+                <div class="card stat-card">
+                    <p class="stat-card__value">50+</p>
+                    <p class="stat-card__label">Proyek selesai</p>
+                </div>
+                <div class="card stat-card">
+                    <p class="stat-card__value">12+</p>
+                    <p class="stat-card__label">Mitra kerja sama</p>
+                </div>
+                <div class="card stat-card">
+                    <p class="stat-card__value">8+</p>
+                    <p class="stat-card__label">Program pelatihan</p>
+                </div>
+                <div class="card stat-card">
+                    <p class="stat-card__value">30+</p>
+                    <p class="stat-card__label">Tenaga profesional</p>
+                </div>
             </div>
         </div>
     </section>
@@ -545,29 +531,57 @@ $mitra = [
             </div>
         </div>
         <div class="marquee" aria-label="Daftar mitra">
-            <div class="marquee__track">
-                <?php for ($salinan = 0; $salinan < 4; $salinan++): ?>
-                    <?php foreach ($mitra as $item): ?>
-                        <div class="marquee__item"<?= $salinan > 1 ? ' aria-hidden="true"' : '' ?>>
-                            <img src="<?= htmlspecialchars($item['logo']) ?>"
-                                 alt="<?= htmlspecialchars($item['name']) ?>"
-                                 loading="lazy">
-                        </div>
-                    <?php endforeach; ?>
-                <?php endfor; ?>
+            <div class="marquee__track" id="marqueeTrack">
+                <div class="marquee__item">
+                    <img data-src="/Assets/images/mitra/snavdaw.png" alt="SNAV DAW 2024" loading="lazy">
+                </div>
+                <div class="marquee__item">
+                    <img data-src="/Assets/images/mitra/dikantin.png" alt="Dikantin Polije" loading="lazy">
+                </div>
+                <div class="marquee__item">
+                    <img data-src="/Assets/images/mitra/dexagon.png" alt="Dexagon" loading="lazy">
+                </div>
+                <div class="marquee__item">
+                    <img data-src="/Assets/images/mitra/javacup.png" alt="Java Cup" loading="lazy">
+                </div>
+                <div class="marquee__item">
+                    <img data-src="/Assets/images/mitra/cdc.png" alt="CDC Polije" loading="lazy">
+                </div>
             </div>
         </div>
     </section>
 
-    <?php
-    $cta_title     = 'Ingin berkolaborasi dengan JTI NOVA?';
-    $cta_subtitle  = 'Sampaikan kebutuhan Anda dan tim kami akan segera menghubungi.';
-    $cta_btn_text  = 'Hubungi Kami';
-    $cta_btn_href  = '#';
-    $cta_variant   = 'dark';
-    include_once __DIR__ . '/../../Components/ctacontainer.php';
-    include_once __DIR__ . '/../../Components/footer.php';
-    ?>
+    <script>
+        window.cta_title = 'Ingin berkolaborasi dengan JTI NOVA?';
+        window.cta_subtitle = 'Sampaikan kebutuhan Anda dan tim kami akan segera menghubungi.';
+        window.cta_btn_text = 'Hubungi Kami';
+        window.cta_btn_href = '#';
+        window.cta_variant = 'dark';
+    </script>
+    <script src="../../Components/ctacontainer.js"></script>
+    <script src="../../Components/footer.js"></script>
+
+    <script>
+        (function () {
+            document.querySelectorAll('img[data-src]').forEach(function (img) {
+                img.setAttribute('src', window.base_url + img.getAttribute('data-src'));
+            });
+
+            var track = document.getElementById('marqueeTrack');
+            if (track) {
+                var originals = Array.prototype.slice.call(track.children);
+                for (var copy = 1; copy < 4; copy++) {
+                    originals.forEach(function (item) {
+                        var clone = item.cloneNode(true);
+                        if (copy > 1) {
+                            clone.setAttribute('aria-hidden', 'true');
+                        }
+                        track.appendChild(clone);
+                    });
+                }
+            }
+        })();
+    </script>
 
 </body>
 
