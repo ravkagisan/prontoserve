@@ -272,28 +272,6 @@
     }
   }
 
-  @media (max-width: 640px) {
-    .carousel-buttons {
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      width: 100%;
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    .carousel-hero-btn,
-    .carousel-buttons .blob-btn {
-      width: 100% !important;
-      flex: 1 1 auto !important;
-      min-width: 0 !important;
-      height: 48px !important;
-      min-height: 48px !important;
-      padding: 0 16px !important;
-      font-size: 15px !important;
-    }
-  }
-
   .carousel-dots {
     position: absolute;
     bottom: var(--space-24, 24px);
@@ -447,6 +425,84 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+
+  /* ===== Mobile: hero carousel ringkas (HARUS paling akhir) ===== */
+  @media (max-width: 640px) {
+    .carousel-wrapper {
+      display: grid;
+      height: auto;
+      min-height: 300px;
+    }
+
+    .carousel-slide {
+      position: relative;
+      inset: auto;
+      grid-area: 1 / 1;
+      height: auto;
+      min-height: 300px;
+    }
+
+    .carousel-content-wrap {
+      height: auto;
+      min-height: 300px;
+      align-items: center;
+      padding: 68px var(--space-16, 16px) 44px;
+    }
+
+    .carousel-text-box {
+      min-height: 0;
+      max-width: 100%;
+    }
+
+    .carousel-title {
+      font-size: clamp(19px, 5.6vw, 22px);
+      line-height: 1.3;
+      min-height: 0;
+      margin-bottom: 8px;
+      letter-spacing: -0.2px;
+    }
+
+    .carousel-desc {
+      font-size: 12.5px;
+      line-height: 1.5;
+      min-height: 0;
+      max-width: 100%;
+    }
+
+    .carousel-buttons {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      width: auto;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .carousel-hero-btn,
+    .carousel-buttons .blob-btn {
+      width: auto !important;
+      flex: 0 0 auto !important;
+      min-width: 0 !important;
+      height: 38px !important;
+      min-height: 38px !important;
+      padding: 0 18px !important;
+      font-size: 12.5px !important;
+    }
+
+    .carousel-dots {
+      bottom: 12px;
+      gap: 6px;
+    }
+
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+    }
+
+    .carousel-dot.active {
+      width: 22px;
+    }
   }
 `;
 

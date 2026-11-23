@@ -288,8 +288,54 @@
         }
 
         @media (max-width: 640px) {
+            /* Hero carousel ringkas: tinggi mengikuti isi (tidak dikunci 540px lagi) */
             body .carousel-wrapper {
-                height: 540px;
+                height: auto;
+                min-height: 300px;
+            }
+
+            body .carousel-wrapper .carousel-content-wrap {
+                height: auto;
+                min-height: 300px;
+                padding: 68px 16px 44px;
+            }
+
+            body .carousel-wrapper .carousel-text-box {
+                min-height: 0;
+            }
+
+            body .carousel-wrapper .carousel-title {
+                font-size: clamp(19px, 5.6vw, 22px);
+                min-height: 0;
+                margin-bottom: 8px;
+            }
+
+            body .carousel-wrapper .carousel-desc {
+                font-size: 12.5px;
+                line-height: 1.5;
+                min-height: 0;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+
+            body .carousel-wrapper .carousel-buttons {
+                flex-direction: row;
+                flex-wrap: wrap;
+                width: auto;
+                gap: 8px;
+                margin-top: 14px;
+            }
+
+            body .carousel-wrapper .carousel-hero-btn,
+            body .carousel-wrapper .carousel-buttons .blob-btn {
+                width: auto !important;
+                flex: 0 0 auto !important;
+                height: 38px !important;
+                min-height: 38px !important;
+                padding: 0 18px !important;
+                font-size: 12.5px !important;
             }
 
             .detail-paragraph {
@@ -309,7 +355,7 @@
             }
 
             body .carousel-wrapper .carousel-content-wrap {
-                padding: 72px 16px 48px;
+                padding: 68px 16px 44px;
             }
 
             body .mobile-overlay {
@@ -360,10 +406,6 @@
         }
 
         @media (max-width: 380px) {
-            body .carousel-wrapper {
-                height: 580px;
-            }
-
             .detail-hero-banner {
                 height: 180px;
             }
