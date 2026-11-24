@@ -521,7 +521,7 @@
             {
                 id: 1,
                 image: assetBase + 'foto1.jpg',
-                title: 'Inovasi Teknologi Terdepan\nBersama TEFA JTI Innovation',
+                title: 'Podcast JTI NOVA',
                 description: 'Menghadirkan riset terapan dan transformasi digital melalui pengembangan perangkat lunak, sistem cerdas, dan solusi industri terpercaya.',
                 buttons: [
                     { text: 'Jelajahi Pelayanan', link: 'Pages/Pelayanan/index.php', variant: 'primary' },
