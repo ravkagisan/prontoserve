@@ -110,7 +110,7 @@
             '<header class="navbar" id="mainNavbar" role="banner">' +
             '<div class="navbar-container">' +
             '<a href="' + escapeHtml(brandHref) + '" class="navbar-brand" aria-label="Nova JTI - Halaman Utama">' +
-            '<img src="' + escapeHtml(base) + '/Assets/images/logo.png" alt="Nova JTI" width="120" height="40">' +
+            '<img src="' + escapeHtml(base) + '/Assets/images/logo1.png" alt="Nova JTI" width="120" height="40">' +
             '</a>' +
             '<button type="button" class="navbar-toggle" id="navToggle" aria-label="Menu navigasi" aria-expanded="false" aria-controls="mobileOverlay">' +
             '<span class="hamburger-box">' +

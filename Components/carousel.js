@@ -520,7 +520,7 @@
         return [
             {
                 id: 1,
-                image: assetBase + 'dummy.jpg',
+                image: assetBase + 'foto1.jpg',
                 title: 'Inovasi Teknologi Terdepan\nBersama TEFA JTI Innovation',
                 description: 'Menghadirkan riset terapan dan transformasi digital melalui pengembangan perangkat lunak, sistem cerdas, dan solusi industri terpercaya.',
                 buttons: [
@@ -530,7 +530,7 @@
             },
             {
                 id: 2,
-                image: assetBase + 'ajasendiri.jpg',
+                image: assetBase + 'foto2.jpg',
                 title: 'Program Pelatihan Digital\nBerstandar Industri Terkini',
                 description: 'Tingkatkan keahlian teknis dan kompetensi profesional mahasiswa serta talenta digital melalui kurikulum praktis dan sertifikasi industri.',
                 buttons: [
@@ -547,14 +547,14 @@
                 id: 1,
                 title: 'Sistem Informasi Manajemen Terintegrasi',
                 desc: 'Platform digital enterprise untuk otomatisasi operasional dan pelaporan terpadu.',
-                img: assetBase + 'dummy.jpg',
+                img: assetBase + 'foto1.jpg',
                 link: 'Pages/Portofolio/index.php'
             },
             {
                 id: 2,
                 title: 'Aplikasi Pembelajaran Interaktif EduTech',
                 desc: 'Media pembelajaran digital dengan fitur interaktif untuk meningkatkan kualitas edukasi.',
-                img: assetBase + 'ajasendiri.jpg',
+                img: assetBase + 'foto2.jpg',
                 link: 'Pages/Portofolio/index.php'
             },
             {
