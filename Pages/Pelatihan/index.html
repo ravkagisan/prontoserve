@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jtinova - Pelatihan</title>
+
+    <link rel="stylesheet" href="../../Style/style.css">
+
+    <style>
+        html {
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            overflow-x: clip;
+            margin: 0;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            html {
+                scroll-behavior: smooth;
+            }
+        }
+
+        [id] {
+            scroll-margin-top: 96px;
+        }
+
+        .section {
+            padding-top: var(--space-48, 48px);
+            padding-bottom: var(--space-48, 48px);
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .section--soft {
+            background-color: var(--bg-soft, #eef3f7);
+        }
+
+        .section__head {
+            text-align: center;
+            margin-bottom: var(--space-24, 24px);
+        }
+
+        .section__title {
+            margin: 0;
+            color: var(--brand-primary, #0f294a);
+            font-size: clamp(22px, 3vw, 24px);
+        }
+
+        .section__subtitle {
+            margin: var(--space-8, 8px) 0 0;
+            font-size: clamp(12px, 1.5vw, 13px);
+            color: var(--text-secondary, #64748b);
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-24, 24px);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .syllabus {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-8, 8px);
+            max-width: 880px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .syllabus__row {
+            display: grid;
+            grid-template-columns: 120px 180px 1fr;
+            align-items: center;
+            gap: var(--space-16, 16px);
+            padding: var(--space-16, 16px) var(--space-24, 24px);
+            border: 1px solid var(--border-default, #e2e8f0);
+            border-radius: var(--radius-input, 8px);
+            background-color: var(--bg-white, #ffffff);
+            font-size: 12px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .syllabus__no {
+            color: var(--text-secondary, #64748b);
+            font-weight: 600;
+        }
+
+        .syllabus__topic {
+            margin: 0;
+            font-weight: 700;
+            color: var(--text-primary, #0f172a);
+            overflow-wrap: anywhere;
+        }
+
+        .syllabus__sum {
+            margin: 0;
+            color: var(--text-secondary, #64748b);
+            overflow-wrap: break-word;
+        }
+
+        .schedule {
+            overflow-x: auto;
+            border: 1px solid var(--border-default, #e2e8f0);
+            border-radius: var(--radius-input, 8px);
+            background-color: var(--bg-white, #ffffff);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .schedule table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            min-width: 600px;
+        }
+
+        .schedule th {
+            padding: var(--space-16, 16px) var(--space-24, 24px);
+            background-color: var(--brand-primary, #0f294a);
+            color: var(--bg-white, #ffffff);
+            font-weight: 600;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .schedule td {
+            padding: var(--space-16, 16px) var(--space-24, 24px);
+            border-top: 1px solid var(--border-default, #e2e8f0);
+            color: var(--text-primary, #0f172a);
+            overflow-wrap: anywhere;
+        }
+
+        .instr-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-24, 24px);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .instr-link {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+            border-radius: var(--radius-card, 12px);
+            min-width: 0;
+        }
+
+        .instr-link:focus-visible {
+            outline: 2px solid var(--brand-teal, #0d9488);
+            outline-offset: 3px;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+
+            .catalog-grid,
+            .instr-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+
+            .syllabus__row {
+                grid-template-columns: 1fr;
+                gap: 6px;
+                padding: 16px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            .catalog-grid,
+            .instr-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .section {
+                padding-top: 36px;
+                padding-bottom: 36px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="navbar-container"></div>
+
+    <div id="carousel-container"></div>
+
+    <section class="section" id="katalog">
+        <div class="container">
+            <div class="section__head">
+                <h2 class="heading-2 section__title">Katalog Pelatihan</h2>
+                <p class="section__subtitle">Pilih program sesuai kebutuhan Anda</p>
+            </div>
+            <div class="catalog-grid" id="katalog-grid"></div>
+        </div>
+    </section>
+
+    <section class="section section--soft" id="silabus">
+        <div class="container">
+            <div class="section__head">
+                <h2 class="heading-2 section__title" id="silabus-judul">Silabus</h2>
+                <p class="section__subtitle">Contoh ringkasan materi per pertemuan</p>
+            </div>
+            <div class="syllabus" id="silabus-daftar"></div>
+        </div>
+    </section>
+
+    <section class="section" id="jadwal">
+        <div class="container">
+            <div class="section__head">
+                <h2 class="heading-2 section__title">Jadwal Pelatihan</h2>
+                <p class="section__subtitle">Konfirmasi dibuka hingga satu minggu sebelum kelas dimulai</p>
+            </div>
+            <div class="schedule">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Pelatihan</th>
+                            <th>Instruktur</th>
+                            <th>Kuota</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="jadwal-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section--soft" id="instruktur">
+        <div class="container">
+            <div class="section__head">
+                <h2 class="heading-2 section__title">Profil Instruktur</h2>
+                <p class="section__subtitle">Dibimbing oleh dosen dan praktisi berpengalaman</p>
+            </div>
+            <div class="instr-grid" id="instruktur-grid"></div>
+        </div>
+    </section>
+    
+    <div id="cta-container"></div>
+    <div id="footer-container"></div>
+
+    <script>
+        window.current_page = 'pelatihan';
+        window.navbar_autorender = false;
+        window.carousel_autorender = false;
+        window.footer_autorender = false;
+    </script>
+
+    <script src="../../Components/ctacontainer.js"></script>
+    <script src="../../Components/button.js"></script>
+    <script src="../../Components/card.js"></script>
+    <script src="../../Components/carousel.js"></script>
+    <script src="../../Components/navbar.js"></script>
+    <script src="../../Components/footer.js"></script>
+
+    <script>
+        (function () {
+            "use strict";
+
+            var baseUrl = (typeof window.baseUrl === 'string') ? window.baseUrl : '../..';
+            var imagesUrl = baseUrl + '/Assets/images/';
+
+            var katalog = [
+                {
+                    id: 1,
+                    judul: "Coding Camp Special Holiday Scratch for Kids",
+                    badge: "Sertifikasi",
+                    deskripsi: "Membuat Animasi & Game Sederhana dengan Block Koding SCRATCH.",
+                    tanggal: "23-25 Juni 2025",
+                    mode: "Tatap muka",
+                    kuota: "Terbatas",
+                    instruktur: "Instruktur 1",
+                    gambar: "Foto-Pelatihan/foto1.jpg",
+                    silabus: [
+                        { pertemuan: "Pertemuan 1", materi: "Dasar HTML & CSS", ringkasan: "Struktur halaman, styling, dan layout responsif" },
+                        { pertemuan: "Pertemuan 2", materi: "JavaScript Dasar", ringkasan: "Variabel, fungsi, DOM, dan event" },
+                        { pertemuan: "Pertemuan 3", materi: "Backend & Database", ringkasan: "PHP, REST API, dan pengelolaan database" },
+                        { pertemuan: "Proyek Akhir", materi: "Proyek Akhir", ringkasan: "Integrasi, penyajian, dan presentasi" }
+                    ]
+                },
+                {
+                    id: 2,
+                    judul: "Coding Camp Special Holiday Merangkai Arduino",
+                    badge: "Sertifikasi",
+                    deskripsi: "Merangkai Komponen & Membuat Proyek Sederhana dengan Arduino.",
+                    tanggal: "30 Juni - 2 Juli 2025",
+                    mode: "Tatap muka",
+                    kuota: "Terbatas",
+                    instruktur: "Instruktur 2",
+                    gambar: "Foto-Pelatihan/foto2.jpg",
+                    silabus: [
+                        { pertemuan: "Pertemuan 1", materi: "Dasar UI/UX", ringkasan: "Prinsip desain dan alur kerja desainer" },
+                        { pertemuan: "Pertemuan 2", materi: "Riset & Wireframe", ringkasan: "User persona, user flow, dan wireframe" },
+                        { pertemuan: "Pertemuan 3", materi: "Desain Visual", ringkasan: "Komponen, warna, tipografi, dan design system" },
+                        { pertemuan: "Proyek Akhir", materi: "Prototipe", ringkasan: "Prototipe interaktif dan uji kegunaan" }
+                    ]
+                }
+            ];
+
+            var instruktur = [
+                { id: 1, nama: "Nama Instruktur 1", peran: "Web Development", foto: "instruktur-1.jpg" },
+                { id: 2, nama: "Nama Instruktur 2", peran: "UI/UX Design", foto: "instruktur-2.jpg" },
+                { id: 3, nama: "Nama Instruktur 3", peran: "Jaringan & Keamanan", foto: "instruktur-3.jpg" },
+                { id: 4, nama: "Nama Instruktur 4", peran: "Data & Analitik", foto: "instruktur-4.jpg" }
+            ];
+
+            var jadwal = katalog.slice(0, 3);
+
+            var silabusById = {};
+            katalog.forEach(function (kursus) {
+                silabusById[kursus.id] = {
+                    judul: kursus.judul,
+                    baris: kursus.silabus
+                };
+            });
+
+            var carouselSlides = [
+                {
+                    id: 1,
+                    image: imagesUrl + "Foto-Carousel/foto1.png",
+                    title: "Podcast\nJTI NOVA",
+                    description: "Behind The Scene Podcast JTI NOVA.",
+                    buttons: [
+                        { text: "Lihat Katalog", link: "#katalog", variant: "primary" },
+                        { text: "Hubungi Kami", link: baseUrl + "/Pages/HubungiKami/index.html", variant: "outline-white" }
+                    ]
+                },
+                {
+                    id: 2,
+                    image: imagesUrl + "Foto-Carousel/foto2.png",
+                    title: "Simulasi\nS-LEARN",
+                    description: "Pengujian Website S-LEARN.",
+                    buttons: [
+                        { text: "Lihat Katalog", link: "#katalog", variant: "primary" },
+                        { text: "Hubungi Kami", link: baseUrl + "/Pages/HubungiKami/index.html", variant: "outline-white" }
+                    ]
+                },
+                {
+                    id: 3,
+                    image: imagesUrl + "Foto-Carousel/foto3.png",
+                    title: "Closing MBKM\nBatch 3",
+                    description: "Kegiatan MBKM Batch 3 Ditutup dengan Liburan Ke Banyuwangi",
+                    buttons: [
+                        { text: "Lihat Katalog", link: "#katalog", variant: "primary" },
+                        { text: "Hubungi Kami", link: baseUrl + "/Pages/HubungiKami/index.html", variant: "outline-white" }
+                    ]
+                },
+                {
+                    id: 4,
+                    image: imagesUrl + "Foto-Carousel/foto4.png",
+                    title: "Free\nTime",
+                    description: "Kegiatan Setelah Evaluasi Pertama.",
+                    buttons: [
+                        { text: "Lihat Katalog", link: "#katalog", variant: "primary" },
+                        { text: "Hubungi Kami", link: baseUrl + "/Pages/HubungiKami/index.html", variant: "outline-white" }
+                    ]
+                },
+                {
+                    id: 5,
+                    image: imagesUrl + "Foto-Carousel/foto5.png",
+                    title: "Weekly\nMeet",
+                    description: "Rapat Mingguan yang Dilaksanakan untuk Membahas Progres.",
+                    buttons: [
+                        { text: "Lihat Katalog", link: "#katalog", variant: "primary" },
+                        { text: "Hubungi Kami", link: baseUrl + "/Pages/HubungiKami/index.html", variant: "outline-white" }
+                    ]
+                },
+                {
+                    id: 6,
+                    image: imagesUrl + "Foto-Carousel/foto6.png",
+                    title: "Nurul Chotib\nMoU",
+                    description: "Penandatanganan nota kesepahaman dan perjanjian kerja sama antara Politeknik Negeri Jember dengan Yayasan Nurul Chotib Al Qodiri Jember.",
+                    buttons: [
+                        { text: "Lihat Katalog", link: "#katalog", variant: "primary" },
+                        { text: "Hubungi Kami", link: baseUrl + "/Pages/HubungiKami/index.html", variant: "outline-white" }
+                    ]
+                },
+                {
+                    id: 7,
+                    image: imagesUrl + "Foto-Carousel/foto7.png",
+                    title: "Pelatihan\nGame Developer",
+                    description: "Pelatihan Offline yang disediakan TEFA untuk usia dini.",
+                    buttons: [
+                        { text: "Lihat Katalog", link: "#katalog", variant: "primary" },
+                        { text: "Hubungi Kami", link: baseUrl + "/Pages/HubungiKami/index.html", variant: "outline-white" }
+                    ]
+                }
+            ];
+
+            // Mount Navbar, Carousel, dan Footer tepat di container masing-masing
+            var navContainer = document.getElementById("navbar-container");
+            if (navContainer && typeof window.mountNavbar === "function") {
+                window.mountNavbar(navContainer, { current_page: "pelatihan", base_url: baseUrl });
+            }
+
+            var carouselContainer = document.getElementById("carousel-container");
+            if (carouselContainer && typeof window.mountCarousel === "function") {
+                window.mountCarousel(carouselContainer, {
+                    carousel_type: "hero",
+                    carousel_slides: carouselSlides
+                });
+            }
+
+            function renderKatalog() {
+                var grid = document.getElementById("katalog-grid");
+                if (!grid || typeof window.renderCard !== "function") return;
+
+                var cardsHtml = katalog.map(function (kursus) {
+                    return window.renderCard({
+                        variant: "training",
+                        title: kursus.judul,
+                        description: kursus.deskripsi,
+                        category: kursus.badge,
+                        image: imagesUrl + kursus.gambar,
+                        extra_info: ["Jadwal: " + kursus.tanggal, "Mode: " + kursus.mode],
+                        attributes: 'data-id="' + kursus.id + '"',
+                        button_config: {
+                        variant: "primary",
+                        text: "Lihat Silabus",
+                        href: baseUrl + "/Pages/Pelatihan/Detail/DetailPelatihan/index.html?id=" + kursus.id
+                        }
+                    });
+                }).join("");
+
+                grid.innerHTML = cardsHtml;
+
+                grid.querySelectorAll("[data-id]").forEach(function (cardEl) {
+                    var id = cardEl.getAttribute("data-id");
+                    var tautan = cardEl.querySelector('a[href="#silabus"]');
+                    if (!tautan) return;
+
+                });
+            }
+
+            function renderSilabus(kursusId) {
+                var judulEl = document.getElementById("silabus-judul");
+                var daftarEl = document.getElementById("silabus-daftar");
+                if (!judulEl || !daftarEl) return;
+
+                var data = silabusById[kursusId] || silabusById[katalog[0].id];
+                judulEl.textContent = "Silabus: " + data.judul;
+                daftarEl.textContent = "";
+
+                data.baris.forEach(function (item) {
+                    var baris = document.createElement("div");
+                    baris.className = "syllabus__row";
+
+                    var no = document.createElement("span");
+                    no.className = "syllabus__no";
+                    no.textContent = item.pertemuan;
+
+                    var topik = document.createElement("p");
+                    topik.className = "syllabus__topic";
+                    topik.textContent = item.materi;
+
+                    var ringkasan = document.createElement("p");
+                    ringkasan.className = "syllabus__sum";
+                    ringkasan.textContent = item.ringkasan;
+
+                    baris.appendChild(no);
+                    baris.appendChild(topik);
+                    baris.appendChild(ringkasan);
+                    daftarEl.appendChild(baris);
+                });
+            }
+
+            function renderJadwal() {
+                var tbody = document.getElementById("jadwal-tbody");
+                if (!tbody || typeof window.renderButton !== "function") return;
+
+                tbody.innerHTML = jadwal.map(function (item) {
+                    var btnHtml = window.renderButton({
+                        variant: "primary",
+                        text: "Daftar",
+                        href: baseUrl + "/Pages/HubungiKami/index.html",
+                        size: "sm"
+                    });
+
+                    return "<tr>" +
+                        "<td>" + item.tanggal + "</td>" +
+                        "<td>" + item.judul + "</td>" +
+                        "<td>" + item.instruktur + "</td>" +
+                        "<td>" + item.kuota + "</td>" +
+                        "<td>" + btnHtml + "</td>" +
+                        "</tr>";
+                }).join("");
+            }
+
+            function renderInstruktur() {
+                var grid = document.getElementById("instruktur-grid");
+                if (!grid || typeof window.renderCard !== "function") return;
+
+                grid.innerHTML = instruktur.map(function (orang) {
+                    return window.renderCard({
+                        variant: "team",
+                        title: orang.nama,
+                        subtitle: orang.peran,
+                        image: imagesUrl + orang.foto,
+                        href: baseUrl + "/Pages/Pelatihan/Detail/DetailInstruktur/index.html?id=" + orang.id
+                    });
+                }).join("");
+            }
+
+            renderKatalog();
+            renderSilabus(katalog[0].id);
+            renderJadwal();
+            renderInstruktur();
+
+            var ctaContainer = document.getElementById("cta-container");
+            if (ctaContainer && typeof window.mountCta === "function") {
+                window.mountCta(ctaContainer, {
+                    title: "Ingin berkolaborasi atau mendaftar pelatihan?",
+                    subtitle: "Hubungi tim JTI NOVA untuk informasi jadwal, pendaftaran kelas, dan kebutuhan pelatihan.",
+                    btn_text: "Hubungi Kami",
+                    btn_href: baseUrl + "/Pages/HubungiKami/index.html",
+                    variant: "dark"
+                });
+            }
+
+            var footerContainer = document.getElementById("footer-container");
+            if (footerContainer && typeof window.mountFooter === "function") {
+                window.mountFooter(footerContainer, { current_page: "pelatihan", base_url: baseUrl });
+            }
+        })();
+    </script>
+
+</body>
+
+</html>

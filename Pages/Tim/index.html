@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jtinova - Tim</title>
+
+    <link rel="stylesheet" href="../../Style/style.css">
+
+    <style>
+    .tm-hero {
+        background-color: var(--bg-soft);
+        padding-top: calc(var(--space-48) + var(--space-8));
+        padding-bottom: calc(var(--space-48) + var(--space-8));
+    }
+
+    .tm-hero__crumb {
+        margin: 0 0 calc(var(--space-24) + var(--space-8));
+        color: var(--text-secondary);
+    }
+
+    .tm-hero__crumb a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .tm-hero__crumb a:hover {
+        text-decoration: underline;
+    }
+
+    .tm-hero__title {
+        margin: 0 0 calc(var(--space-24) + var(--space-8));
+        color: var(--brand-primary);
+    }
+
+    .tm-hero__desc {
+        margin: 0;
+        font-size: 14px;
+        color: var(--text-secondary);
+    }
+
+    .tm-section {
+        padding-top: calc(var(--space-48) + var(--space-16));
+        padding-bottom: calc(var(--space-48) + var(--space-16));
+    }
+
+    .tm-section--soft {
+        background-color: var(--bg-soft);
+    }
+
+    .tm-head {
+        text-align: center;
+        margin-bottom: calc(var(--space-24) + var(--space-16));
+    }
+
+    .tm-head__title {
+        margin: 0;
+        color: var(--brand-primary);
+    }
+
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--space-24);
+    }
+
+    .team-grid .card-img-portrait-wrap {
+        aspect-ratio: 4 / 3;
+    }
+
+    .culture-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-24);
+    }
+
+    .culture {
+        padding: 20px;
+    }
+
+    .culture__icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        margin-bottom: var(--space-8);
+        border-radius: 50%;
+        background-color: var(--bg-soft);
+        color: var(--brand-primary);
+    }
+
+    .culture__icon svg {
+        width: var(--icon-size-min);
+        height: var(--icon-size-min);
+        fill: none;
+        stroke: currentColor;
+    }
+
+    .culture__title {
+        margin: 0 0 var(--space-8);
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text-primary);
+    }
+
+    .culture__text {
+        margin: 0;
+        font-size: 13px;
+        line-height: 16px;
+        color: var(--text-secondary);
+    }
+
+    .tm-cta {
+        background-color: var(--brand-primary);
+        color: var(--bg-white);
+        padding-top: calc(var(--space-48) + var(--space-8));
+        padding-bottom: calc(var(--space-48) + var(--space-8));
+    }
+
+    .tm-cta__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-24);
+    }
+
+    .tm-cta__title {
+        margin: 0 0 4px;
+        font-size: 28px;
+        color: var(--bg-white);
+    }
+
+    .tm-cta__text {
+        margin: 0;
+        font-size: 14px;
+        color: var(--bg-soft);
+    }
+
+    html { -webkit-text-size-adjust: 100%; }
+    body { overflow-x: clip; }
+    img  { max-width: 100%; }
+
+    .team-grid > *,
+    .culture-grid > *,
+    .tm-cta__inner > * { min-width: 0; }
+
+    .tm-hero__title,
+    .tm-head__title,
+    .culture__title,
+    .tm-cta__title { overflow-wrap: anywhere; }
+
+    .culture__text,
+    .tm-cta__text,
+    .tm-hero__desc { overflow-wrap: break-word; }
+
+    @media (max-width: 1280px) {
+        .container {
+            padding-left: 64px;
+            padding-right: 64px;
+        }
+    }
+
+    @media (max-width: 1024px) {
+        .container,
+        .tm-hero .container,
+        .tm-section .container,
+        .tm-cta .container {
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+
+        .tm-hero {
+            padding-top: 48px;
+            padding-bottom: 48px;
+        }
+
+        .tm-section {
+            padding-top: 56px;
+            padding-bottom: 56px;
+        }
+
+        .tm-cta {
+            padding-top: 48px;
+            padding-bottom: 48px;
+        }
+
+        .team-grid {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .culture-grid {
+            gap: 16px;
+        }
+
+        .tm-cta__inner {
+            gap: 20px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .container,
+        .tm-hero .container,
+        .tm-section .container,
+        .tm-cta .container {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
+        .tm-hero {
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .tm-hero__title {
+            font-size: 32px;
+        }
+
+        .tm-section {
+            padding-top: 44px;
+            padding-bottom: 44px;
+        }
+
+        .tm-head {
+            margin-bottom: 28px;
+        }
+
+        .tm-head__title {
+            font-size: 24px;
+        }
+
+        .team-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .culture-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .culture {
+            padding: 18px;
+        }
+
+        .tm-cta {
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .tm-cta__title {
+            font-size: 22px;
+        }
+
+        .tm-cta__inner {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .container,
+        .tm-hero .container,
+        .tm-section .container,
+        .tm-cta .container {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .tm-hero__title {
+            font-size: 28px;
+        }
+
+        .tm-section {
+            padding-top: 36px;
+            padding-bottom: 36px;
+        }
+
+        .tm-head__title {
+            font-size: 22px;
+        }
+
+        .team-grid {
+            gap: 12px;
+        }
+
+        .tm-cta__title {
+            font-size: 20px;
+        }
+    }
+
+    @media (max-width: 340px) {
+        .team-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 1280px) {
+        .navbar .navbar-container {
+            padding-left: 64px;
+            padding-right: 64px;
+        }
+
+        body .carousel-wrapper .carousel-content-wrap {
+            padding-left: 64px;
+            padding-right: 64px;
+        }
+    }
+
+    @media (min-width: 901px) and (max-width: 1100px) {
+        .navbar .navbar-menu-wrapper {
+            gap: 16px;
+        }
+
+        .navbar .navbar-menu {
+            gap: 16px;
+        }
+
+        .navbar .nav-link {
+            font-size: 14px;
+        }
+    }
+
+    @media (max-width: 1024px) {
+        .navbar .navbar-container {
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+
+        body .carousel-wrapper .carousel-content-wrap {
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+    }
+
+    @media (max-width: 900px) {
+        .navbar .navbar-container {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        body .carousel-wrapper .carousel-content-wrap {
+            padding: 72px 24px 48px;
+        }
+
+        .team-grid .card-inner-team {
+            padding: 14px;
+        }
+    }
+
+    @media (max-width: 640px) {
+        body .carousel-wrapper {
+            height: 540px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .navbar .navbar-container {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        body .carousel-wrapper .carousel-content-wrap {
+            padding: 72px 16px 48px;
+        }
+
+        body .mobile-overlay {
+            padding: 84px 24px 32px;
+        }
+
+        .mobile-overlay .mobile-nav-link {
+            font-size: 18px;
+            padding: 12px 0;
+        }
+
+        .mobile-overlay .mobile-dropdown-link {
+            font-size: 16px;
+        }
+
+        .team-grid .card-inner-team {
+            padding: 12px;
+        }
+
+        .team-grid .card-img-portrait-wrap {
+            margin-bottom: 12px;
+        }
+
+        .team-grid .card-title {
+            font-size: 14px;
+            overflow-wrap: anywhere;
+        }
+
+        .team-grid .card-subtitle {
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+    }
+
+    @media (max-width: 380px) {
+        body .carousel-wrapper {
+            height: 580px;
+        }
+    }
+
+    @media (hover: none) {
+        .custom-card:hover {
+            transform: none;
+        }
+
+        .custom-card:hover .card-img {
+            transform: none;
+        }
+    }
+    </style>
+</head>
+
+<body>
+
+    <div id="navbar-container"></div>
+
+    <div id="carousel-container"></div>
+
+    <section class="tm-section" id="anggota">
+        <div class="container">
+            <div class="tm-head">
+                <h2 class="heading-2 tm-head__title">Anggota Tim</h2>
+            </div>
+            <div class="team-grid" id="team-grid"></div>
+        </div>
+    </section>
+
+    <section class="tm-section tm-section--soft" id="budaya">
+        <div class="container">
+            <div class="tm-head">
+                <h2 class="heading-2 tm-head__title">Budaya Kerja Kami</h2>
+            </div>
+            <div class="culture-grid" id="culture-grid"></div>
+        </div>
+    </section>
+
+    <div id="cta-container"></div>
+
+    <div id="footer-container"></div>
+
+    <script>
+        window.current_page = 'tim';
+        window.navbar_autorender = false;
+        window.carousel_autorender = false;
+        window.footer_autorender = false;
+    </script>
+
+    <script src="../../Components/button.js"></script>
+    <script src="../../Components/card.js"></script>
+    <script src="../../Components/carousel.js"></script>
+    <script src="../../Components/navbar.js"></script>
+    <script src="../../Components/ctacontainer.js"></script>
+    <script src="../../Components/footer.js"></script>
+
+    <script>
+        (function () {
+            "use strict";
+
+            var baseUrl = (typeof window.baseUrl === "string" && window.baseUrl !== "") ? window.baseUrl : "../..";
+            var imagesUrl = baseUrl + "/Assets/images/";
+            var fallbackImg = imagesUrl + "dummy.jpg";
+
+            var hubungiUrl = baseUrl + "/Pages/HubungiKami/index.html";
+            var timDetailUrl = baseUrl + "/Pages/Tim/Detail/index.html";
+            var pelayananUrl = baseUrl + "/Pages/Pelayanan/index.html";
+            var pelatihanUrl = baseUrl + "/Pages/Pelatihan/index.html";
+            var portofolioUrl = baseUrl + "/Pages/Portofolio/index.html";
+
+            var anggota = [
+                { nama: "Nama Anggota 1", peran: "Ketua Tim",          foto: "suki.png" },
+                { nama: "Nama Anggota 2", peran: "Project Manager",    foto: "suki2.png" },
+                { nama: "Nama Anggota 3", peran: "UI/UX Designer",     foto: "suki3.png" },
+                { nama: "Nama Anggota 4", peran: "Frontend Developer", foto: "suki4.png" },
+                { nama: "Nama Anggota 5", peran: "Backend Developer",  foto: "suki5.png" },
+                { nama: "Nama Anggota 6", peran: "Mobile Developer",   foto: "tim-6.jpg" },
+                { nama: "Nama Anggota 7", peran: "Network & IoT",      foto: "tim-7.jpg" },
+                { nama: "Nama Anggota 8", peran: "Multimedia",         foto: "tim-8.jpg" }
+            ];
+
+            var budaya = [
+                {
+                    judul: "Kolaboratif",
+                    teks: "Mahasiswa, dosen, dan industri bekerja dalam satu tim.",
+                    ikon: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/>'
+                },
+                {
+                    judul: "Profesional",
+                    teks: "Standar kerja mengikuti praktik industri.",
+                    ikon: '<path d="M4 7h16M4 12h16M4 17h16"/>'
+                },
+                {
+                    judul: "Bertumbuh",
+                    teks: "Setiap proyek menjadi sarana belajar.",
+                    ikon: '<path d="M5 13l4 4L19 7"/>'
+                }
+            ];
+
+            var carouselSlides = [
+                {
+                    id: 1,
+                    image: imagesUrl + "dummy.jpg",
+                    title: "Inovasi Teknologi Terdepan\nBersama TEFA JTI Innovation",
+                    description: "Menghadirkan riset terapan dan transformasi digital melalui pengembangan perangkat lunak, sistem cerdas, dan solusi industri terpercaya.",
+                    buttons: [
+                        { text: "Jelajahi Pelayanan", link: pelayananUrl, variant: "primary" },
+                        { text: "Hubungi Kami", link: hubungiUrl, variant: "outline-white" }
+                    ]
+                },
+                {
+                    id: 2,
+                    image: imagesUrl + "ajasendiri.jpg",
+                    title: "Program Pelatihan Digital\nBerstandar Industri Terkini",
+                    description: "Tingkatkan keahlian teknis dan kompetensi profesional mahasiswa serta talenta digital melalui kurikulum praktis dan sertifikasi industri.",
+                    buttons: [
+                        { text: "Lihat Pelatihan", link: pelatihanUrl, variant: "primary" },
+                        { text: "Lihat Portofolio", link: portofolioUrl, variant: "outline-white" }
+                    ]
+                }
+            ];
+
+            var navContainer = document.getElementById("navbar-container");
+            if (navContainer && typeof window.mountNavbar === "function") {
+                window.mountNavbar(navContainer, { current_page: "tim", base_url: baseUrl });
+            }
+
+            var carouselContainer = document.getElementById("carousel-container");
+            if (carouselContainer && typeof window.mountCarousel === "function") {
+                window.mountCarousel(carouselContainer, {
+                    carousel_type: "hero",
+                    carousel_slides: carouselSlides
+                });
+            }
+
+            var teamGrid = document.getElementById("team-grid");
+            if (teamGrid) {
+                if (typeof window.renderCard === "function") {
+                    teamGrid.innerHTML = anggota.map(function (orang, index) {
+                        var idAnggota = index + 1;
+                        return window.renderCard({
+                            variant: "team",
+                            title: orang.nama,
+                            subtitle: orang.peran,
+                            image: imagesUrl + orang.foto,
+                            href: timDetailUrl + "?id=" + idAnggota
+                        });
+                    }).join("");
+                } else {
+                    teamGrid.innerHTML = anggota.map(function (orang, index) {
+                        var idAnggota = index + 1;
+                        return (
+                            '<a class="card" href="' + timDetailUrl + "?id=" + idAnggota + '">' +
+                                '<div class="card-img-portrait-wrap">' +
+                                    '<img src="' + imagesUrl + orang.foto + '" alt="' + orang.nama + '">' +
+                                '</div>' +
+                                '<h3>' + orang.nama + '</h3>' +
+                                '<p>' + orang.peran + '</p>' +
+                            '</a>'
+                        );
+                    }).join("");
+                }
+
+                teamGrid.querySelectorAll("img").forEach(function (img) {
+                    img.addEventListener("error", function () {
+                        if (img.src !== fallbackImg) {
+                            img.src = fallbackImg;
+                        }
+                    });
+                });
+            }
+
+            var cultureGrid = document.getElementById("culture-grid");
+            if (cultureGrid) {
+                cultureGrid.innerHTML = budaya.map(function (nilai) {
+                    return (
+                        '<article class="card culture">' +
+                            '<span class="culture__icon">' +
+                                '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true">' + nilai.ikon + '</svg>' +
+                            '</span>' +
+                            '<h3 class="culture__title">' + nilai.judul + '</h3>' +
+                            '<p class="culture__text">' + nilai.teks + '</p>' +
+                        '</article>'
+                    );
+                }).join("");
+            }
+
+            var ctaContainer = document.getElementById("cta-container");
+            if (ctaContainer && typeof window.mountCta === "function") {
+                window.mountCta(ctaContainer, {
+                    title: "Ingin bergabung atau magang bersama kami?",
+                    subtitle: "Program Magang Mahasiswa MBKM terbuka untuk mahasiswa berminat.",
+                    btn_text: "Hubungi Kami",
+                    btn_href: hubungiUrl,
+                    variant: "dark"
+                });
+            }
+
+            var footerContainer = document.getElementById("footer-container");
+            if (footerContainer && typeof window.mountFooter === "function") {
+                window.mountFooter(footerContainer, { current_page: "tim", base_url: baseUrl });
+            }
+        })();
+    </script>
+
+</body>
+
+</html>
