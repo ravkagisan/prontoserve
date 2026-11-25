@@ -165,7 +165,7 @@
     color: var(--bg-white, #ffffff);
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
+    transition: opacity 0.25s ease, transform 0.25s ease;
     min-height: 270px;
     display: flex;
     flex-direction: column;

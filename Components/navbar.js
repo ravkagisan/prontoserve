@@ -133,6 +133,10 @@
     }
 
     var navbarCss = `
+@view-transition {
+    navigation: auto;
+}
+
 .navbar {
     position: fixed;
     top: 0;
