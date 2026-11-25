@@ -99,7 +99,7 @@
             '<div class="footer-container">' +
             '<div class="site-footer__grid">' +
             '<div class="footer-col-brand">' +
-            '<img src="' + escapeHtml(base) + '/Assets/images/logo.png" srcset="' + escapeHtml(base) + '/Assets/images/logo@2x.png 2x" alt="JTI NOVA" class="footer-logo-img">' +
+            '<img src="' + escapeHtml(base) + '/Assets/images/logo.png" srcset="' + escapeHtml(base) + '/Assets/images/logo2.png 2x" alt="JTI NOVA" class="footer-logo-img">' +
             '<p class="footer-address">' + escapeHtml(alamat) + '</p>' +
             '<div class="footer-socials">' + socialsHtml + '</div>' +
             '</div>' +
