@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jtinova - Pelayanan</title>
+
+    <link rel="stylesheet" href="../../Style/style.css" />
+
+    <style>
+      html {
+        -webkit-text-size-adjust: 100%;
+      }
+
+      body {
+        overflow-x: clip;
+        margin: 0;
+      }
+
+      .pl-hero {
+        background-color: var(--bg-soft);
+        padding-top: calc(var(--space-48) + var(--space-8));
+        padding-bottom: calc(var(--space-48) + var(--space-8));
+      }
+
+      .pl-hero__crumb {
+        margin: 0 0 calc(var(--space-24) + var(--space-8));
+        color: var(--text-secondary);
+      }
+
+      .pl-hero__crumb a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .pl-hero__crumb a:hover {
+        text-decoration: underline;
+      }
+
+      .pl-hero__title {
+        margin: 0 0 calc(var(--space-24) + var(--space-8));
+        color: var(--brand-primary);
+      }
+
+      .pl-hero__desc {
+        margin: 0;
+        color: var(--text-secondary);
+      }
+
+      .pl-section {
+        padding-top: calc(var(--space-48) + var(--space-16));
+        padding-bottom: calc(var(--space-48) + var(--space-16));
+      }
+
+      .pl-section--soft {
+        background-color: var(--bg-soft);
+      }
+
+      .pl-section--tight {
+        padding-top: var(--space-48);
+        padding-bottom: var(--space-48);
+      }
+
+      .pl-head {
+        text-align: center;
+        margin-bottom: calc(var(--space-24) + var(--space-8));
+      }
+
+      .pl-head__title {
+        margin: 0 0 var(--space-8);
+        color: var(--brand-primary);
+        font-size: clamp(24px, 3.5vw, 32px);
+      }
+
+      .pl-head__sub {
+        margin: 0;
+        color: var(--text-secondary);
+        font-size: clamp(14px, 1.5vw, 16px);
+      }
+
+      .service-grid,
+      .info-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-24);
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .service-grid .card-inner {
+        padding: 20px;
+      }
+
+      .service-grid .card-img-inset-wrap {
+        height: 140px;
+      }
+
+      .service-grid .card-desc {
+        font-size: 14px;
+        line-height: 17px;
+        margin-bottom: 12px;
+        overflow-wrap: break-word;
+      }
+
+      .service-grid .card-contact-info {
+        font-size: 13px;
+        font-weight: 400;
+        color: var(--brand-primary);
+        margin-bottom: 12px;
+      }
+
+      .steps-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--space-24);
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .step {
+        padding: 20px;
+        height: 100%;
+        box-sizing: border-box;
+      }
+
+      .step__no {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        margin-bottom: var(--space-8);
+        border-radius: 50%;
+        background-color: var(--brand-primary);
+        color: var(--bg-white);
+        font-size: 14px;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      .step__title {
+        margin: 0 0 var(--space-8);
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text-primary);
+        overflow-wrap: anywhere;
+      }
+
+      .step__text {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--text-secondary);
+        overflow-wrap: break-word;
+      }
+
+      .info-card {
+        padding: 20px;
+        border: 1px solid var(--border-default);
+        height: 100%;
+        box-sizing: border-box;
+      }
+
+      .info-card__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        margin-bottom: var(--space-8);
+        border-radius: 50%;
+        background-color: var(--bg-soft);
+        font-size: 16px;
+        flex-shrink: 0;
+      }
+
+      .info-card__title {
+        margin: 0 0 var(--space-8);
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      .info-card__text {
+        margin: 0;
+        font-size: 13px;
+        color: var(--text-secondary);
+        overflow-wrap: anywhere;
+      }
+
+      /* Responsivitas Tablet & Perangkat Menengah (<= 1024px) */
+      @media (max-width: 1024px) {
+        .container {
+          padding-left: 40px;
+          padding-right: 40px;
+        }
+
+        .service-grid,
+        .info-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px;
+        }
+
+        .steps-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px;
+        }
+      }
+
+      /* Responsivitas Tablet Kecil / Phablet (<= 768px) */
+      @media (max-width: 768px) {
+        .container {
+          padding-left: 24px;
+          padding-right: 24px;
+        }
+
+        .pl-hero__title {
+          font-size: 28px;
+        }
+
+        .pl-section {
+          padding-top: 36px;
+          padding-bottom: 36px;
+        }
+      }
+
+      /* Responsivitas Smartphone / Android / iPhone (<= 640px) */
+      @media (max-width: 640px) {
+        .container {
+          padding-left: 16px;
+          padding-right: 16px;
+        }
+
+        .service-grid,
+        .info-grid,
+        .steps-grid {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+
+        .pl-head {
+          margin-bottom: 20px;
+        }
+      }
+
+      /* Responsivitas Layar Sangat Kecil / iPhone SE (<= 480px) */
+      @media (max-width: 480px) {
+        .container {
+          padding-left: 16px;
+          padding-right: 16px;
+        }
+
+        .pl-hero__title {
+          font-size: 24px;
+        }
+
+        .pl-head__title {
+          font-size: 22px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="navbar-container"></div>
+
+    <div id="carousel-container"></div>
+
+    <section class="pl-section" id="layanan">
+      <div class="container">
+        <div class="service-grid" id="service-grid"></div>
+      </div>
+    </section>
+
+    <section class="pl-section pl-section--soft" id="alur">
+      <div class="container">
+        <div class="pl-head">
+          <h2 class="heading-2 pl-head__title">Alur Order Layanan</h2>
+          <p class="pl-head__sub">
+            Empat langkah mudah untuk memulai kerja sama
+          </p>
+        </div>
+        <div class="steps-grid" id="steps-grid"></div>
+      </div>
+    </section>
+
+    <section class="pl-section pl-section--tight" id="kontak">
+      <div class="container">
+        <div class="pl-head">
+          <h2 class="heading-2 pl-head__title">Butuh Informasi Layanan?</h2>
+          <p class="pl-head__sub">
+            Hubungi kontak berikut untuk setiap layanan
+          </p>
+        </div>
+        <div class="info-grid" id="info-grid"></div>
+      </div>
+    </section>
+
+    <div id="cta-container"></div>
+
+    <div id="footer-container"></div>
+
+    <script>
+      window.current_page = "pelayanan";
+      window.navbar_autorender = false;
+      window.carousel_autorender = false;
+      window.footer_autorender = false;
+    </script>
+
+    <script src="../../Components/button.js"></script>
+    <script src="../../Components/card.js"></script>
+    <script src="../../Components/carousel.js"></script>
+    <script src="../../Components/navbar.js"></script>
+    <script src="../../Components/ctacontainer.js"></script>
+    <script src="../../Components/footer.js"></script>
+
+    <script>
+      (function () {
+        "use strict";
+
+        var baseUrl =
+          typeof window.baseUrl === "string" && window.baseUrl !== ""
+            ? window.baseUrl
+            : "../..";
+        var imagesUrl = baseUrl + "/Assets/images/";
+        var hubungiUrl = baseUrl + "/Pages/HubungiKami/index.html";
+        var pelatihanUrl = baseUrl + "/Pages/Pelatihan/index.html";
+        var kontakLayanan = "+62 851-8300-2639";
+
+        var layanan = [
+          {
+            judul: "IT Consultant",
+            deskripsi:
+              "Konsultasi kebutuhan, perancangan, dan strategi transformasi digital.",
+            gambar: "Foto-Pelayanan/foto1.png",
+            href: baseUrl + "/Pages/Pelayanan/Detail/index.html?id=1",
+          },
+          {
+            judul: "IT Solution",
+            deskripsi:
+              "Pengembangan website, aplikasi mobile, dan sistem informasi.",
+            gambar: "Foto-Pelayanan/foto2.png",
+            href: baseUrl + "/Pages/Pelayanan/Detail/index.html?id=2",
+          },
+          {
+            judul: "Pelatihan",
+            deskripsi:
+              "Pelatihan teknologi informasi dengan kurikulum berbasis industri.",
+            gambar: "Foto-Pelayanan/foto3.png",
+            href: baseUrl + "/Pages/Pelayanan/Detail/index.html?id=3",
+          },
+          {
+            judul: "Pendampingan",
+            deskripsi: "Pendampingan pengembangan produk digital dan UMKM.",
+            gambar: "Foto-Pelayanan/foto4.png",
+            href: baseUrl + "/Pages/Pelayanan/Detail/index.html?id=4",
+          },
+          {
+            judul: "Instruktur",
+            deskripsi:
+              "Penyediaan instruktur profesional untuk program pelatihan.",
+            gambar: "Foto-Pelayanan/foto5.png",
+            href: baseUrl + "/Pages/Pelayanan/Detail/index.html?id=5",
+          },
+          {
+            judul: "Magang Mahasiswa MBKM",
+            deskripsi:
+              "Program magang MBKM pada proyek nyata teaching factory.",
+            gambar: "Foto-Pelayanan/foto6.png",
+            href: baseUrl + "/Pages/Pelayanan/Detail/index.html?id=6",
+          },
+        ];
+
+        var alur = [
+          {
+            judul: "Hubungi Kami",
+            teks: "Bisa hubungi melalui Whatsapp/Email",
+          },
+          {
+            judul: "Konsultasi",
+            teks: "Sampaikan kebutuhan dan tujuan Anda kepada tim kami.",
+          },
+          {
+            judul: "Proposal & Penawaran",
+            teks: "Kami menyusun solusi, estimasi waktu, dan biaya.",
+          },
+          {
+            judul: "Pengerjaan",
+            teks: "Tim dan mahasiswa mengerjakan sesuai kesepakatan.",
+          },
+          {
+            judul: "Serah Terima",
+            teks: "Produk diserahkan beserta dokumentasi dan dukungan.",
+          },
+        ];
+
+        var kontak = [
+          { ikon: "\u260E\uFE0F", judul: "WhatsApp", nilai: kontakLayanan },
+          { ikon: "\u2709\uFE0F", judul: "Email", nilai: "jtinova@polije.ac.id" },
+          {
+            ikon: "\u231A",
+            judul: "Jam Layanan",
+            nilai: "Senin\u2013Jumat, 08.00\u201316.00 WIB",
+          },
+        ];
+
+        var carouselSlides = [
+          {
+            id: 1,
+            image: imagesUrl + "Foto-Carousel/foto1.png",
+            title: "Podcast\nJTI NOVA",
+            description: "Behind The Scene Podcast JTI NOVA",
+            buttons: [
+              {
+                text: "Jelajahi Layanan",
+                link: hubungiUrl,
+                variant: "primary",
+              },
+              {
+                text: "Hubungi Kami",
+                link: hubungiUrl,
+                variant: "outline-white",
+              },
+            ],
+          },
+          {
+            id: 2,
+            image: imagesUrl + "Foto-Carousel/foto2.png",
+            title: "Simulasi\nS-LEARN",
+            description: "Pengujian Website S-LEARN.",
+            buttons: [
+              {
+                text: "Daftar Pelatihan",
+                link: pelatihanUrl,
+                variant: "primary",
+              },
+              {
+                text: "Lihat Silabus",
+                link: pelatihanUrl,
+                variant: "outline-white",
+              },
+            ],
+          },
+          {
+            id: 3,
+            image: imagesUrl + "Foto-Carousel/foto3.png",
+            title: "Closing MBKM\nBatch 3",
+            description:
+              "Kegiatan MBKM Batch 3 Ditutup dengan Liburan Ke Banyuwangi",
+            buttons: [
+              {
+                text: "Daftar Pelatihan",
+                link: pelatihanUrl,
+                variant: "primary",
+              },
+              {
+                text: "Lihat Silabus",
+                link: pelatihanUrl,
+                variant: "outline-white",
+              },
+            ],
+          },
+          {
+            id: 4,
+            image: imagesUrl + "Foto-Carousel/foto4.png",
+            title: "Free\nTime",
+            description: "Kegiatan Setelah Evaluasi Pertama.",
+            buttons: [
+              {
+                text: "Daftar Pelatihan",
+                link: pelatihanUrl,
+                variant: "primary",
+              },
+              {
+                text: "Lihat Silabus",
+                link: pelatihanUrl,
+                variant: "outline-white",
+              },
+            ],
+          },
+          {
+            id: 5,
+            image: imagesUrl + "Foto-Carousel/foto5.png",
+            title: "Weekly\nMeet",
+            description:
+              "Rapat Mingguan yang Dilaksanakan untuk Membahas Progres.",
+            buttons: [
+              {
+                text: "Daftar Pelatihan",
+                link: pelatihanUrl,
+                variant: "primary",
+              },
+              {
+                text: "Lihat Silabus",
+                link: pelatihanUrl,
+                variant: "outline-white",
+              },
+            ],
+          },
+          {
+            id: 6,
+            image: imagesUrl + "Foto-Carousel/foto6.png",
+            title: "Nurul Chotib\nMoU",
+            description:
+              "Penandatanganan nota kesepahaman dan perjanjian kerja sama antara Politeknik Negeri Jember dengan Yayasan Nurul Chotib Al Qodiri Jember.",
+            buttons: [
+              {
+                text: "Daftar Pelatihan",
+                link: pelatihanUrl,
+                variant: "primary",
+              },
+              {
+                text: "Lihat Silabus",
+                link: pelatihanUrl,
+                variant: "outline-white",
+              },
+            ],
+          },
+          {
+            id: 7,
+            image: imagesUrl + "Foto-Carousel/foto7.png",
+            title: "Pelatihan\nGame Developer",
+            description:
+              "Pelatihan Offline yang disediakan TEFA untuk usia dini.",
+            buttons: [
+              {
+                text: "Daftar Pelatihan",
+                link: pelatihanUrl,
+                variant: "primary",
+              },
+              {
+                text: "Lihat Silabus",
+                link: pelatihanUrl,
+                variant: "outline-white",
+              },
+            ],
+          },
+        ];
+
+        var navContainer = document.getElementById("navbar-container");
+        if (navContainer && typeof window.mountNavbar === "function") {
+          window.mountNavbar(navContainer, {
+            current_page: "pelayanan",
+            base_url: baseUrl,
+          });
+        }
+
+        var carouselContainer = document.getElementById("carousel-container");
+        if (carouselContainer && typeof window.mountCarousel === "function") {
+          window.mountCarousel(carouselContainer, {
+            carousel_type: "hero",
+            carousel_slides: carouselSlides,
+          });
+        }
+
+        function renderLayanan() {
+          var grid = document.getElementById("service-grid");
+          if (!grid || typeof window.renderCard !== "function") return;
+
+          grid.innerHTML = layanan
+            .map(function (item) {
+              return window.renderCard({
+                variant: "service",
+                title: item.judul,
+                description: item.deskripsi,
+                image: imagesUrl + item.gambar,
+                extra_info: "Kontak: " + kontakLayanan,
+                href: item.href,
+              });
+            })
+            .join("");
+        }
+
+        function renderAlur() {
+          var grid = document.getElementById("steps-grid");
+          if (!grid) return;
+
+          grid.textContent = "";
+          alur.forEach(function (langkah, index) {
+            var article = document.createElement("article");
+            article.className = "card step";
+
+            var no = document.createElement("span");
+            no.className = "step__no";
+            no.textContent = String(index + 1);
+
+            var h3 = document.createElement("h3");
+            h3.className = "step__title";
+            h3.textContent = langkah.judul;
+
+            var p = document.createElement("p");
+            p.className = "step__text";
+            p.textContent = langkah.teks;
+
+            article.appendChild(no);
+            article.appendChild(h3);
+            article.appendChild(p);
+            grid.appendChild(article);
+          });
+        }
+
+        function renderKontak() {
+          var grid = document.getElementById("info-grid");
+          if (!grid) return;
+
+          grid.textContent = "";
+          kontak.forEach(function (info) {
+            var article = document.createElement("article");
+            article.className = "card info-card";
+
+            var icon = document.createElement("span");
+            icon.className = "info-card__icon";
+            icon.setAttribute("aria-hidden", "true");
+            icon.textContent = info.ikon;
+
+            var h3 = document.createElement("h3");
+            h3.className = "info-card__title";
+            h3.textContent = info.judul;
+
+            var p = document.createElement("p");
+            p.className = "info-card__text";
+            p.textContent = info.nilai;
+
+            article.appendChild(icon);
+            article.appendChild(h3);
+            article.appendChild(p);
+            grid.appendChild(article);
+          });
+        }
+
+        renderLayanan();
+        renderAlur();
+        renderKontak();
+
+        var ctaContainer = document.getElementById("cta-container");
+        if (ctaContainer && typeof window.mountCta === "function") {
+          window.mountCta(ctaContainer, {
+            title: "Siap memulai proyek Anda?",
+            subtitle: "Konsultasikan kebutuhan Anda bersama tim JTI NOVA.",
+            btn_text: "Hubungi Kami",
+            btn_href: hubungiUrl,
+            variant: "dark",
+          });
+        }
+
+        var footerContainer = document.getElementById("footer-container");
+        if (footerContainer && typeof window.mountFooter === "function") {
+          window.mountFooter(footerContainer, {
+            current_page: "pelayanan",
+            base_url: baseUrl,
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>

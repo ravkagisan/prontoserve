@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Pelayanan - JTI NOVA</title>
+
+    <link rel="stylesheet" href="../../../Style/style.css">
+
+    <style>
+        html {
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            overflow-x: clip;
+            margin: 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .detail-page-section {
+            padding: var(--space-48) 0 var(--space-80);
+            background-color: var(--bg-white);
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .dt-hero__back {
+            display: inline-flex;
+            color: var(--text-primary);
+            border-radius: 50%;
+            margin-bottom: var(--space-24);
+        }
+
+        .dt-hero__back svg {
+            width: 44px;
+            height: 44px;
+            fill: none;
+            stroke: currentColor;
+        }
+
+        .dt-hero__back:focus-visible {
+            outline: 2px solid var(--brand-teal);
+            outline-offset: 3px;
+        }
+
+        .detail-hero-banner {
+            width: 100%;
+            height: 380px;
+            border-radius: var(--radius-card);
+            overflow: hidden;
+            background-color: var(--brand-primary);
+            margin-bottom: var(--space-48);
+            position: relative;
+            box-shadow: var(--shadow-card);
+            box-sizing: border-box;
+        }
+
+        .detail-hero-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .detail-layout-grid {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 48px;
+            align-items: start;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .detail-main-content {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .detail-main-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0 0 var(--space-24);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.25;
+            overflow-wrap: anywhere;
+        }
+
+        .detail-paragraph {
+            font-size: 14.5px;
+            line-height: 1.75;
+            color: var(--text-secondary);
+            margin: 0 0 var(--space-24);
+            font-family: 'Inter', sans-serif;
+            text-align: justify;
+            overflow-wrap: break-word;
+        }
+
+        .detail-sidebar-card {
+            background-color: var(--bg-white);
+            border-radius: var(--radius-card);
+            border: 1px solid var(--border-default);
+            box-shadow: var(--shadow-card);
+            padding: 32px 28px;
+            position: sticky;
+            top: 96px;
+            box-sizing: border-box;
+            min-width: 0;
+        }
+
+        .sidebar-card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--brand-primary);
+            margin: 0 0 var(--space-16);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar-card-desc {
+            font-size: 13.5px;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            margin: 0 0 var(--space-16);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar-contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: var(--space-24);
+            font-size: 13.5px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .sidebar-contact-label {
+            color: var(--text-secondary);
+        }
+
+        .sidebar-contact-value {
+            font-weight: 600;
+            color: var(--text-primary);
+            overflow-wrap: anywhere;
+        }
+
+        .sidebar-card-hours {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin: 0 0 var(--space-24);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar-btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* Responsivitas Tablet & Layar Menengah (<= 1024px) */
+        @media (max-width: 1024px) {
+            .container {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+
+            .detail-hero-banner {
+                height: 320px;
+                margin-bottom: 36px;
+            }
+
+            .detail-layout-grid {
+                gap: 32px;
+            }
+        }
+
+        /* Responsivitas Phablet / Tablet Kecil (<= 900px) */
+        @media (max-width: 900px) {
+            .detail-layout-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .detail-sidebar-card {
+                position: static;
+                max-width: 100%;
+            }
+
+            .detail-hero-banner {
+                height: 260px;
+            }
+
+            .detail-main-title {
+                font-size: 28px;
+            }
+        }
+
+        /* Responsivitas Smartphone / Android / iPhone (<= 768px) */
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+
+            .detail-page-section {
+                padding: 32px 0 60px;
+            }
+
+            .dt-hero__back svg {
+                width: 40px;
+                height: 40px;
+            }
+
+            .detail-hero-banner {
+                height: 220px;
+                margin-bottom: 28px;
+            }
+        }
+
+        /* Responsivitas Perangkat Sangat Kecil / iPhone SE (<= 480px) */
+        @media (max-width: 480px) {
+            .container {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            .detail-hero-banner {
+                height: 180px;
+                margin-bottom: 24px;
+            }
+
+            .detail-main-title {
+                font-size: 24px;
+            }
+
+            .detail-paragraph {
+                font-size: 14px;
+                text-align: left;
+            }
+
+            .detail-sidebar-card {
+                padding: 24px 20px;
+            }
+
+            .sidebar-card-title {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="navbar-container"></div>
+
+    <div id="carousel-container"></div>
+
+    <section class="detail-page-section">
+        <div class="container">
+            <a class="dt-hero__back" id="detail-back-link" href="../index.html" aria-label="Kembali ke Pelayanan">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M16 12H8M12 8l-4 4 4 4" />
+                </svg>
+            </a>
+
+            <div class="detail-hero-banner">
+                <img id="detail-banner-img" src="" alt="">
+            </div>
+
+            <div class="detail-layout-grid">
+                <main class="detail-main-content" id="detail-main-content">
+                    <h1 class="detail-main-title" id="detail-main-title"></h1>
+                    <p class="detail-paragraph" id="detail-p1"></p>
+                </main>
+
+                <aside class="detail-sidebar-card">
+                    <h3 class="sidebar-card-title">Hubungi Kami</h3>
+                    <p class="sidebar-card-desc">Tertarik dengan layanan ini? Hubungi tim JTI NOVA.</p>
+
+                    <div class="sidebar-contact-info">
+                        <div class="sidebar-contact-item">
+                            <span class="sidebar-contact-label">WhatsApp:</span>
+                            <span class="sidebar-contact-value">+62 812-0000-0000</span>
+                        </div>
+                        <div class="sidebar-contact-item">
+                            <span class="sidebar-contact-label">Email:</span>
+                            <span class="sidebar-contact-value">info@jtinova.com</span>
+                        </div>
+                    </div>
+
+                    <p class="sidebar-card-hours">Jam layanan: Senin–Jumat, 08.00–16.00 WIB</p>
+
+                    <div class="sidebar-btn-group" id="sidebar-btn-group"></div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <div id="cta-container"></div>
+
+    <div id="footer-container"></div>
+
+    <script>
+        window.current_page = 'pelayanan';
+        window.navbar_autorender = false;
+        window.carousel_autorender = false;
+        window.footer_autorender = false;
+    </script>
+
+    <script src="../../../Components/button.js"></script>
+    <script src="../../../Components/card.js"></script>
+    <script src="../../../Components/carousel.js"></script>
+    <script src="../../../Components/navbar.js"></script>
+    <script src="../../../Components/ctacontainer.js"></script>
+    <script src="../../../Components/footer.js"></script>
+
+    <script>
+        (function () {
+            "use strict";
+
+            var baseUrl = (typeof window.baseUrl === 'string' && window.baseUrl !== '') ? window.baseUrl : '../../..';
+            var imagesUrl = baseUrl + '/Assets/images/';
+            var pelayananUrl = baseUrl + '/Pages/Pelayanan/index.html';
+            var hubungiUrl = baseUrl + '/Pages/HubungiKami/index.html';
+
+            var layananKatalog = {
+                1: {
+                    id: 1,
+                    title: "IT Consultant",
+                    crumb: "ITconsultant",
+                    image: "Foto-Pelayanan/foto1.png",
+                    overview: "Konsultasi kebutuhan, perancangan, dan strategi transformasi digital.",
+                    p1: "Layanan IT Consultant dari Teaching Factory JTI Innovation menyediakan konsultasi profesional untuk membantu perusahaan mengoptimalkan penggunaan teknologi informasi. Tim konsultan kami akan bekerja sama dengan Anda untuk mengidentifikasi kebutuhan bisnis, memberikan solusi strategis, dan memastikan implementasi teknologi yang efektif dan efisien."
+                },
+                2: {
+                    id: 2,
+                    title: "IT Solution",
+                    crumb: "ITsolution",
+                    image: "Foto-Pelayanan/foto2.png",
+                    overview: "Pengembangan website, aplikasi mobile, dan sistem informasi.",
+                    p1: "Layanan IT Solution kami menawarkan berbagai solusi teknologi yang dirancang untuk memenuhi kebutuhan spesifik perusahaan Anda. Kami menyediakan layanan pengembangan perangkat lunak, integrasi sistem, serta solusi jaringan dan keamanan, yang semuanya dirancang untuk meningkatkan produktivitas dan efisiensi operasional perusahaan Anda."
+                },
+                3: {
+                    id: 3,
+                    title: "Pelatihan",
+                    crumb: "Pelatihan",
+                    image: "Foto-Pelayanan/foto3.png",
+                    overview: "Pelatihan teknologi informasi dengan kurikulum berbasis industri.",
+                    p1: "Kami menawarkan berbagai program pelatihan yang dirancang untuk meningkatkan keterampilan teknis dan praktis peserta. Pelatihan kami mencakup berbagai bidang teknologi dan inovasi, dengan kurikulum yang disesuaikan dengan kebutuhan industri untuk memastikan lulusan siap kerja."
+                },
+                4: {
+                    id: 4,
+                    title: "Pendampingan",
+                    crumb: "Pendampingan",
+                    image: "Foto-Pelayanan/foto4.png",
+                    overview: "Pendampingan pengembangan produk digital dan UMKM.",
+                    p1: "Teaching Factory JTI Innovation menyediakan layanan pendampingan bagi individu atau perusahaan yang membutuhkan bimbingan dalam penerapan teknologi dan inovasi. Tim ahli kami siap membantu dalam proses pengembangan produk, peningkatan kualitas, dan implementasi proyek teknologi."
+                },
+                5: {
+                    id: 5,
+                    title: "Instruktur",
+                    crumb: "Instruktur",
+                    image: "Foto-Pelayanan/foto5.png",
+                    overview: "Penyediaan instruktur profesional untuk program pelatihan.",
+                    p1: "Kami mengundang para profesional dan praktisi industri yang memiliki pengetahuan dan pengalaman di bidang teknologi dan inovasi untuk bergabung dengan kami. Sebagai instruktur, Anda akan memiliki kesempatan untuk berbagi ilmu dan keterampilan dengan peserta, serta berkontribusi pada pengembangan pendidikan vokasi yang berkualitas."
+                },
+                6: {
+                    id: 6,
+                    title: "Magang Mahasiswa MBKM",
+                    crumb: "MagangMBKM",
+                    image: "Foto-Pelayanan/foto6.png",
+                    overview: "Program magang MBKM pada proyek nyata teaching factory.",
+                    p1: "Program magang ini memberikan kesempatan bagi mahasiswa untuk mendapatkan pengalaman kerja nyata di industri. Melalui Magang MBKM, mahasiswa dapat mengembangkan keterampilan praktis, memahami dinamika industri, dan membangun jaringan profesional yang akan mendukung karir mereka di masa depan"
+                }
+            };
+
+            var params = new URLSearchParams(window.location.search);
+            var rawId = params.get("id");
+            var parsedId = rawId !== null ? parseInt(rawId, 10) : 1;
+            var layanan = layananKatalog[parsedId] || layananKatalog[1];
+            var layananImageUrl = imagesUrl + (layanan.image || "dummy.jpg");
+
+            document.title = layanan.title + " - Detail Pelayanan JTI NOVA";
+
+            var backLink = document.getElementById("detail-back-link");
+            if (backLink) {
+                backLink.href = pelayananUrl;
+            }
+
+            var navContainer = document.getElementById("navbar-container");
+            if (navContainer && typeof window.mountNavbar === "function") {
+                window.mountNavbar(navContainer, { current_page: "pelayanan", base_url: baseUrl });
+            }
+
+            var carouselSlides = [
+                {
+                    id: layanan.id,
+                    image: layananImageUrl,
+                    title: layanan.title,
+                    description: layanan.overview,
+                    buttons: [
+                        { text: "Hubungi Kami", link: hubungiUrl, variant: "primary" },
+                        { text: "Kembali ke Pelayanan", link: pelayananUrl, variant: "outline-white" }
+                    ]
+                },
+            ];
+
+            var carouselContainer = document.getElementById("carousel-container");
+            if (carouselContainer && typeof window.mountCarousel === "function") {
+                window.mountCarousel(carouselContainer, {
+                    carousel_type: "hero",
+                    carousel_slides: carouselSlides
+                });
+            }
+
+            var bannerImg = document.getElementById("detail-banner-img");
+            if (bannerImg) {
+                bannerImg.src = layananImageUrl;
+                bannerImg.alt = layanan.title;
+                bannerImg.addEventListener("error", function () {
+                    if (bannerImg.src.indexOf("dummy.jpg") === -1) {
+                        bannerImg.src = imagesUrl + "dummy.jpg";
+                    }
+                });
+            }
+
+            var titleEl = document.getElementById("detail-main-title");
+            if (titleEl) titleEl.textContent = layanan.title;
+
+            var p1El = document.getElementById("detail-p1");
+            if (p1El) p1El.textContent = layanan.p1 || "";
+
+            var btnGroup = document.getElementById("sidebar-btn-group");
+            if (btnGroup && typeof window.renderButton === "function") {
+                btnGroup.innerHTML =
+                    window.renderButton({
+                        href: hubungiUrl,
+                        text: "Hubungi Kami",
+                        variant: "primary",
+                        size: "md",
+                        class: "btn-block"
+                    }) +
+                    window.renderButton({
+                        href: pelayananUrl,
+                        text: "Kembali ke Pelayanan",
+                        variant: "outline",
+                        size: "md",
+                        class: "btn-block"
+                    });
+            }
+
+            var ctaContainer = document.getElementById("cta-container");
+            if (ctaContainer && typeof window.mountCta === "function") {
+                window.mountCta(ctaContainer, {
+                    title: "Siap memulai proyek Anda?",
+                    subtitle: "Konsultasikan kebutuhan Anda bersama tim JTI NOVA.",
+                    btn_text: "Hubungi Kami",
+                    btn_href: hubungiUrl,
+                    variant: "dark"
+                });
+            }
+
+            var footerContainer = document.getElementById("footer-container");
+            if (footerContainer && typeof window.mountFooter === "function") {
+                window.mountFooter(footerContainer, { current_page: "pelayanan", base_url: baseUrl });
+            }
+        })();
+    </script>
+
+</body>
+
+</html>
