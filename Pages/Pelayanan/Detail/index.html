@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Pelayanan - JTI NOVA</title>
+
+    <link rel="stylesheet" href="../../../Style/style.css">
+
+    <style>
+        html {
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            overflow-x: clip;
+            margin: 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .detail-page-section {
+            padding: var(--space-48) 0 var(--space-80);
+            background-color: var(--bg-white);
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .dt-hero__back {
+            display: inline-flex;
+            color: var(--text-primary);
+            border-radius: 50%;
+            margin-bottom: var(--space-24);
+        }
+
+        .dt-hero__back svg {
+            width: 44px;
+            height: 44px;
+            fill: none;
+            stroke: currentColor;
+        }
+
+        .dt-hero__back:focus-visible {
+            outline: 2px solid var(--brand-teal);
+            outline-offset: 3px;
+        }
+
+        .detail-hero-banner {
+            width: 100%;
+            height: 380px;
+            border-radius: var(--radius-card);
+            overflow: hidden;
+            background-color: var(--brand-primary);
+            margin-bottom: var(--space-48);
+            position: relative;
+            box-shadow: var(--shadow-card);
+            box-sizing: border-box;
+        }
+
+        .detail-hero-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .detail-layout-grid {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 48px;
+            align-items: start;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .detail-main-content {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .detail-main-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0 0 var(--space-24);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.25;
+            overflow-wrap: anywhere;
+        }
+
+        .detail-paragraph {
+            font-size: 14.5px;
+            line-height: 1.75;
+            color: var(--text-secondary);
+            margin: 0 0 var(--space-24);
+            font-family: 'Inter', sans-serif;
+            text-align: justify;
+            overflow-wrap: break-word;
+        }
+
+        .detail-sidebar-card {
+            background-color: var(--bg-white);
+            border-radius: var(--radius-card);
+            border: 1px solid var(--border-default);
+            box-shadow: var(--shadow-card);
+            padding: 32px 28px;
+            position: sticky;
+            top: 96px;
+            box-sizing: border-box;
+            min-width: 0;
+        }
+
+        .sidebar-card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--brand-primary);
+            margin: 0 0 var(--space-16);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar-card-desc {
+            font-size: 13.5px;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            margin: 0 0 var(--space-16);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar-contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: var(--space-24);
+            font-size: 13.5px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .sidebar-contact-label {
+            color: var(--text-secondary);
+        }
+
+        .sidebar-contact-value {
+            font-weight: 600;
+            color: var(--text-primary);
+            overflow-wrap: anywhere;
+        }
+
+        .sidebar-card-hours {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin: 0 0 var(--space-24);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar-btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* Responsivitas Tablet & Layar Menengah (<= 1024px) */
+        @media (max-width: 1024px) {
+            .container {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+
+            .detail-hero-banner {
+                height: 320px;
+                margin-bottom: 36px;
+            }
+
+            .detail-layout-grid {
+                gap: 32px;
+            }
+        }
+
+        /* Responsivitas Phablet / Tablet Kecil (<= 900px) */
+        @media (max-width: 900px) {
+            .detail-layout-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .detail-sidebar-card {
+                position: static;
+                max-width: 100%;
+            }
+
+            .detail-hero-banner {
+                height: 260px;
+            }
+
+            .detail-main-title {
+                font-size: 28px;
+            }
+        }
+
+        /* Responsivitas Smartphone / Android / iPhone (<= 768px) */
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+
+            .detail-page-section {
+                padding: 32px 0 60px;
+            }
+
+            .dt-hero__back svg {
+                width: 40px;
+                height: 40px;
+            }
+
+            .detail-hero-banner {
+                height: 220px;
+                margin-bottom: 28px;
+            }
+        }
+
+        /* Responsivitas Perangkat Sangat Kecil / iPhone SE (<= 480px) */
+        @media (max-width: 480px) {
+            .container {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            .detail-hero-banner {
+                height: 180px;
+                margin-bottom: 24px;
+            }
+
+            .detail-main-title {
+                font-size: 24px;
+            }
+
+            .detail-paragraph {
+                font-size: 14px;
+                text-align: left;
+            }
+
+            .detail-sidebar-card {
+                padding: 24px 20px;
+            }
+
+            .sidebar-card-title {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="navbar-container"></div>
+
+    <div id="carousel-container"></div>
+
+    <section class="detail-page-section">
+        <div class="container">
+            <a class="dt-hero__back" id="detail-back-link" href="../index.html" aria-label="Kembali ke Pelayanan">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M16 12H8M12 8l-4 4 4 4" />
+                </svg>
+            </a>
+
+            <div class="detail-hero-banner">
+                <img id="detail-banner-img" src="" alt="">
+            </div>
+
+            <div class="detail-layout-grid">
+                <main class="detail-main-content" id="detail-main-content">
+                    <h1 class="detail-main-title" id="detail-main-title"></h1>
+                    <p class="detail-paragraph" id="detail-p1"></p>
+                    <p class="detail-paragraph" id="detail-p2"></p>
+                </main>
+
+                <aside class="detail-sidebar-card">
+                    <h3 class="sidebar-card-title">Hubungi Kami</h3>
+                    <p class="sidebar-card-desc">Tertarik dengan layanan ini? Hubungi tim JTI NOVA.</p>
+
+                    <div class="sidebar-contact-info">
+                        <div class="sidebar-contact-item">
+                            <span class="sidebar-contact-label">WhatsApp:</span>
+                            <span class="sidebar-contact-value">+62 812-0000-0000</span>
+                        </div>
+                        <div class="sidebar-contact-item">
+                            <span class="sidebar-contact-label">Email:</span>
+                            <span class="sidebar-contact-value">info@jtinova.com</span>
+                        </div>
+                    </div>
+
+                    <p class="sidebar-card-hours">Jam layanan: Senin–Jumat, 08.00–16.00 WIB</p>
+
+                    <div class="sidebar-btn-group" id="sidebar-btn-group"></div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <div id="cta-container"></div>
+
+    <div id="footer-container"></div>
+
+    <script>
+        window.current_page = 'pelayanan';
+        window.navbar_autorender = false;
+        window.carousel_autorender = false;
+        window.footer_autorender = false;
+    </script>
+
+    <script src="../../../Components/button.js"></script>
+    <script src="../../../Components/card.js"></script>
+    <script src="../../../Components/carousel.js"></script>
+    <script src="../../../Components/navbar.js"></script>
+    <script src="../../../Components/ctacontainer.js"></script>
+    <script src="../../../Components/footer.js"></script>
+
+    <script>
+        (function () {
+            "use strict";
+
+            var baseUrl = (typeof window.baseUrl === 'string' && window.baseUrl !== '') ? window.baseUrl : '../../..';
+            var imagesUrl = baseUrl + '/Assets/images/';
+            var pelayananUrl = baseUrl + '/Pages/Pelayanan/index.html';
+            var hubungiUrl = baseUrl + '/Pages/HubungiKami/index.html';
+
+            var isiP1 = "Lorem ipsum dolor sit amet. Qui excepturi dolor ut consequatur cupiditate et ratione rerum aut dolorem sapiente sit mollitia asperiores id quis rerum. Sed odio asperiores non galisum sunt est doloribus adipisci id fuga omnis ea mollitia ullam ea animi officia ut tempore possimus. Ut error nihil eos reprehenderit voluptas aut laudantium perspiciatis vel iure consectetur et enim atque 33 sint rerum! Aut similique iste aut neque dolor non omnis libero sit nihil similique et doloremque molestias sit rerum autem ut voluptatem deleniti. Ab expedita magnam ut repellat deserunt qui sunt voluptatum sed voluptas omnis ea eaque nostrum. Ut voluptate nihil est aliquam sint rem tempora mollitia non dolore tempora hic dicta eligendi sed dolorem alias eos nostrum corporis. Sed fuga expedita ut ullam nulla sed beatae numquam ea nihil nesciunt et illo reiciendis vel fuga rerum aut internos fuga? Est quam illo et harum repudiandae eum nobis odio eum reiciendis galisum.";
+
+            var isiP2 = "Ut aliquid commodi et illo omnis ea perspiciatis praesentium eum fugiat dolor nam laboriosam maiores sit voluptatem voluptates! Qui deleniti nulla et eaque veniam qui pariatur eaque hic nobis quaerat aut accusantium deleniti in sunt nihil sit asperiores laboriosam. In saepe porro et soluta quam eum totam inventore ut esse quisquam. Aut quisquam dolores eum assumenda voluptas non Quis architecto eum voluptatem eligendi aut voluptatem dolor sed eveniet consequatur? Sit dolorem consequatur id alias accusamus non tempora molestiae? Aut dolores odio non quas debitis ut dolore esse sit aliquam dolores et nisi saepe et sapiente odit. Ea galisum temporibus non nisi natus qui vitae quod in aliquid nisi. Et molestiae suscipit est optio facilis in aperiam reiciendis et quos officia id libero adipisci et incidunt ipsam. Qui perspiciatis accusantium sit fuga voluptatem qui incidunt voluptatibus ad corporis quia qui temporibus fugiat aut quam quia. Aut animi temporibus quo veniam nulla sit molestiae voluptas. Non tempora dolores ea accusamus exercitationem eum dolorem aperiam id omnis illum ut earum magni sit quis galisum hic officia reiciendis. Qui dolor possimus est laborum ipsa ex error quia cum ipsum dolorem et quam sint et eius consequatur. Eum adipisci sunt qui veniam dolor quo galisum labore ea nemo minus ab odio vero! Id voluptatum itaque ea saepe laboriosam est exercitationem iusto.";
+
+            var layananKatalog = {
+                1: {
+                    id: 1,
+                    title: "IT Consultant",
+                    crumb: "ITconsultant",
+                    image: "layanan-it-consultant.jpg",
+                    overview: "Konsultasi kebutuhan, perancangan, dan strategi transformasi digital."
+                },
+                2: {
+                    id: 2,
+                    title: "IT Solution",
+                    crumb: "ITsolution",
+                    image: "layanan-it-solution.jpg",
+                    overview: "Pengembangan website, aplikasi mobile, dan sistem informasi."
+                },
+                3: {
+                    id: 3,
+                    title: "Pelatihan",
+                    crumb: "Pelatihan",
+                    image: "layanan-pelatihan.jpg",
+                    overview: "Pelatihan teknologi informasi dengan kurikulum berbasis industri."
+                },
+                4: {
+                    id: 4,
+                    title: "Pendampingan",
+                    crumb: "Pendampingan",
+                    image: "layanan-pendampingan.jpg",
+                    overview: "Pendampingan pengembangan produk digital dan UMKM."
+                },
+                5: {
+                    id: 5,
+                    title: "Instruktur",
+                    crumb: "Instruktur",
+                    image: "layanan-instruktur.jpg",
+                    overview: "Penyediaan instruktur profesional untuk program pelatihan."
+                },
+                6: {
+                    id: 6,
+                    title: "Magang Mahasiswa MBKM",
+                    crumb: "MagangMBKM",
+                    image: "layanan-magang-mbkm.jpg",
+                    overview: "Program magang MBKM pada proyek nyata teaching factory."
+                }
+            };
+
+            var params = new URLSearchParams(window.location.search);
+            var rawId = params.get("id");
+            var parsedId = rawId !== null ? parseInt(rawId, 10) : 1;
+            var layanan = layananKatalog[parsedId] || layananKatalog[1];
+            var layananImageUrl = imagesUrl + (layanan.image || "dummy.jpg");
+
+            document.title = layanan.title + " - Detail Pelayanan JTI NOVA";
+
+            var backLink = document.getElementById("detail-back-link");
+            if (backLink) {
+                backLink.href = pelayananUrl;
+            }
+
+            var navContainer = document.getElementById("navbar-container");
+            if (navContainer && typeof window.mountNavbar === "function") {
+                window.mountNavbar(navContainer, { current_page: "pelayanan", base_url: baseUrl });
+            }
+
+            var carouselSlides = [
+                {
+                    id: layanan.id,
+                    image: layananImageUrl,
+                    title: layanan.title,
+                    description: layanan.overview,
+                    buttons: [
+                        { text: "Hubungi Kami", link: hubungiUrl, variant: "primary" },
+                        { text: "Kembali ke Pelayanan", link: pelayananUrl, variant: "outline-white" }
+                    ]
+                },
+                {
+                    id: "overview",
+                    image: imagesUrl + "ajasendiri.jpg",
+                    title: "Layanan IT Terpadu\nUntuk Industri, Instansi, dan UMKM",
+                    description: "Konsultasi, pengembangan solusi digital, pelatihan, dan pendampingan berbasis proyek nyata bersama tim JTI NOVA.",
+                    buttons: [
+                        { text: "Hubungi Kami", link: hubungiUrl, variant: "primary" },
+                        { text: "Kembali ke Pelayanan", link: pelayananUrl, variant: "outline-white" }
+                    ]
+                }
+            ];
+
+            var carouselContainer = document.getElementById("carousel-container");
+            if (carouselContainer && typeof window.mountCarousel === "function") {
+                window.mountCarousel(carouselContainer, {
+                    carousel_type: "hero",
+                    carousel_slides: carouselSlides
+                });
+            }
+
+            var bannerImg = document.getElementById("detail-banner-img");
+            if (bannerImg) {
+                bannerImg.src = layananImageUrl;
+                bannerImg.alt = layanan.title;
+                bannerImg.addEventListener("error", function () {
+                    if (bannerImg.src.indexOf("dummy.jpg") === -1) {
+                        bannerImg.src = imagesUrl + "dummy.jpg";
+                    }
+                });
+            }
+
+            var titleEl = document.getElementById("detail-main-title");
+            if (titleEl) titleEl.textContent = layanan.title;
+
+            var p1El = document.getElementById("detail-p1");
+            if (p1El) p1El.textContent = isiP1;
+
+            var p2El = document.getElementById("detail-p2");
+            if (p2El) p2El.textContent = isiP2;
+
+            var btnGroup = document.getElementById("sidebar-btn-group");
+            if (btnGroup && typeof window.renderButton === "function") {
+                btnGroup.innerHTML =
+                    window.renderButton({
+                        href: hubungiUrl,
+                        text: "Hubungi Kami",
+                        variant: "primary",
+                        size: "md",
+                        class: "btn-block"
+                    }) +
+                    window.renderButton({
+                        href: pelayananUrl,
+                        text: "Kembali ke Pelayanan",
+                        variant: "outline",
+                        size: "md",
+                        class: "btn-block"
+                    });
+            }
+
+            var ctaContainer = document.getElementById("cta-container");
+            if (ctaContainer && typeof window.mountCta === "function") {
+                window.mountCta(ctaContainer, {
+                    title: "Siap memulai proyek Anda?",
+                    subtitle: "Konsultasikan kebutuhan Anda bersama tim JTI NOVA.",
+                    btn_text: "Hubungi Kami",
+                    btn_href: hubungiUrl,
+                    variant: "dark"
+                });
+            }
+
+            var footerContainer = document.getElementById("footer-container");
+            if (footerContainer && typeof window.mountFooter === "function") {
+                window.mountFooter(footerContainer, { current_page: "pelayanan", base_url: baseUrl });
+            }
+        })();
+    </script>
+
+</body>
+
+</html>

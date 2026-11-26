@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Portofolio - JTI NOVA</title>
+
+    <link rel="stylesheet" href="../../../Style/style.css">
+
+    <style>
+        .detail-page-section {
+            padding: var(--space-48) 0 var(--space-80);
+            background-color: var(--bg-white);
+        }
+
+        .dt-hero__back {
+            display: inline-flex;
+            color: var(--text-primary);
+            border-radius: 50%;
+            margin-bottom: var(--space-24);
+        }
+
+        .dt-hero__back svg {
+            width: 44px;
+            height: 44px;
+            fill: none;
+            stroke: currentColor;
+        }
+
+        .dt-hero__back:focus-visible {
+            outline: 2px solid var(--brand-teal);
+            outline-offset: 3px;
+        }
+
+        .detail-hero-banner {
+            width: 100%;
+            height: 380px;
+            border-radius: var(--radius-card);
+            overflow: hidden;
+            background-color: var(--brand-primary);
+            margin-bottom: var(--space-48);
+            position: relative;
+            box-shadow: var(--shadow-card);
+        }
+
+        .detail-hero-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .detail-layout-grid {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .detail-main-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-main-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0 0 var(--space-24);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.25;
+        }
+
+        .detail-paragraph {
+            font-size: 14.5px;
+            line-height: 1.75;
+            color: var(--text-secondary);
+            margin: 0 0 var(--space-24);
+            font-family: 'Inter', sans-serif;
+            text-align: justify;
+        }
+
+        .detail-sidebar-card {
+            background-color: var(--bg-white);
+            border-radius: var(--radius-card);
+            border: 1px solid var(--border-default);
+            box-shadow: var(--shadow-card);
+            padding: 32px 28px;
+            position: sticky;
+            top: 96px;
+        }
+
+        .sidebar-card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--brand-primary);
+            margin: 0 0 var(--space-16);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar-card-desc {
+            font-size: 13.5px;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            margin: 0 0 var(--space-16);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar-contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: var(--space-24);
+            font-size: 13.5px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .sidebar-contact-label {
+            color: var(--text-secondary);
+        }
+
+        .sidebar-contact-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .sidebar-card-hours {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin: 0 0 var(--space-24);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar-btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        html { -webkit-text-size-adjust: 100%; }
+        body { overflow-x: clip; margin: 0; }
+        img  { max-width: 100%; }
+
+        .detail-layout-grid > *,
+        .detail-main-content > * { min-width: 0; }
+
+        .detail-main-title { overflow-wrap: anywhere; }
+        .detail-paragraph { overflow-wrap: break-word; }
+
+        .sidebar-contact-item { flex-wrap: wrap; }
+        .sidebar-contact-value { overflow-wrap: anywhere; }
+
+        @media (max-width: 1280px) {
+            .container {
+                padding-left: 64px;
+                padding-right: 64px;
+            }
+
+            .navbar .navbar-container {
+                padding-left: 64px;
+                padding-right: 64px;
+            }
+
+            body .carousel-wrapper .carousel-content-wrap {
+                padding-left: 64px;
+                padding-right: 64px;
+            }
+        }
+
+        @media (min-width: 901px) and (max-width: 1100px) {
+            .navbar .navbar-menu-wrapper {
+                gap: 16px;
+            }
+
+            .navbar .navbar-menu {
+                gap: 16px;
+            }
+
+            .navbar .nav-link {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+
+            .navbar .navbar-container {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+
+            body .carousel-wrapper .carousel-content-wrap {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+
+            .detail-page-section {
+                padding: 40px 0 64px;
+            }
+
+            .detail-hero-banner {
+                height: 320px;
+                margin-bottom: 40px;
+            }
+
+            .detail-layout-grid {
+                gap: 32px;
+            }
+
+            .detail-main-title {
+                font-size: 32px;
+            }
+
+            .detail-sidebar-card {
+                padding: 28px 24px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .navbar .navbar-container {
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+
+            .detail-layout-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .detail-sidebar-card {
+                position: static;
+            }
+
+            .detail-hero-banner {
+                height: 260px;
+            }
+
+            .detail-main-title {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+
+            body .carousel-wrapper .carousel-content-wrap {
+                padding: 72px 24px 48px;
+            }
+
+            .detail-page-section {
+                padding: 32px 0 52px;
+            }
+
+            .dt-hero__back svg {
+                width: 40px;
+                height: 40px;
+            }
+
+            .dt-hero__back {
+                margin-bottom: 20px;
+            }
+
+            .detail-hero-banner {
+                margin-bottom: 32px;
+            }
+
+            .detail-main-title {
+                margin-bottom: 20px;
+            }
+
+            .detail-sidebar-card {
+                max-width: 520px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            /* Hero carousel ringkas: tinggi mengikuti isi (tidak dikunci 540px lagi) */
+            body .carousel-wrapper {
+                height: auto;
+                min-height: 300px;
+            }
+
+            body .carousel-wrapper .carousel-content-wrap {
+                height: auto;
+                min-height: 300px;
+                padding: 68px 16px 44px;
+            }
+
+            body .carousel-wrapper .carousel-text-box {
+                min-height: 0;
+            }
+
+            body .carousel-wrapper .carousel-title {
+                font-size: clamp(19px, 5.6vw, 22px);
+                min-height: 0;
+                margin-bottom: 8px;
+            }
+
+            body .carousel-wrapper .carousel-desc {
+                font-size: 12.5px;
+                line-height: 1.5;
+                min-height: 0;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+
+            body .carousel-wrapper .carousel-buttons {
+                flex-direction: row;
+                flex-wrap: wrap;
+                width: auto;
+                gap: 8px;
+                margin-top: 14px;
+            }
+
+            body .carousel-wrapper .carousel-hero-btn,
+            body .carousel-wrapper .carousel-buttons .blob-btn {
+                width: auto !important;
+                flex: 0 0 auto !important;
+                height: 38px !important;
+                min-height: 38px !important;
+                padding: 0 18px !important;
+                font-size: 12.5px !important;
+            }
+
+            .detail-paragraph {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            .navbar .navbar-container {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            body .carousel-wrapper .carousel-content-wrap {
+                padding: 68px 16px 44px;
+            }
+
+            body .mobile-overlay {
+                padding: 84px 24px 32px;
+            }
+
+            .mobile-overlay .mobile-nav-link {
+                font-size: 18px;
+                padding: 12px 0;
+            }
+
+            .mobile-overlay .mobile-dropdown-link {
+                font-size: 16px;
+            }
+
+            .detail-page-section {
+                padding: 28px 0 44px;
+            }
+
+            .dt-hero__back svg {
+                width: 36px;
+                height: 36px;
+            }
+
+            .detail-hero-banner {
+                height: 200px;
+                margin-bottom: 28px;
+            }
+
+            .detail-main-title {
+                font-size: 24px;
+            }
+
+            .detail-paragraph {
+                font-size: 14px;
+                line-height: 1.7;
+                margin-bottom: 20px;
+            }
+
+            .detail-sidebar-card {
+                padding: 24px 20px;
+                max-width: none;
+            }
+
+            .sidebar-card-title {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .detail-hero-banner {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="navbar-container"></div>
+
+    <div id="carousel-container"></div>
+
+    <section class="detail-page-section">
+        <div class="container">
+            <a class="dt-hero__back" id="detail-back-link" href="../index.html" aria-label="Kembali ke Portofolio">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M16 12H8M12 8l-4 4 4 4" />
+                </svg>
+            </a>
+
+            <div class="detail-hero-banner">
+                <img id="detail-banner-img" src="" alt="">
+            </div>
+
+            <div class="detail-layout-grid">
+                <main class="detail-main-content">
+                    <h1 class="detail-main-title" id="detail-main-title"></h1>
+                    <p class="detail-paragraph" id="detail-p1"></p>
+                    <p class="detail-paragraph" id="detail-p2"></p>
+                </main>
+
+                <aside class="detail-sidebar-card">
+                    <h3 class="sidebar-card-title">Hubungi Kami</h3>
+                    <p class="sidebar-card-desc">Tertarik dengan proyek ini? Hubungi tim JTI NOVA.</p>
+
+                    <div class="sidebar-contact-info">
+                        <div class="sidebar-contact-item">
+                            <span class="sidebar-contact-label">WhatsApp:</span>
+                            <span class="sidebar-contact-value">+62 812-0000-0000</span>
+                        </div>
+                        <div class="sidebar-contact-item">
+                            <span class="sidebar-contact-label">Email:</span>
+                            <span class="sidebar-contact-value">info@jtinova.com</span>
+                        </div>
+                    </div>
+
+                    <p class="sidebar-card-hours">Jam layanan: Senin–Jumat, 08.00–16.00 WIB</p>
+
+                    <div class="sidebar-btn-group" id="sidebar-btn-group"></div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <div id="cta-container"></div>
+
+    <div id="footer-container"></div>
+
+    <script>
+        window.current_page = 'portofolio';
+        window.navbar_autorender = false;
+        window.carousel_autorender = false;
+        window.footer_autorender = false;
+    </script>
+
+    <script src="../../../Components/button.js"></script>
+    <script src="../../../Components/card.js"></script>
+    <script src="../../../Components/carousel.js"></script>
+    <script src="../../../Components/navbar.js"></script>
+    <script src="../../../Components/ctacontainer.js"></script>
+    <script src="../../../Components/footer.js"></script>
+
+    <script>
+        (function () {
+            "use strict";
+
+            var baseUrl = (typeof window.baseUrl === 'string' && window.baseUrl !== '') ? window.baseUrl : '../../..';
+            var imagesUrl = baseUrl + '/Assets/images/';
+            var portofolioUrl = baseUrl + '/Pages/Portofolio/index.html';
+            var hubungiUrl = baseUrl + '/Pages/HubungiKami/index.html';
+
+            var proyekKatalog = {
+                1: {
+                    id: 1,
+                    title: "Sistem Informasi Akademik",
+                    category: "Website",
+                    image: "sia.jpg",
+                    overview: "Sistem Informasi Akademik terpadu yang dirancang untuk memfasilitasi manajemen data perkuliahan, registrasi mahasiswa, penginputan kartu rencana studi (KRS), hingga penilaian berkala secara efisien dan transparan.",
+                    p1: "Lorem ipsum dolor sit amet. Qui excepturi dolor ut consequatur cupiditate et ratione rerum aut dolorem sapiente sit mollitia asperiores id quis rerum. Sed odio asperiores non galisum sunt est doloribus adipisci id fuga omnis ea mollitia ullam ea animi officia ut tempore possimus. Ut error nihil eos reprehenderit voluptas aut laudantium perspiciatis vel iure consectetur et enim atque 33 sint rerum! Aut similique iste aut neque dolor non omnis libero sit nihil similique et doloremque molestias sit rerum autem ut voluptatem deleniti. Ab expedita magnam ut repellat deserunt qui sunt voluptatum sed voluptas omnis ea eaque nostrum. Ut voluptate nihil est aliquam sint rem tempora mollitia non dolore tempora hic dicta eligendi sed dolorem alias eos nostrum corporis. Sed fuga expedita ut ullam nulla sed beatae numquam ea nihil nesciunt et illo reiciendis vel fuga rerum aut internos fuga? Est quam illo et harum repudiandae eum nobis odio eum reiciendis galisum.",
+                    p2: "Ut aliquid commodi et illo omnis ea perspiciatis praesentium eum fugiat dolor nam laboriosam maiores sit voluptatem voluptates! Qui deleniti nulla et eaque veniam qui pariatur eaque hic nobis quaerat aut accusantium deleniti in sunt nihil sit asperiores laboriosam. In saepe porro et soluta quam eum totam inventore ut esse quisquam. Aut quisquam dolores eum assumenda voluptas non Quis architecto eum voluptatem eligendi aut voluptatem dolor sed eveniet consequatur? Sit dolorem consequatur id alias accusamus non tempora molestiae? Aut dolores odio non quas debitis ut dolore esse sit aliquam dolores et nisi saepe et sapiente odit. Ea galisum temporibus non nisi natus qui vitae quod in aliquid nisi. Et molestiae suscipit est optio facilis in aperiam reiciendis et quos officia id libero adipisci et incidunt ipsam. Qui perspiciatis accusantium sit fuga voluptatem qui incidunt voluptatibus ad corporis quia qui temporibus fugiat aut quam quia. Aut animi temporibus quo veniam nulla sit molestiae voluptas. Non tempora dolores ea accusamus exercitationem eum dolorem aperiam id omnis illum ut earum magni sit quis galisum hic officia reiciendis. Qui dolor possimus est laborum ipsa ex error quia cum ipsum dolorem et quam sint et eius consequatur. Eum adipisci sunt qui veniam dolor quo galisum labore ea nemo minus ab odio vero! Id voluptatum itaque ea saepe laboriosam est exercitationem iusto."
+                },
+                2: {
+                    id: 2,
+                    title: "Aplikasi Absensi Mahasiswa",
+                    category: "Mobile App",
+                    image: "aplikasi.png",
+                    overview: "Aplikasi presensi digital berbasis mobile dengan verifikasi lokasi geofencing dan pemindaian QR dinamis guna menjamin akurasi dan integritas kehadiran mahasiswa.",
+                    p1: "Lorem ipsum dolor sit amet. Qui excepturi dolor ut consequatur cupiditate et ratione rerum aut dolorem sapiente sit mollitia asperiores id quis rerum. Sed odio asperiores non galisum sunt est doloribus adipisci id fuga omnis ea mollitia ullam ea animi officia ut tempore possimus. Ut error nihil eos reprehenderit voluptas aut laudantium perspiciatis vel iure consectetur et enim atque 33 sint rerum! Aut similique iste aut neque dolor non omnis libero sit nihil similique et doloremque molestias sit rerum autem ut voluptatem deleniti.",
+                    p2: "Ut aliquid commodi et illo omnis ea perspiciatis praesentium eum fugiat dolor nam laboriosam maiores sit voluptatem voluptates! Qui deleniti nulla et eaque veniam qui pariatur eaque hic nobis quaerat aut accusantium deleniti in sunt nihil sit asperiores laboriosam. In saepe porro et soluta quam eum totam inventore ut esse quisquam. Aut quisquam dolores eum assumenda voluptas non Quis architecto eum voluptatem eligendi aut voluptatem dolor sed eveniet consequatur?"
+                },
+                3: {
+                    id: 3,
+                    title: "Smart Monitoring Pertanian",
+                    category: "IoT",
+                    image: "pertanian.jpg",
+                    overview: "Sistem pemantauan lingkungan pertanian cerdas berbasis Internet of Things (IoT) yang mengukur kelembapan tanah, suhu udara, serta mengotomatisasi irigasi secara presisi.",
+                    p1: "Lorem ipsum dolor sit amet. Qui excepturi dolor ut consequatur cupiditate et ratione rerum aut dolorem sapiente sit mollitia asperiores id quis rerum. Sed odio asperiores non galisum sunt est doloribus adipisci id fuga omnis ea mollitia ullam ea animi officia ut tempore possimus. Ut error nihil eos reprehenderit voluptas aut laudantium perspiciatis vel iure consectetur et enim atque 33 sint rerum!",
+                    p2: "Ut aliquid commodi et illo omnis ea perspiciatis praesentium eum fugiat dolor nam laboriosam maiores sit voluptatem voluptates! Qui deleniti nulla et eaque veniam qui pariatur eaque hic nobis quaerat aut accusantium deleniti in sunt nihil sit asperiores laboriosam."
+                },
+                4: {
+                    id: 4,
+                    title: "Aplikasi Layanan Desa",
+                    category: "Web & Mobile App",
+                    image: "layanan-desa.jpg",
+                    overview: "Platform digitalisasi administrasi kependudukan desa terpadu untuk pengajuan surat pengantar, pendataan warga, serta transparansi pelayanan publik.",
+                    p1: "Lorem ipsum dolor sit amet. Qui excepturi dolor ut consequatur cupiditate et ratione rerum aut dolorem sapiente sit mollitia asperiores id quis rerum. Sed odio asperiores non galisum sunt est doloribus adipisci id fuga omnis ea mollitia ullam ea animi officia ut tempore possimus. Ut error nihil eos reprehenderit voluptas aut laudantium perspiciatis vel iure consectetur et enim atque 33 sint rerum! Aut similique iste aut neque dolor non omnis libero sit nihil similique et doloremque molestias sit rerum autem ut voluptatem deleniti. Ab expedita magnam ut repellat deserunt qui sunt voluptatum sed voluptas omnis ea eaque nostrum.",
+                    p2: "Ut aliquid commodi et illo omnis ea perspiciatis praesentium eum fugiat dolor nam laboriosam maiores sit voluptatem voluptates! Qui deleniti nulla et eaque veniam qui pariatur eaque hic nobis quaerat aut accusantium deleniti in sunt nihil sit asperiores laboriosam. In saepe porro et soluta quam eum totam inventore ut esse quisquam. Aut quisquam dolores eum assumenda voluptas non Quis architecto eum voluptatem eligendi aut voluptatem dolor sed eveniet consequatur?"
+                },
+                5: {
+                    id: 5,
+                    title: "Video Profil Instansi",
+                    category: "Multimedia",
+                    image: "pp.jpg",
+                    overview: "Produksi video profil korporat sinematik dengan visualisasi komprehensif mengenai visi, pencapaian, serta layanan unggulan instansi mitra.",
+                    p1: "Lorem ipsum dolor sit amet. Qui excepturi dolor ut consequatur cupiditate et ratione rerum aut dolorem sapiente sit mollitia asperiores id quis rerum. Sed odio asperiores non galisum sunt est doloribus adipisci id fuga omnis ea mollitia ullam ea animi officia ut tempore possimus. Ut error nihil eos reprehenderit voluptas aut laudantium perspiciatis vel iure consectetur et enim atque 33 sint rerum!",
+                    p2: "Ut aliquid commodi et illo omnis ea perspiciatis praesentium eum fugiat dolor nam laboriosam maiores sit voluptatem voluptates! Qui deleniti nulla et eaque veniam qui pariatur eaque hic nobis quaerat aut accusantium deleniti in sunt nihil sit asperiores laboriosam."
+                },
+                6: {
+                    id: 6,
+                    title: "Webinar Transformasi Digital",
+                    category: "Webinar",
+                    image: "webinar.jpg",
+                    overview: "Pelaksanaan seminar daring berskala nasional mengenai adopsi teknologi terapan dan kesiapan talenta digital menghadapi revolusi industri terkini.",
+                    p1: "Lorem ipsum dolor sit amet. Qui excepturi dolor ut consequatur cupiditate et ratione rerum aut dolorem sapiente sit mollitia asperiores id quis rerum. Sed odio asperiores non galisum sunt est doloribus adipisci id fuga omnis ea mollitia ullam ea animi officia ut tempore possimus. Ut error nihil eos reprehenderit voluptas aut laudantium perspiciatis vel iure consectetur et enim atque 33 sint rerum!",
+                    p2: "Ut aliquid commodi et illo omnis ea perspiciatis praesentium eum fugiat dolor nam laboriosam maiores sit voluptatem voluptates! Qui deleniti nulla et eaque veniam qui pariatur eaque hic nobis quaerat aut accusantium deleniti in sunt nihil sit asperiores laboriosam."
+                }
+            };
+
+            var params = new URLSearchParams(window.location.search);
+            var rawId = params.get("id");
+            var parsedId = rawId !== null ? parseInt(rawId, 10) : 1;
+            var proyek = proyekKatalog[parsedId] || proyekKatalog[1];
+            var proyekImageUrl = imagesUrl + (proyek.image || "dummy.jpg");
+
+            document.title = proyek.title + " - Detail Portofolio JTI NOVA";
+
+            var backLink = document.getElementById("detail-back-link");
+            if (backLink) {
+                backLink.href = portofolioUrl;
+            }
+
+            var navContainer = document.getElementById("navbar-container");
+            if (navContainer && typeof window.mountNavbar === "function") {
+                window.mountNavbar(navContainer, { current_page: "portofolio", base_url: baseUrl });
+            }
+
+            var carouselSlides = [
+                {
+                    id: proyek.id,
+                    image: proyekImageUrl,
+                    title: proyek.title,
+                    description: proyek.overview,
+                    buttons: [
+                        { text: "Hubungi Kami", link: hubungiUrl, variant: "primary" },
+                        { text: "Kembali ke Portofolio", link: portofolioUrl, variant: "outline-white" }
+                    ]
+                },
+                {
+                    id: "overview",
+                    image: imagesUrl + "ajasendiri.jpg",
+                    title: "Portofolio Proyek Unggulan\nSolusi Digital JTI NOVA",
+                    description: "Eksplorasi karya inovatif aplikasi web, mobile, IoT, dan multimedia yang dikembangkan oleh mahasiswa dan talenta profesional TEFA JTI Polije.",
+                    buttons: [
+                        { text: "Lihat Studi Kasus", link: portofolioUrl, variant: "primary" },
+                        { text: "Hubungi Kami", link: hubungiUrl, variant: "outline-white" }
+                    ]
+                }
+            ];
+
+            var carouselContainer = document.getElementById("carousel-container");
+            if (carouselContainer && typeof window.mountCarousel === "function") {
+                window.mountCarousel(carouselContainer, {
+                    carousel_type: "hero",
+                    carousel_slides: carouselSlides
+                });
+            }
+
+            var bannerImg = document.getElementById("detail-banner-img");
+            if (bannerImg) {
+                bannerImg.src = proyekImageUrl;
+                bannerImg.alt = proyek.title;
+                bannerImg.addEventListener("error", function () {
+                    if (bannerImg.src.indexOf("dummy.jpg") === -1) {
+                        bannerImg.src = imagesUrl + "dummy.jpg";
+                    }
+                });
+            }
+
+            var titleEl = document.getElementById("detail-main-title");
+            if (titleEl) titleEl.textContent = proyek.title;
+
+            var p1El = document.getElementById("detail-p1");
+            if (p1El) p1El.textContent = proyek.p1;
+
+            var p2El = document.getElementById("detail-p2");
+            if (p2El) p2El.textContent = proyek.p2;
+
+            var btnGroup = document.getElementById("sidebar-btn-group");
+            if (btnGroup && typeof window.renderButton === "function") {
+                btnGroup.innerHTML =
+                    window.renderButton({
+                        href: hubungiUrl,
+                        text: "Hubungi Kami",
+                        variant: "primary",
+                        size: "md",
+                        class: "btn-block"
+                    }) +
+                    window.renderButton({
+                        href: portofolioUrl,
+                        text: "Kembali ke Portofolio",
+                        variant: "outline",
+                        size: "md",
+                        class: "btn-block"
+                    });
+            }
+
+            var ctaContainer = document.getElementById("cta-container");
+            if (ctaContainer && typeof window.mountCta === "function") {
+                window.mountCta(ctaContainer, {
+                    title: "Punya ide proyek atau kebutuhan solusi digital?",
+                    subtitle: "Diskusikan kebutuhan Anda bersama tim JTI NOVA.",
+                    btn_text: "Hubungi Kami",
+                    btn_href: hubungiUrl,
+                    variant: "dark"
+                });
+            }
+
+            var footerContainer = document.getElementById("footer-container");
+            if (footerContainer && typeof window.mountFooter === "function") {
+                window.mountFooter(footerContainer, { current_page: "portofolio", base_url: baseUrl });
+            }
+        })();
+    </script>
+
+</body>
+
+</html>
