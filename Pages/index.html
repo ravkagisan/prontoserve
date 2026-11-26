@@ -240,13 +240,15 @@
 }
 
 .hero-tech__title {
-    font-size: clamp(38px, 6.2vw, 76px);
+    font-size: clamp(30px, 4vw, 60px);
     font-weight: 800;
     line-height: 1.08;
-    letter-spacing: -1.4px;
+    letter-spacing: -0.025em;
     color: #ffffff;
     margin: 0 0 24px;
     text-shadow: 0 4px 28px rgba(0, 0, 0, 0.35);
+    max-width: 100%;
+    text-wrap: balance;
 }
 
 .hero-tech__gradient {
@@ -364,11 +366,10 @@
         right: -20%;
     }
     .hero-tech__title {
-        font-size: 38px;
-        letter-spacing: -0.8px;
+        font-size: clamp(30px, 5.2vw, 44px);
     }
     .hero-tech__desc {
-        font-size: 15px;
+        font-size: clamp(15px, 2.2vw, 17px);
     }
     .hero-tech__actions {
         width: 100%;
@@ -885,8 +886,16 @@ img { max-width: 100%; }
 }
 
 @media (max-width: 540px) {
-    .hero-tech__title { font-size: clamp(32px, 10vw, 38px); letter-spacing: -0.6px; }
-    .hero-tech__desc { margin-bottom: 28px; }
+    .hero-tech__title {
+        font-size: clamp(28px, 8vw, 38px);
+        line-height: 1.12;
+        margin-bottom: 20px;
+    }
+    .hero-tech__desc {
+        font-size: clamp(15px, 4vw, 16px);
+        line-height: 1.6;
+        margin-bottom: 28px;
+    }
     .pel-row { align-items: flex-start; }
     .pel-row__left { flex-direction: column; align-items: flex-start; gap: 8px; }
     .pel-row__judul { white-space: normal; overflow: visible; text-overflow: clip; }

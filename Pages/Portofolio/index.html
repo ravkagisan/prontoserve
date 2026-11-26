@@ -973,7 +973,7 @@
                         category: item.category,
                         href: detailBaseUrl + "?id=" + item.id,
                         gradient: item.gradient,
-                        icon: item.icon
+                        image: item.image,
                     });
 
                     return '<div class="portofolio-grid-item" ' +
@@ -984,7 +984,7 @@
                 }).join("");
             }
 
-            // Render Tech Stack Marquee
+         
             var marqueeTrack = document.getElementById("techMarqueeTrack");
             if (marqueeTrack) {
                 var marqueeHtml = "";

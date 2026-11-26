@@ -165,7 +165,7 @@
     color: var(--bg-white, #ffffff);
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
+    transition: opacity 0.25s ease, transform 0.25s ease;
     min-height: 270px;
     display: flex;
     flex-direction: column;
@@ -519,25 +519,25 @@
     function defaultSlides(assetBase) {
         return [
             {
-                id: 1,
-                image: assetBase + 'foto1.jpg',
-                title: 'Inovasi Teknologi Terdepan\nBersama TEFA JTI Innovation',
-                description: 'Menghadirkan riset terapan dan transformasi digital melalui pengembangan perangkat lunak, sistem cerdas, dan solusi industri terpercaya.',
-                buttons: [
-                    { text: 'Jelajahi Pelayanan', link: 'Pages/Pelayanan/index.php', variant: 'primary' },
-                    { text: 'Hubungi Kami', link: 'Pages/HubungiKami/index.php', variant: 'outline-white' }
-                ]
-            },
-            {
-                id: 2,
-                image: assetBase + 'foto2.jpg',
-                title: 'Program Pelatihan Digital\nBerstandar Industri Terkini',
-                description: 'Tingkatkan keahlian teknis dan kompetensi profesional mahasiswa serta talenta digital melalui kurikulum praktis dan sertifikasi industri.',
-                buttons: [
-                    { text: 'Lihat Pelatihan', link: 'Pages/Pelatihan/index.php', variant: 'primary' },
-                    { text: 'Lihat Portofolio', link: 'Pages/Portofolio/index.php', variant: 'outline-white' }
-                ]
-            }
+            id: 1,
+            image: assetBase + 'Foto-Carousel/foto1.png',
+            title: 'Podcast\nJTI NOVA',
+            description: 'Behind The Scene Podcast JTI NOVA',
+            buttons: [
+                { text: 'Jelajahi Layanan', link: 'Pages/Pelayanan/index.html', variant: 'primary' },
+                { text: 'Hubungi Kami', link: 'Pages/HubungiKami/index.html', variant: 'outline-white' }
+            ]
+        },
+        {
+            id: 2,
+            image: assetBase + 'Foto-Carousel/foto2.png',
+            title: 'Simulasi\nS-LEARN',
+            description: 'Pengujian Website S-LEARN.',
+            buttons: [
+                { text: 'Daftar Pelatihan', link: 'Pages/Pelatihan/index.html', variant: 'primary' },
+                { text: 'Lihat Silabus', link: 'Pages/Pelatihan/index.html', variant: 'outline-white' }
+            ]
+        }
         ];
     }
 
@@ -547,14 +547,14 @@
                 id: 1,
                 title: 'Sistem Informasi Manajemen Terintegrasi',
                 desc: 'Platform digital enterprise untuk otomatisasi operasional dan pelaporan terpadu.',
-                img: assetBase + 'foto1.jpg',
+                img: assetBase + 'dummy.jpg',
                 link: 'Pages/Portofolio/index.php'
             },
             {
                 id: 2,
                 title: 'Aplikasi Pembelajaran Interaktif EduTech',
                 desc: 'Media pembelajaran digital dengan fitur interaktif untuk meningkatkan kualitas edukasi.',
-                img: assetBase + 'foto2.jpg',
+                img: assetBase + 'ajasendiri.jpg',
                 link: 'Pages/Portofolio/index.php'
             },
             {
@@ -612,9 +612,9 @@
                     copy[key] = slide[key];
                 }
             }
-            if (!isEmpty(copy.image) && !isUrlLike(copy.image) && copy.image.indexOf('/') === -1) {
-                copy.image = assetBase + copy.image;
-            }
+            if (!isEmpty(copy.image) && !isUrlLike(copy.image) && copy.image.indexOf('Assets/') !== 0 && copy.image.indexOf('../') !== 0) {
+    copy.image = assetBase + copy.image.replace(/^\/+/, '');
+}
             return copy;
         });
 
