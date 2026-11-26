@@ -90,6 +90,20 @@ $error_data = $errors[$code];
     <link rel="stylesheet" href="<?= htmlspecialchars($base_url) ?>/Style/style.css">
     <?php require_once __DIR__ . '/../Components/button.php'; ?>
 <style>
+.navbar-bg-dark {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 72px;
+    background-color: #111827;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.navbar:not(.scrolled) {
+    background-color: #111827;
+}
 .error-main {
     min-height: 85vh;
     display: flex;
@@ -301,6 +315,7 @@ $error_data = $errors[$code];
 </head>
 <body>
 
+<div class="navbar-bg-dark" aria-hidden="true"></div>
 <?php require_once __DIR__ . '/../Components/navbar.php'; ?>
 
 <main class="error-main" id="main-content">
