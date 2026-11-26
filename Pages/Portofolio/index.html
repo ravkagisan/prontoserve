@@ -11,7 +11,7 @@
     <style>
         .portofolio-catalog-section {
             padding: var(--space-48) 0 var(--space-80);
-            background-color: var(--bg-white);
+            background-color: var(--bg-soft);
         }
 
         .portofolio-section-header {
@@ -53,6 +53,15 @@
             justify-content: center;
             gap: 10px;
             margin-bottom: var(--space-24);
+
+            /* Membuat filter tetap terlihat saat scroll */
+            position: sticky;
+            top: 72px;
+            z-index: 100;
+
+            /* Background agar konten di belakang tidak terlihat */
+            background-color: var(--bg-white);
+            padding: 12px 0;
         }
 
         .portofolio-filter-btn {
@@ -161,7 +170,7 @@
         }
 
         .featured-case-section {
-            background-color: var(--bg-soft);
+            background-color: var(--bg-white);
             padding: var(--space-80) 0;
         }
 
@@ -664,40 +673,6 @@
 
     <div id="carousel-container"></div>
 
-    <section id="proyek" class="portofolio-catalog-section">
-        <div class="container">
-            <div class="portofolio-section-header">
-                <h1 class="portofolio-page-title">Portofolio</h1>
-                <p class="portofolio-page-subtitle">Hasil karya dan proyek JTI NOVA berdasarkan kategori</p>
-            </div>
-
-            <div class="portofolio-search-container" id="portofolio-search-container"></div>
-
-            <div class="portofolio-filter-bar" id="filterBar" role="tablist"></div>
-
-            <div id="notFoundPillContainer" style="display: none; text-align: center;">
-                <div class="portofolio-not-found-pill">
-                    <span>!</span>
-                    <span id="notFoundPillText">Proyek tidak ditemukan</span>
-                </div>
-            </div>
-
-            <div class="portofolio-grid" id="projectGrid"></div>
-
-            <div class="portofolio-empty-state-card" id="emptyState" style="display: none;">
-                <div class="empty-icon-circle">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <circle cx="11" cy="11" r="7" />
-                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                    </svg>
-                </div>
-                <h3 class="empty-title">Proyek tidak ditemukan</h3>
-                <p class="empty-desc">Coba gunakan kata kunci lain atau pilih kategori proyek di atas.</p>
-                <div id="reset-search-btn-wrap"></div>
-            </div>
-        </div>
-    </section>
-
     <section id="studi-kasus" class="featured-case-section">
         <div class="container">
             <div class="featured-case-header">
@@ -728,6 +703,40 @@
                     </p>
                     <div id="featured-case-btn-wrap"></div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="proyek" class="portofolio-catalog-section">
+        <div class="container">
+            <div class="portofolio-section-header">
+                <h1 class="portofolio-page-title">Portofolio</h1>
+                <p class="portofolio-page-subtitle">Hasil karya dan proyek JTI NOVA berdasarkan kategori</p>
+            </div>
+
+            <div class="portofolio-search-container" id="portofolio-search-container"></div>
+
+            <div class="portofolio-filter-bar" id="filterBar" role="tablist"></div>
+
+            <div id="notFoundPillContainer" style="display: none; text-align: center;">
+                <div class="portofolio-not-found-pill">
+                    <span>!</span>
+                    <span id="notFoundPillText">Proyek tidak ditemukan</span>
+                </div>
+            </div>
+
+            <div class="portofolio-grid" id="projectGrid"></div>
+
+            <div class="portofolio-empty-state-card" id="emptyState" style="display: none;">
+                <div class="empty-icon-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="11" cy="11" r="7" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                </div>
+                <h3 class="empty-title">Proyek tidak ditemukan</h3>
+                <p class="empty-desc">Coba gunakan kata kunci lain atau pilih kategori proyek di atas.</p>
+                <div id="reset-search-btn-wrap"></div>
             </div>
         </div>
     </section>
