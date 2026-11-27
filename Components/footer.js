@@ -41,8 +41,9 @@
     }
 
     var defaultAlamat = 'Politeknik Negeri Jember, Jl. Mastrip, Sumbersari, Jember, Jawa Timur';
-    var defaultTelepon = '+62 812-0000-0000';
+    var defaultTelepon = '+62 851-8300-2639';
     var defaultEmail = 'info@jtinova.com';
+    var defaultTentang = 'Teaching Factory (TEFA) merupakan sarana unggulan yang di miliki Politeknik untuk mewujudkan sistem pembelajaran vokasi berbasis kompetensi, disiplin, terampil, dan mandiri. Tefa memiliki konsep pembelajaran vokasi berbasis produksi atau jasa yang mengacu kepada standar dan prosedur yang berlaku di industri.'
 
     var defaultLinks = [
         { key: 'beranda', label: 'Beranda', href: '/Pages/index.html' },
@@ -74,6 +75,7 @@
         var alamat = pick(options.alamat, pick(window.footerAlamat, defaultAlamat));
         var telepon = pick(options.telepon, pick(window.footerTelepon, defaultTelepon));
         var email = pick(options.email, pick(window.footerEmail, defaultEmail));
+        var tentang = pick(options.tentang, defaultTentang);
         var links = pick(options.links, pick(window.footerLinks, defaultLinks));
         var currentPage = pick(options.current_page, window.current_page);
         var base = pick(options.base_url, baseUrl);
@@ -83,7 +85,7 @@
             return '<li><a href="' + escapeHtml(base + link.href) + '" ' + activeAttr + '>' + escapeHtml(link.label) + '</a></li>';
         }).join('');
 
-        var phoneHref = String(telepon).replace(/[^+\d]/g, '');
+        var mapHref = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(alamat);
 
         var socials = pick(options.socials, pick(window.footerSocials, defaultSocials));
         var socialIcons = { instagram: socialInstagram, tiktok: socialTiktok, youtube: socialYoutube };
@@ -99,8 +101,8 @@
             '<div class="footer-container">' +
             '<div class="site-footer__grid">' +
             '<div class="footer-col-brand">' +
-            '<img src="' + escapeHtml(base) + '/Assets/images/logo.png" srcset="' + escapeHtml(base) + '/Assets/images/logo2.png 2x" alt="JTI NOVA" class="footer-logo-img">' +
-            '<p class="footer-address">' + escapeHtml(alamat) + '</p>' +
+            '<img src="' + escapeHtml(base) + '/Assets/images/logo1.png" alt="JTI NOVA" class="footer-logo-img">' +
+            '<p class="footer-address">' + escapeHtml(tentang) + '</p>' +
             '<div class="footer-socials">' + socialsHtml + '</div>' +
             '</div>' +
             '<div class="footer-col-menu">' +
@@ -111,15 +113,15 @@
             '<p class="footer-section-title">Kontak</p>' +
             '<div class="footer-contact-item">' +
             '<span class="footer-contact-icon">' + iconPhone + '</span>' +
-            '<a href="tel:' + escapeHtml(phoneHref) + '" class="footer-contact-text">' + escapeHtml(telepon) + '</a>' +
+            '<span class="footer-contact-text">' + escapeHtml(telepon) + '</span>' +
             '</div>' +
             '<div class="footer-contact-item">' +
             '<span class="footer-contact-icon">' + iconMail + '</span>' +
-            '<a href="mailto:' + escapeHtml(email) + '" class="footer-contact-text">' + escapeHtml(email) + '</a>' +
+            '<span class="footer-contact-text">' + escapeHtml(email) + '</span>' +
             '</div>' +
             '<div class="footer-contact-item">' +
             '<span class="footer-contact-icon">' + iconPin + '</span>' +
-            '<span class="footer-contact-text">' + escapeHtml(alamat) + '</span>' +
+            '<a href="' + escapeHtml(mapHref) + '" class="footer-contact-text" target="_blank" rel="noopener noreferrer">' + escapeHtml(alamat) + '</a>' +
             '</div>' +
             '</div>' +
             '</div>' +
@@ -162,7 +164,7 @@
 }
 
 .footer-logo-img {
-    height: 44px;
+    height: 60px;
     width: auto;
     object-fit: contain;
     display: block;
